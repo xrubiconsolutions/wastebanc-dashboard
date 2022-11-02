@@ -1,0 +1,17 @@
+input {
+  /* background-color: rgba(194, 194, 194, 0.2); */
+  /* opacity: 0.2; */
+  border: 1px solid rgba(194, 194, 194, 0.4);
+  border-radius: 6px;
+}
+input:focus {
+  border: 1px solid rgba(194, 194, 194, 0.6);
+}
+input:-ms-input-placeholder {
+  color: #464f54;
+  /* opacity: 0.5; */
+}
+input::placeholder {
+  color: #464f54;
+  opacity: 0.5;
+}

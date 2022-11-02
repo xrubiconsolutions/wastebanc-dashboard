@@ -1,0 +1,63 @@
+.ant-table-pagination.ant-pagination {
+  margin: 10px 15px 6px 0;
+}
+.ant-table table {
+  border-top: 1px solid #e5e7eb;
+}
+.anticon svg {
+  margin-bottom: 0.5rem;
+}
+
+.ant-pagination-prev .ant-pagination-item-link,
+.ant-pagination-next .ant-pagination-item-link {
+  border-radius: 50px !important;
+}
+
+.ant-pagination-item {
+  border-radius: 50px;
+}
+.ant-pagination-item-active {
+  border-color: #006700;
+}
+.ant-pagination-item-active a {
+  color: #006700;
+}
+.ant-pagination-item-active a:hover {
+  color: #006700;
+}
+.ant-pagination-item-active:hover {
+  border-color: #006700;
+}
+.ant-tabs-top > .ant-tabs-nav,
+.ant-tabs-bottom > .ant-tabs-nav,
+.ant-tabs-top > div > .ant-tabs-nav,
+.ant-tabs-bottom > div > .ant-tabs-nav {
+  margin: 0 0 0 0;
+}
+.ant-pagination-item:hover {
+  border-color: #006700;
+  transition: all 0.3s;
+}
+.ant-pagination-item:hover a {
+  color: #006700;
+}
+::selection {
+  color: #fff;
+  background: #006700 !important;
+}
+.ant-pagination-prev:hover .ant-pagination-item-link,
+.ant-pagination-next:hover .ant-pagination-item-link {
+  color: #006700;
+  border-color: #006700;
+}
+.ant-breadcrumb-separator {
+  font-size: 1.5rem;
+}
+.ant-breadcrumb a:hover {
+  color: #006700;
+}
+.ant-menu-inline,
+.ant-menu-vertical,
+.ant-menu-vertical-left {
+  border: 1px solid #f0f0f0;
+}
