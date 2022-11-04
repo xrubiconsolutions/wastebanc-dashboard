@@ -44,7 +44,6 @@ export const loginUser = createAsyncThunk(
 export const loginAdmin = createAsyncThunk(
   "/login",
   async (data, { dispatch }) => {
-    console.log("data", data);
     dispatch(startLoad());
     try {
       const res = await AuthService.login(data);
@@ -72,7 +71,6 @@ export const resetPassword = createAsyncThunk(
     dispatch(startLoad());
     try {
       const res = await AuthService.resetPassword(data);
-      console.log("In slice: ", res);
       return res;
     } catch (err) {
       handleError(err, dispatch);

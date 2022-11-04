@@ -12,6 +12,7 @@ const RecoveryCode = () => {
     if (!location.state.email) history.push("/auth/forgot-password");
   }, [location]);
   const dispatch = useDispatch();
+
   const entries = {
     token: {
       name: "OTP",
@@ -36,6 +37,7 @@ const RecoveryCode = () => {
   const email = location.state.email;
   return (
     <AuthForm
+      email={email}
       formEntries={entries}
       title="Recovery OTP Code"
       type="recoveryCode"

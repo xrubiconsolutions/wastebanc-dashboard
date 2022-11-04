@@ -44,6 +44,7 @@ const DeleteModal = ({
       >
         <p>{!error ? `You have successfully deleted this ${type}` : error}</p>
       </Modal>
+
       <Modal show={showModal} close={() => setShowModal(false)}>
         <PageTitle>Delete {capitalize(type)}</PageTitle>
         <ModalText>{deleteText}</ModalText>

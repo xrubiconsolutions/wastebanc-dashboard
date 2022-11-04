@@ -11,6 +11,9 @@ import Loader from "../UI/loader";
 import { MessageContainer } from "../styledElements";
 import { clearError } from "../../store/reducers/appSlice";
 import PakamLogo from "../../assets/images/logo.png";
+import { resetPassword } from "../../store/reducers/authSlice";
+import { BiArrowBack } from "react-icons/bi";
+import PromptModal from "../common/PromptModal";
 
 const FormContainer = styled.div`
   ${tw`py-4 shadow-2xl bg-white  lg:max-w-xl rounded-[20px] px-4 md:py-6 md:px-16`}
@@ -64,12 +67,6 @@ const LogoWrapper = styled.div`
   }
 `;
 
-const RecoveryCodeLink = () => (
-  <RecoveryCodeText>
-    Didn 't get code? <span onClick={console.log("i was clicked")}>Resend</span>
-  </RecoveryCodeText>
-);
-
 const PasswordSection = () => (
   <div className="text-center my-5 h-4">
     <p className="text-body font-normal text-sm">
@@ -87,6 +84,7 @@ const AuthForm = ({
   type = "",
   instructionText = "",
   submitHandler = () => null,
+  email,
 }) => {
   const login_mode = localStorage.getItem("login_mode") || "super_admin";
   const [signRoute, setSignRoute] = useState(login_mode);
@@ -95,6 +93,35 @@ const AuthForm = ({
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const [checked, setChecked] = useState(false);
+  const [alert, setAlert] = useState("");
+  const [showPostAction, setPostAction] = useState(false);
+
+  const data = { email: email, role: "COMPANY" };
+  const handler = async () => {
+    sessionStorage.setItem("data", JSON.stringify(data));
+    const res = await dispatch(resetPassword(data));
+    if (res.meta.requestStatus === "fulfilled") {
+      setTimeout(() => {
+        setAlert(res.payload.message);
+      }, 2000);
+      setPostAction(true);
+    } else {
+      console.log("rejected!!");
+    }
+  };
+
+  const handleClick = () => {
+    handler();
+  };
+
+  const RecoveryCodeLink = () => (
+    <RecoveryCodeText>
+      Didn 't get code?{" "}
+      <span onClick={handleClick} className="hover:cursor-pointer">
+        Resend
+      </span>
+    </RecoveryCodeText>
+  );
 
   useEffect(() => {
     dispatch(clearError());
@@ -114,17 +141,41 @@ const AuthForm = ({
 
   return (
     <>
-      {loading && <Loader />}
-      <FormContainer>
-        <LogoWrapper>
-          <img src={PakamLogo} alt="pakam" />
-          <p>Pakam</p>
-        </LogoWrapper>
+      <div>
+        {/* <div>
+          {alert && (
+            <div className=" text-center pt-3 pb-3 text-primary text-xs">
+              {alert}
+            </div>
+          )}
+        </div> */}
+        {showPostAction && PromptModal}
+        <div className="flex items-center justify-center pb-5 absolute left-20 top-20 ">
+          <BiArrowBack size={25} color="#008300" />
+          <div className="text-primary pl-2">
+            <Link
+              to={{
+                pathname: "/auth/login",
+                state: { from: pathname },
+              }}
+              className="text-primary hover:text-blue-400"
+            >
+              back to Login
+            </Link>
+          </div>
+        </div>
+        <div>
+          {loading && <Loader />}
+          <FormContainer>
+            <LogoWrapper>
+              <img src={PakamLogo} alt="pakam" />
+              <p>Pakam</p>
+            </LogoWrapper>
 
-        <FormTitle> {title} </FormTitle>
-        {["/auth/login", "/auth/forgot-password"].includes(pathname) ? (
-          <HeaderBody className="">
-            {/* <Checkbox
+            <FormTitle> {title} </FormTitle>
+            {["/auth/login", "/auth/forgot-password"].includes(pathname) ? (
+              <HeaderBody className="h">
+                {/* <Checkbox
               label="Pakam Admin"
               checked={signRoute === "super_admin" ? true : false}
               onClick={() => {
@@ -132,78 +183,87 @@ const AuthForm = ({
                 setSignRoute("super_admin");
               }}
             /> */}
-            <Checkbox
-              label="Company"
-              checked={signRoute !== "super_admin" ? true : false}
-              onClick={() => {
-                localStorage.setItem("login_mode", "user_admin");
-                setSignRoute("user_admin");
-              }}
-            />
-          </HeaderBody>
-        ) : null}
-        {error && (
-          <MessageContainer>
-            <p> {error} </p>
-          </MessageContainer>
-        )}
 
-        {instructionText && (
-          <InstructionText>
-            {instructionText}
-            {type === "new-password" && <FadedText> e.g Davtg1kl </FadedText>}
-          </InstructionText>
-        )}
-
-        <InputWrapper className="mx-auto pt-5">
-          {Object.entries(formEntries).map(([title, value], idx) => (
-            <>
-              {value.type !== "checkbox" ? (
-                <FormInput
-                  key={idx}
-                  placeholder={value.placeholder}
-                  type={value.type}
-                  label={value.label}
-                  changeHandler={(e) => setValue(title, e.target.value)}
-                  onKeyPress={(e) => e.key === "Enter" && mainHandleSubmit()}
-                  errorMsg={errorMsgs[title]}
-                  value={formValues[title]}
+                {/* <div className="hidden"> */}
+                <Checkbox
+                  label="Company"
+                  checked={signRoute !== "super_admin" ? true : false}
+                  onClick={() => {
+                    localStorage.setItem("login_mode", "user_admin");
+                    setSignRoute("user_admin");
+                  }}
                 />
+                {/* </div> */}
+              </HeaderBody>
+            ) : null}
+            {error && (
+              <MessageContainer>
+                <p> {error} </p>
+              </MessageContainer>
+            )}
+
+            {instructionText && (
+              <InstructionText>
+                {instructionText}
+                {type === "new-password" && (
+                  <FadedText> e.g Davtg1kl </FadedText>
+                )}
+              </InstructionText>
+            )}
+
+            <InputWrapper className="mx-auto pt-5">
+              {Object.entries(formEntries).map(([title, value], idx) => (
+                <>
+                  {value.type !== "checkbox" ? (
+                    <FormInput
+                      key={idx}
+                      placeholder={value.placeholder}
+                      type={value.type}
+                      label={value.label}
+                      changeHandler={(e) => setValue(title, e.target.value)}
+                      onKeyPress={(e) =>
+                        e.key === "Enter" && mainHandleSubmit()
+                      }
+                      errorMsg={errorMsgs[title]}
+                      value={formValues[title]}
+                    />
+                  ) : (
+                    <CheckInput
+                      key={idx}
+                      type={value.type}
+                      changeHandler={(e) => setValue(title, e.target.value)}
+                      value={formValues[title]}
+                      clickHandler={() => setChecked(!checked)}
+                      checked={checked}
+                    />
+                  )}
+                </>
+              ))}
+              {pathname === "/user/dashboard" ? (
+                <SubmitButton
+                  onClick={mainHandleSubmit}
+                  disabled={!isValid || !checked}
+                >
+                  {submitText}
+                </SubmitButton>
+              ) : pathname === "/admin/dashboard" ? (
+                <SubmitButton
+                  onClick={mainHandleSubmit}
+                  disabled={!isValid || !checked}
+                >
+                  {submitText}
+                </SubmitButton>
               ) : (
-                <CheckInput
-                  key={idx}
-                  type={value.type}
-                  changeHandler={(e) => setValue(title, e.target.value)}
-                  value={formValues[title]}
-                  clickHandler={() => setChecked(!checked)}
-                  checked={checked}
-                />
+                <SubmitButton onClick={mainHandleSubmit} disabled={!isValid}>
+                  {submitText}
+                </SubmitButton>
               )}
-            </>
-          ))}
-          {pathname === "/user/dashboard" ? (
-            <SubmitButton
-              onClick={mainHandleSubmit}
-              disabled={!isValid || !checked}
-            >
-              {submitText}
-            </SubmitButton>
-          ) : pathname === "/admin/dashboard" ? (
-            <SubmitButton
-              onClick={mainHandleSubmit}
-              disabled={!isValid || !checked}
-            >
-              {submitText}
-            </SubmitButton>
-          ) : (
-            <SubmitButton onClick={mainHandleSubmit} disabled={!isValid}>
-              {submitText}
-            </SubmitButton>
-          )}
-          {type === "recoveryCode" && <RecoveryCodeLink />}{" "}
-          {type === "login" && <PasswordSection />}
-        </InputWrapper>
-      </FormContainer>
+              {type === "recoveryCode" && <RecoveryCodeLink />}{" "}
+              {type === "login" && <PasswordSection />}
+            </InputWrapper>
+          </FormContainer>
+        </div>
+      </div>
     </>
   );
 };
