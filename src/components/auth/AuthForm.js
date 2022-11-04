@@ -139,6 +139,8 @@ const AuthForm = ({
     "change-password": "Save Changes",
   }[type];
 
+  console.log("pathname!!!!", pathname);
+
   return (
     <>
       <div>
@@ -150,20 +152,24 @@ const AuthForm = ({
           )}
         </div> */}
         {showPostAction && PromptModal}
-        <div className="flex items-center justify-center pb-5 absolute left-20 top-20 ">
-          <BiArrowBack size={25} color="#008300" />
-          <div className="text-primary pl-2">
-            <Link
-              to={{
-                pathname: "/auth/login",
-                state: { from: pathname },
-              }}
-              className="text-primary hover:text-blue-400"
-            >
-              back to Login
-            </Link>
+
+        {pathname === "/auth/recovery-code" && (
+          <div className="flex items-center justify-center pb-5 absolute left-20 top-20 ">
+            <BiArrowBack size={25} color="#008300" />
+            <div className="text-primary pl-2">
+              <Link
+                to={{
+                  pathname: "/auth/login",
+                  state: { from: pathname },
+                }}
+                className="text-primary hover:text-blue-400"
+              >
+                back to Login
+              </Link>
+            </div>
           </div>
-        </div>
+        )}
+
         <div>
           {loading && <Loader />}
           <FormContainer>
