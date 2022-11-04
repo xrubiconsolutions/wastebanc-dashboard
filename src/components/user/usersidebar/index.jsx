@@ -73,14 +73,14 @@ const StyledNavLink = styled(NavLink)`
     // bg-label
     border-l-4
     border-white
-  `}// background: rgba(255, 255, 255, 0.1);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  `}// background: rgba(255, 255, 255, 0.1);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   }
 `;
 function sidebar() {
   return (
     <>
       <SidebarParent>
-        <SidebarLogo src="/assets/images/logo.svg" alt="pakam-logo" />
+        <SidebarLogo src="/assets/images/wasteebanc.svg" alt="wastebac-logo" />
         {Data.map((item) => {
           if (item.subNav && item.subNav.length) {
             return <DropdownNavLink item={item} key={item.title} />;

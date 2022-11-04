@@ -4,7 +4,7 @@ class AuthService {
   //company|| recycler
   static async login(data) {
     if (!localStorage.getItem("login_mode"))
-      localStorage.setItem("login_mode", "super_admin");
+      localStorage.setItem("login_mode", "user_admin");
     const res = await baseAxios.post("/login/organisation", data);
     return res?.data || res;
   }

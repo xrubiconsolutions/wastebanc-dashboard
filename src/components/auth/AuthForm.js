@@ -86,7 +86,7 @@ const AuthForm = ({
   submitHandler = () => null,
   email,
 }) => {
-  const login_mode = localStorage.getItem("login_mode") || "super_admin";
+  const login_mode = localStorage.getItem("login_mode") || "user_admin";
   const [signRoute, setSignRoute] = useState(login_mode);
   const { setValue, errorMsgs, formValues, isValid } = useForm(formEntries);
   const { error, loading } = useSelector((state) => state.app);
@@ -125,7 +125,8 @@ const AuthForm = ({
 
   useEffect(() => {
     dispatch(clearError());
-  }, [dispatch, pathname]);
+    console.log(signRoute, "signRoute");
+  }, [dispatch, pathname, signRoute]);
 
   const mainHandleSubmit = () => {
     submitHandler(formValues, signRoute);
@@ -174,32 +175,36 @@ const AuthForm = ({
           {loading && <Loader />}
           <FormContainer>
             <LogoWrapper>
-              <img src={PakamLogo} alt="pakam" />
-              <p>Pakam</p>
+              <img
+                src="/assets/images/wastebancLogo.svg"
+                alt="wastebanc"
+                className="h-full"
+              />
+              {/* <p>Pakam</p> */}
             </LogoWrapper>
 
             <FormTitle> {title} </FormTitle>
             {["/auth/login", "/auth/forgot-password"].includes(pathname) ? (
               <HeaderBody className="h">
                 {/* <Checkbox
-              label="Pakam Admin"
-              checked={signRoute === "super_admin" ? true : false}
-              onClick={() => {
-                localStorage.setItem("login_mode", "super_admin");
-                setSignRoute("super_admin");
-              }}
-            /> */}
-
-                {/* <div className="hidden"> */}
-                <Checkbox
-                  label="Company"
-                  checked={signRoute !== "super_admin" ? true : false}
+                  label="Pakam Admin"
+                  checked={signRoute === "super_admin" ? true : false}
                   onClick={() => {
-                    localStorage.setItem("login_mode", "user_admin");
-                    setSignRoute("user_admin");
+                    localStorage.setItem("login_mode", "super_admin");
+                    setSignRoute("super_admin");
                   }}
-                />
-                {/* </div> */}
+                /> */}
+
+                <div className="hidden">
+                  <Checkbox
+                    label="Company"
+                    checked={signRoute === "user_admin" ? true : false}
+                    onClick={() => {
+                      localStorage.setItem("login_mode", "user_admin");
+                      setSignRoute("user_admin");
+                    }}
+                  />
+                </div>
               </HeaderBody>
             ) : null}
             {error && (
