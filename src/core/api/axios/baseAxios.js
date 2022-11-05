@@ -18,7 +18,8 @@ export const baseURL =
   // ?
   // :
   // "https://packamserver.herokuapp.com/api",
-  "https://pakam-staging.herokuapp.com/api";
+  // "https://pakam-staging.herokuapp.com/api";
+  "https://wastebancapi.pakam.ng/";
 
 const axiosInstance = axios.create({
   baseURL,
@@ -26,14 +27,15 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(reqInterceptor, (err) =>
   console.log(err)
 );
-
+//
 export const axiosInstanceV2 = axios.create({
   baseURL:
     // process.env.NODE_ENV === "development"
     // ? "http://localhost:4000"
     // :
     // "https://packamserver.herokuapp.com/api",
-    "https://pakam-staging.herokuapp.com/api/v2",
+    // "https://pakam-staging.herokuapp.com/api/v2",
+    "https://wastebancapi.pakam.ng/",
 });
 axiosInstance.interceptors.request.use(reqInterceptor, (err) =>
   console.log(err)
