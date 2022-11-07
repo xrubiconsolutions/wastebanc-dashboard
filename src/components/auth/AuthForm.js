@@ -178,7 +178,7 @@ const AuthForm = ({
               <img
                 src="/assets/images/wastebancLogo.svg"
                 alt="wastebanc"
-                className="h-full"
+                className="h-full w-full"
               />
               {/* <p>Pakam</p> */}
             </LogoWrapper>
