@@ -87,7 +87,7 @@ const DropOff = () => {
 
   const columns = [
     {
-      title: "Fullname",
+      title: "Customer's Name",
       dataIndex: "fullname",
       key: "fullname",
       // render: (text) => <a>{text}</a>,
@@ -104,6 +104,13 @@ const DropOff = () => {
         </span>
       ),
     },
+
+    {
+      title: "Wastebanc Location",
+      dataIndex: "wastebanclocation",
+      key: "wastebanclocation",
+    },
+
     {
       title: "Customer Phone",
       dataIndex: "phone",

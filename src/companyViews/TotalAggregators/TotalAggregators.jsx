@@ -216,7 +216,8 @@ const TotalAggregators = () => {
 
   const data = [
     {
-      title: "Approved Aggregators",
+      // title: "Approved Aggregators",
+      title: "Approved Agents",
       link: "Approved Aggregators",
       data: fetchedAggregators,
       // totalPages: approvedPagination?.totalPages,
@@ -230,21 +231,28 @@ const TotalAggregators = () => {
           dataIndex: "fullname",
           key: "fullname",
         },
-        // {
-        //   title: "Organization",
-        //   dataIndex: "organisation",
-        //   key: "organisation",
-        // },
+        {
+          title: "Wastebanc Location",
+          dataIndex: "organisation",
+          key: "organisation",
+        },
         {
           title: "Phone",
           dataIndex: "phone",
           key: "phone",
         },
+        // {
+        //   title: "Trips Completed",
+        //   dataIndex: "totalCollected",
+        //   key: "totalCollected",
+        // },
+
         {
-          title: "Trips Completed",
+          title: "No. Of Waste (Kg)",
           dataIndex: "totalCollected",
           key: "totalCollected",
         },
+
         {
           title: "Action",
           dataIndex: "action",
@@ -269,7 +277,8 @@ const TotalAggregators = () => {
     },
 
     {
-      title: "Pending Aggregators",
+      // title: "Pending Aggregators",
+      title: "Pending Agents",
       link: "Pending Aggregators",
       data: fetchedPending,
       totalPages: unapprovedPagination?.totalPages,
@@ -284,11 +293,11 @@ const TotalAggregators = () => {
           key: "fullname",
           render: (text) => <p>{truncate(text, 30)}</p>,
         },
-        // {
-        //   title: "Organization",
-        //   dataIndex: "organisation",
-        //   key: "organisation",
-        // },
+        {
+          title: "Wastebanc Location",
+          dataIndex: "organisation",
+          key: "organisation",
+        },
         {
           title: "Phone",
           dataIndex: "phone",
