@@ -107,8 +107,9 @@ const DropOff = () => {
 
     {
       title: "Address",
-      dataIndex: "address",
-      key: "address",
+      dataIndex: "dropofflocation",
+      key: "dropofflocation",
+      render: (dropofflocation) => <p>{dropofflocation.location.address}</p>,
     },
 
     {
@@ -117,7 +118,7 @@ const DropOff = () => {
       key: "phone",
     },
     {
-      title: "Waste Quantity",
+      title: "Waste Quantity (kg)",
       dataIndex: "quantity",
       key: "quantity",
       render: (text) => (
