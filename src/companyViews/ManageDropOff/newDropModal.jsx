@@ -52,7 +52,7 @@ const initData = {
     ],
   },
   location: {
-    label: "Drop-off Location",
+    label: "Address",
     value: "",
     placeholder: "address",
     type: "autocomplete",

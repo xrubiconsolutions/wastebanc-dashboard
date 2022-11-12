@@ -89,6 +89,7 @@ const SidebarFooter = styled.div`
 function Sidebar() {
   const dispatch = useDispatch();
   const [fetchedClaims, setFetchedClaims] = useState([]);
+
   const {
     role: { claims },
     auth: {

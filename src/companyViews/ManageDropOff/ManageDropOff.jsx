@@ -89,7 +89,7 @@ const ManageDropOff = () => {
     //   key: "organisation",
     // },
     {
-      title: "Drop-Off Location",
+      title: "Address",
       dataIndex: "location",
       key: "location",
       render: (location) => <p>{location.address}</p>,

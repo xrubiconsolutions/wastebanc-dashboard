@@ -241,7 +241,7 @@ export const PageTitle = {
   user_agency: "User Agencies",
   roles_permission: "Roles & Claims",
   manage_drop_off: "Manage Drop-Off",
-  geo_fencing: "Geo-Fenced Aggregators",
+  geo_fencing: "Geo-Fenced Agent",
   change_password: "Change Password",
   resource: "Resource",
   billing: "Billing",
