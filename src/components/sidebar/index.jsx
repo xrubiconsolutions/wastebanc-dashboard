@@ -161,7 +161,7 @@ function Sidebar() {
         })}
         <hr />
         <p className="text-white text-center font-bold text-sm py-4">
-          Powered by Pakam Technologies
+          Powered by Wastebanc
         </p>
         <SidebarFooter>
           {/* {locationPermissions?.read && (

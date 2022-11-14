@@ -104,13 +104,13 @@ const GeoFencing = () => {
   };
 
   const columns = [
+    // {
+    //   title: "Full Name",
+    //   dataIndex: "name",
+    //   key: "name",
+    // },
     {
-      title: "Full Name",
-      dataIndex: "name",
-      key: "name",
-    },
-    {
-      title: "Address",
+      title: "Wastebanc location",
       dataIndex: "address",
       key: "address",
     },
@@ -119,11 +119,25 @@ const GeoFencing = () => {
       dataIndex: "phone",
       key: "phone",
     },
+
     {
-      title: "Trips Completed",
-      dataIndex: "trips",
-      key: "trips",
+      title: "Agent's ID",
+      dataIndex: "aggregatorId",
+      key: "aggregatorId",
     },
+
+    // {
+    //   title: "Trips Completed",
+    //   dataIndex: "trips",
+    //   key: "trips",
+    // },
+
+    {
+      title: "Number of Waste (Kg)",
+      dataIndex: "totalcollected",
+      key: "totalcollected",
+    },
+
     // {
     //   title: "Action",
     //   dataIndex: "action",
@@ -156,6 +170,7 @@ const GeoFencing = () => {
     fetchedAggregators?.map((collect) => ({
       key: collect._id,
       name: collect.fullname,
+      aggregatorId: collect.aggregatorId,
       address: collect.address,
       phone: collect.phone,
       gender: collect.gender,
@@ -163,6 +178,7 @@ const GeoFencing = () => {
       organisation: collect.organisation,
       email: collect.email,
       trips: collect.numberOfTripsCompleted,
+      totalcollected: collect.totalCollected,
     }));
 
   const fetchAll = async (page = 1) => {
