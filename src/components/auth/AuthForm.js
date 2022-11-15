@@ -14,6 +14,7 @@ import PakamLogo from "../../assets/images/logo.png";
 import { resetPassword } from "../../store/reducers/authSlice";
 import { BiArrowBack } from "react-icons/bi";
 import PromptModal from "../common/PromptModal";
+import Modal from "../UI/modal";
 
 const FormContainer = styled.div`
   ${tw`py-4 shadow-2xl bg-white  lg:max-w-xl rounded-[20px] px-4 md:py-6 md:px-16`}
@@ -101,23 +102,21 @@ const AuthForm = ({
     sessionStorage.setItem("data", JSON.stringify(data));
     const res = await dispatch(resetPassword(data));
     if (res.meta.requestStatus === "fulfilled") {
-      setTimeout(() => {
-        setAlert(res.payload.message);
-      }, 2000);
-      setPostAction(true);
+      setAlert(res.payload.message);
     } else {
-      console.log("rejected!!");
+      // console.log("rejected!!");
     }
   };
 
   const handleClick = () => {
     handler();
+    setPostAction(true);
   };
 
   const RecoveryCodeLink = () => (
     <RecoveryCodeText>
-      Didn 't get code?{" "}
-      <span onClick={handleClick} className="hover:cursor-pointer">
+      Didn 't get code?{""}
+      <span onClick={handleClick} className="hover:cursor-pointer pl-1">
         Resend
       </span>
     </RecoveryCodeText>
@@ -125,7 +124,6 @@ const AuthForm = ({
 
   useEffect(() => {
     dispatch(clearError());
-    console.log(signRoute, "signRoute");
   }, [dispatch, pathname, signRoute]);
 
   const mainHandleSubmit = () => {
@@ -140,19 +138,21 @@ const AuthForm = ({
     "change-password": "Save Changes",
   }[type];
 
-  console.log("pathname!!!!", pathname);
-
   return (
     <>
       <div>
-        {/* <div>
-          {alert && (
-            <div className=" text-center pt-3 pb-3 text-primary text-xs">
-              {alert}
-            </div>
-          )}
-        </div> */}
-        {showPostAction && PromptModal}
+        {showPostAction && (
+          <Modal
+            show={showPostAction}
+            close={() => {
+              setPostAction(false);
+            }}
+            type="postAction"
+            color={error && "#F5000F"}
+          >
+            <p>{alert}</p>
+          </Modal>
+        )}
 
         {pathname === "/auth/recovery-code" && (
           <div className="flex items-center justify-center pb-5 absolute left-20 top-20 ">
@@ -178,12 +178,34 @@ const AuthForm = ({
               <img
                 src="/assets/images/wastebancLogo.svg"
                 alt="wastebanc"
-                className="h-full"
+                className="h-full w-full"
               />
               {/* <p>Pakam</p> */}
             </LogoWrapper>
 
             <FormTitle> {title} </FormTitle>
+
+            {pathname === "/auth/pakamlogin" && (
+              <div className="flex  items-center justify-between pt-5">
+                <Checkbox
+                  label="Pakam Admin"
+                  checked={signRoute === "super_admin" ? true : false}
+                  onClick={() => {
+                    localStorage.setItem("login_mode", "super_admin");
+                    setSignRoute("super_admin");
+                  }}
+                />
+                <Checkbox
+                  label="Company"
+                  checked={signRoute === "user_admin" ? true : false}
+                  onClick={() => {
+                    localStorage.setItem("login_mode", "user_admin");
+                    setSignRoute("user_admin");
+                  }}
+                />
+              </div>
+            )}
+
             {["/auth/login", "/auth/forgot-password"].includes(pathname) ? (
               <HeaderBody className="h">
                 {/* <Checkbox

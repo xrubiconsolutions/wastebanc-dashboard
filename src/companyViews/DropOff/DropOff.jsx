@@ -87,7 +87,7 @@ const DropOff = () => {
 
   const columns = [
     {
-      title: "Fullname",
+      title: "Customer's Name",
       dataIndex: "fullname",
       key: "fullname",
       // render: (text) => <a>{text}</a>,
@@ -104,13 +104,21 @@ const DropOff = () => {
         </span>
       ),
     },
+
+    {
+      title: "Wastebanc location",
+      dataIndex: "dropofflocation",
+      key: "dropofflocation",
+      render: (dropofflocation) => <p>{dropofflocation?.location?.address}</p>,
+    },
+
     {
       title: "Customer Phone",
       dataIndex: "phone",
       key: "phone",
     },
     {
-      title: "Waste Quantity",
+      title: "Waste Quantity (kg)",
       dataIndex: "quantity",
       key: "quantity",
       render: (text) => (
