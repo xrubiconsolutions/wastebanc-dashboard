@@ -78,7 +78,7 @@ c-112 104 -218 203 -236 219 l-31 29 -145 -218z"
             </svg> */}
           </span>
           <p className="text-secondary font-bold text-base">
-            Powered by Pakam Technologies
+            Powered by Wastebanc
           </p>
         </Item>
       </div>

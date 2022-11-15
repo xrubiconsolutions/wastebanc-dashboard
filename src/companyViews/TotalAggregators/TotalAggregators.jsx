@@ -232,7 +232,7 @@ const TotalAggregators = () => {
           key: "fullname",
         },
         {
-          title: "Address",
+          title: "Wastebanc location",
           dataIndex: "address",
           key: "address",
         },
@@ -294,7 +294,7 @@ const TotalAggregators = () => {
           render: (text) => <p>{truncate(text, 30)}</p>,
         },
         {
-          title: "Address",
+          title: "Wastebanc location",
           dataIndex: "address",
           key: "address",
         },
