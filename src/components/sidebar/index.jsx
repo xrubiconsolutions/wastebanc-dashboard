@@ -89,7 +89,6 @@ const SidebarFooter = styled.div`
 function Sidebar() {
   const dispatch = useDispatch();
   const [fetchedClaims, setFetchedClaims] = useState([]);
-
   const {
     role: { claims },
     auth: {
@@ -161,7 +160,7 @@ function Sidebar() {
         })}
         <hr />
         <p className="text-white text-center font-bold text-sm py-4">
-          Powered by Wastebanc
+          Powered by Pakam Technologies
         </p>
         <SidebarFooter>
           {/* {locationPermissions?.read && (

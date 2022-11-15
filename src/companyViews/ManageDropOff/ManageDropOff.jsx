@@ -6,7 +6,7 @@ import Map from "../../components/map/map";
 import DataTable from "../../components/UI/Table";
 import { Space } from "antd";
 import NewDropModal from "./newDropModal";
-// import DeleteModal from "../../components/common/DeleteModal";
+import DeleteModal from "../../components/common/DeleteModal";
 import { MapWrapper } from "./GoogleMap";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -19,7 +19,6 @@ import {
 import moment from "moment";
 import baseAxios from "../../core/api/axios/baseAxios";
 import Modal from "../../components/UI/modal";
-import DeleteModal from "./DeleteModal";
 
 const ManageDropOffContainer = styled.div`
   display: grid;
@@ -40,8 +39,6 @@ const ManageDropOff = () => {
   const [paginationData, setPaginationData] = useState();
   const [bodyData, setBodyData] = useState();
   const [showPostModal, setPostModal] = useState(false);
-
-  const [id, setId] = useState(0);
   const dispatch = useDispatch();
   const {
     app: { error },
@@ -92,7 +89,7 @@ const ManageDropOff = () => {
     //   key: "organisation",
     // },
     {
-      title: "Drop-off location",
+      title: "Drop-Off Location",
       dataIndex: "location",
       key: "location",
       render: (location) => <p>{location.address}</p>,
@@ -116,10 +113,8 @@ const ManageDropOff = () => {
                     type=""
                     buttonStyle="btn--primary--outline"
                     buttonSize="btn--small"
-                    onClick={() => {
-                      setDeleteModal(true);
-                      setId(record._id);
-                    }}
+                    // onClick={() => setDeleteModal(true)}
+                    onClick={() => deleteHandler(record._id)}
                   >
                     Delete
                   </StyledButton>
@@ -156,12 +151,18 @@ const ManageDropOff = () => {
   //   }
   // }, []);
 
-  const deleteHandler = async () => {
+  const deleteHandler = async (_id) => {
+    // setDeleteModal(false);
     const data = {
-      dropOffId: id,
+      dropOffId: _id,
     };
     const res = await dispatch(deleteCompanyDropoff(data));
     if (!res.error) console.log(res.error);
+    setPostModal(true);
+    setTimeout(() => setPostModal(false), 2000);
+    // if (!res.error) {
+    //   // await dispatch(getCollectorDropoff(currentMonth));
+    // }
     fetchAll();
   };
 
@@ -211,12 +212,25 @@ const ManageDropOff = () => {
 
   return (
     <>
+      <Modal
+        color={error ? "red" : "#005700"}
+        type="postAction"
+        show={showPostModal}
+        close={() => setPostModal(false)}
+      >
+        {!error ? " Deleted successfully" : error}
+      </Modal>
       <DeleteModal
         showModal={showDeleteModal}
         setShowModal={setDeleteModal}
         handleDelete={deleteHandler}
         type="drop"
-        id={id}
+      />
+      <NewDropModal
+        mode={modalMode}
+        showModal={showModal}
+        setShowModal={setShowModal}
+        fetchAll={fetchAll}
       />
 
       <ManageDropOffContainer>

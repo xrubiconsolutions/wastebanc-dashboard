@@ -300,7 +300,7 @@ const PickupModal = ({
 
           {!missed && !cancelled && !pending && (
             <InfoItem>
-              <InfoTitle>Agent's Number:</InfoTitle>
+              <InfoTitle>Recycler No:</InfoTitle>
               <InfoValue>{userData.collectedPhone}</InfoValue>
             </InfoItem>
           )}

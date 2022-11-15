@@ -107,8 +107,7 @@ export const PageTitle = {
   missed_schedule: "Total Schedule - Missed",
   total_dropoff: "Total Drop-off",
   total_users: "Total Users",
-  // total_aggregators: "Total Aggregators",
-  total_aggregators: "Total Agent",
+  total_aggregators: "Total Aggregators",
   total_aggregators_all: "Total Organization",
   total_organizations: "Total Organizations",
   profile_details: "Total Organizations",
@@ -128,5 +127,5 @@ export const PageTitle = {
   user_agency: "User Agencies",
   roles_permission: "Roles & Claims",
   manage_drop_off: "Manage Drop-Off",
-  geo_fencing: "Geo-Fenced Agent",
+  geo_fencing: "Geo-Fenced Aggregators",
 };

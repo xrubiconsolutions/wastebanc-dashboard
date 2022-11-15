@@ -94,7 +94,7 @@ const ApprovedModal = ({
   userData,
   aggregator,
 }) => {
-  // console.log("user data trips", userData);
+  console.log("user data trips", userData);
   return (
     <Modal show={showPending} close={() => setShowPending(false)} width="48rem">
       <ModalTitle>
@@ -152,7 +152,7 @@ const ApprovedModal = ({
 
           {aggregator && (
             <InfoItem>
-              <InfoTitle>Agent's ID:</InfoTitle>
+              <InfoTitle>Aggregator’s ID:</InfoTitle>
               <InfoValue>{userData.aggregatorId}</InfoValue>
             </InfoItem>
           )}
@@ -181,6 +181,7 @@ const ApprovedModal = ({
           <InfoItem>
             <InfoTitle>Date Created:</InfoTitle>
             <InfoValue>
+              {" "}
               {moment(userData.createAt).format("DD-MM-YYYY")}
             </InfoValue>
           </InfoItem>
@@ -228,23 +229,18 @@ const ApprovedModal = ({
                   ? "rgba(0, 154, 0, 0.1)"
                   : userData.status === "accepted"
                   ? "rgba(50, 68, 168, 0.4)"
-                  : userData.status === "active"
-                  ? "#005700"
                   : "rgba(254, 1, 16, 0.1)"
               }
             >
-              {/* see james */}
               <Pointer
                 color={
                   userData.status === "APPROVED"
                     ? "#005700"
                     : userData.status === "DECLINED"
                     ? "#4032a8"
-                    : "#fff"
+                    : ""
                 }
               />
-
-              {/* look later */}
               <InfoValue
                 userAgencies
                 color={
@@ -252,7 +248,7 @@ const ApprovedModal = ({
                     ? "#005700"
                     : userData.status === "DECLINED"
                     ? "#3a32a8"
-                    : "#fff"
+                    : "#FE0110"
                 }
               >
                 {userData.status}
