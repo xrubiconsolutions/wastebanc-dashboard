@@ -157,7 +157,7 @@ const Dashboard = () => {
           render: (text) => <p>{moment(text).format("YYYY-MM-DD")}</p>,
         },
         {
-          title: "Waste Quantity(bags)",
+          title: "Waste Quantity(kg)",
           dataIndex: "quantity",
           key: "quantity",
         },
@@ -194,6 +194,7 @@ const Dashboard = () => {
 
   const generateCardData = (source, data) => {
     const newData = [...source];
+
     // console.log()
     // be careful with object manipulations, do not try to mutate the instance
     // of object used as a component state, just like the returned result of this function
@@ -252,7 +253,7 @@ const Dashboard = () => {
    ****************************/
 
   useEffect(() => {
-    if (!currentMonthCardContent) dispatch(getCompanyMatrix(payload));
+    if (currentMonthCardContent) dispatch(getCompanyMatrix(payload));
     // if (!recentPickup) {
     //   const payload = {
     //     page: currentPage,
@@ -277,6 +278,7 @@ const Dashboard = () => {
         showModal={showModal}
         setShowModal={setShowModal}
         userData={rowInfo}
+        completed
       />
       <DashbordContainer>
         <Filter onFilter={handleMetricsFilter} />
@@ -292,7 +294,7 @@ const Dashboard = () => {
                       title={el.title}
                       amount={el.amount}
                       link={el.link}
-                      progress={el.progress}
+                      // progress={el.progress}
                       style={{ color: colors[i] }}
                       key={i}
                     />
