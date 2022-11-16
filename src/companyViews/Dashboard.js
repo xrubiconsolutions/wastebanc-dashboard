@@ -257,6 +257,27 @@ const Dashboard = () => {
    *
    ****************************/
 
+  useEffect(() => {
+    if (!currentMonthCardContent) dispatch(getCompanyMatrix(payload));
+
+    // if (!recentPickup) {
+    //   const payload = {
+    //     page: currentPage,
+    //     currentMonth,
+    //   };
+    //   dispatch(getCompanyRecentPickups(payload));
+    // }
+    if (!currentMonthPendingSchedule) dispatch(getCompanyPendingSchedules());
+  }, []);
+
+  useEffect(() => {
+    const fmtCardData = generateCardData(
+      CardDashbordDetails,
+      currentMonthCardContent
+    );
+    setBodyData(fmtCardData);
+  }, [currentMonthCardContent, currentMonthPendingSchedule]);
+
   return (
     <>
       <PickupModal
