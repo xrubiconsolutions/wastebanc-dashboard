@@ -254,6 +254,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (!currentMonthCardContent) dispatch(getCompanyMatrix(payload));
+
     // if (!recentPickup) {
     //   const payload = {
     //     page: currentPage,

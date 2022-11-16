@@ -25,7 +25,8 @@ const SidebarParent = styled.div`
 const SidebarLogo = styled.img`
   ${tw`
   my-4 mx-8
-`}
+`};
+  width: 190px;
 `;
 const SubNavContainer = styled.div``;
 
@@ -73,7 +74,7 @@ const StyledNavLink = styled(NavLink)`
     // bg-label
     border-l-4
     border-white
-  `}// background: rgba(255, 255, 255, 0.1);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  `}// background: rgba(255, 255, 255, 0.1);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   }
 `;
 function sidebar() {
