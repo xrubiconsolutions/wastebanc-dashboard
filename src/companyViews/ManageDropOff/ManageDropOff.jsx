@@ -219,6 +219,13 @@ const ManageDropOff = () => {
         id={id}
       />
 
+      <NewDropModal
+        mode={modalMode}
+        showModal={showModal}
+        setShowModal={setShowModal}
+        fetchAll={fetchAll}
+      />
+
       <ManageDropOffContainer>
         <ManageDropOffHeader>
           <StyledButton

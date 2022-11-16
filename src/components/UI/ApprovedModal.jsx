@@ -197,8 +197,8 @@ const ApprovedModal = ({
 
           {aggregator && (
             <InfoItem>
-              <InfoTitle>No Of Trips Completed:</InfoTitle>
-              <InfoValue>{userData.numberOfTripsCompleted}</InfoValue>
+              <InfoTitle>No Of Waste (kg):</InfoTitle>
+              <InfoValue>{userData.totalCollected}</InfoValue>
             </InfoItem>
           )}
           {/* {userData?.schedules > 0 ? (
@@ -213,10 +213,15 @@ const ApprovedModal = ({
               </InfoItem>
             </>
           ) : null} */}
-
+          {/* 
           <InfoItem>
             <InfoTitle>Organisation:</InfoTitle>
             <InfoValue>{userData.organisation}</InfoValue>
+          </InfoItem> */}
+
+          <InfoItem>
+            <InfoTitle>Wastebanc location:</InfoTitle>
+            <InfoValue>{userData.address}</InfoValue>
           </InfoItem>
 
           <InfoItem>
