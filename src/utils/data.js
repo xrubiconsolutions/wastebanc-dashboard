@@ -193,7 +193,7 @@ export const TotalCardAggregators = [
   },
   {
     icon: "/assets/images/userVector.svg",
-    title: "New Aggregators",
+    title: "New Agents",
     user: "20",
   },
   {
