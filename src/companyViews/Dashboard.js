@@ -157,7 +157,7 @@ const Dashboard = () => {
           render: (text) => <p>{moment(text).format("YYYY-MM-DD")}</p>,
         },
         {
-          title: "Waste Quantity(kg)",
+          title: "Waste Quantity(bags)",
           dataIndex: "quantity",
           key: "quantity",
         },
@@ -253,7 +253,7 @@ const Dashboard = () => {
    ****************************/
 
   useEffect(() => {
-    if (currentMonthCardContent) dispatch(getCompanyMatrix(payload));
+    if (!currentMonthCardContent) dispatch(getCompanyMatrix(payload));
     // if (!recentPickup) {
     //   const payload = {
     //     page: currentPage,
@@ -278,7 +278,6 @@ const Dashboard = () => {
         showModal={showModal}
         setShowModal={setShowModal}
         userData={rowInfo}
-        completed
       />
       <DashbordContainer>
         <Filter onFilter={handleMetricsFilter} />
