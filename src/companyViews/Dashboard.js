@@ -157,7 +157,7 @@ const Dashboard = () => {
           render: (text) => <p>{moment(text).format("YYYY-MM-DD")}</p>,
         },
         {
-          title: "Waste Quantity(bags)",
+          title: "Waste Quantity (Kg)",
           dataIndex: "quantity",
           key: "quantity",
         },
@@ -279,6 +279,7 @@ const Dashboard = () => {
         showModal={showModal}
         setShowModal={setShowModal}
         userData={rowInfo}
+        completed
       />
       <DashbordContainer>
         <Filter onFilter={handleMetricsFilter} />
