@@ -54,20 +54,11 @@ const Dashboard = () => {
   const [pickupPagination, setPickupPagination] = useState();
 
   const dispatch = useDispatch();
+  let dtFilter = [];
   const {
     dashboard: { currentMonthCardContent, recentPickup },
     schedules: { currentMonthPendingSchedule },
   } = useSelector((state) => state);
-
-  const date = new Date();
-  const currentMonth = {
-    start: moment(new Date(date.getFullYear(), date.getMonth(), 1)).format(
-      "YYYY-MM-DD"
-    ),
-    end: moment(new Date(date.getFullYear(), date.getMonth() + 1, 1)).format(
-      "YYYY-MM-DD"
-    ),
-  };
 
   const d = new Date();
   d.setDate(d.getDate());
@@ -76,13 +67,15 @@ const Dashboard = () => {
     end: d,
   };
 
-  const handlePickupFilter = async (date, page = 1) => {
+  const handlePickupFilter = async (page = 1) => {
     const res = await dispatch(
-      getFilteredCompanyRecentPickups({ currentMonth: date, page })
+      getFilteredCompanyRecentPickups(...payload, page)
     );
-    const { companySchedules, ...paginationData } = res.payload;
-    setTableBody(companySchedules);
-    setPickupPagination(paginationData);
+    if (!res.error) {
+      const { companySchedules, ...paginationData } = res.payload;
+      setTableBody(companySchedules);
+      setPickupPagination(paginationData);
+    }
   };
 
   const handlePickupSearch = async (key, page = 1) => {
@@ -115,6 +108,12 @@ const Dashboard = () => {
       setPickupPagination(paginationData);
     }
   };
+
+  useEffect(() => {
+    if (!currentMonthCardContent) dispatch(getCompanyMatrix(payload));
+    if (!recentPickup) setTableBody(recentPickup);
+    if (!currentMonthPendingSchedule) dispatch(getCompanyPendingSchedules());
+  }, []);
 
   const data = [
     {
@@ -224,14 +223,18 @@ const Dashboard = () => {
     return newData;
   };
 
+  useEffect(() => {
+    const fmtCardData = generateCardData(
+      CardDashbordDetails,
+      currentMonthCardContent
+    );
+    setBodyData(fmtCardData);
+  }, [currentMonthCardContent, currentMonthPendingSchedule]);
+
   const handleMetricsFilter = async (date) => {
     const res = await dispatch(getFilteredCompanyMatrix(date));
-
-    const fmtFilterResult = generateCardData(
-      CardDashbordDetails,
-      res?.payload?.data
-    );
-    setBodyData(fmtFilterResult);
+    dtFilter = generateCardData(CardDashbordDetails, res?.payload?.data);
+    setBodyData(dtFilter);
   };
 
   const openInfo = (mark, markId) => {
@@ -240,8 +243,10 @@ const Dashboard = () => {
   };
 
   const onRefresh = () => {
+    dispatch(getCompanyMatrix(payload));
     fetchRecent();
   };
+
   useEffect(() => {
     onRefresh();
   }, []);
