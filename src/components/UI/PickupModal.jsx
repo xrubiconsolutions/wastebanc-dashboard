@@ -109,6 +109,7 @@ const PickupModal = ({
         <TitleText className="">More Details</TitleText>
         <StyledButton
           buttonSize="btn--medium"
+          buttonStyle="btn--primary--solid"
           onClick={() => setShowModal(false)}
         >
           Close

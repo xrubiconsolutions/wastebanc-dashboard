@@ -17,7 +17,8 @@ const SidebarParent = styled.div`
   left: 0px;
   border-radius: 0px;
   color: #ffff;
-  background: linear-gradient(178.54deg, #008300 -24.78%, #005700 98.76%);
+  // background: linear-gradient(178.54deg, #008300 -24.78%, #005700 98.76%);
+  background: #295011;
   box-shadow: 0px 30px 24px rgba(0, 0, 0, 0.06);
   overflow-y: auto;
 `;
@@ -74,14 +75,26 @@ const StyledNavLink = styled(NavLink)`
     // bg-label
     border-l-4
     border-white
-  `}// background: rgba(255, 255, 255, 0.1);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  `};
+    // background: rgba(255, 255, 255, 0.1);
   }
 `;
 function sidebar() {
   return (
     <>
       <SidebarParent>
-        <SidebarLogo src="/assets/images/wasteebanc.svg" alt="wastebac-logo" />
+        {/* <SidebarLogo src="/assets/images/wasteebanc.svg" alt="wastebac-logo" /> */}
+        <SidebarLogo src="/assets/images/wastelogo.png" alt="wastebanc-logo" />
+        <div className="flex items-center justify-center pl-3 pb-5">
+          <img
+            src="/assets/images/pakam.svg"
+            alt="wastebanc-logo"
+            width="12px"
+          />
+          <p className="text-white text-center font-bold text-[8px] px-2 tracking-wide  ">
+            Powered by Pakam Technology
+          </p>
+        </div>
         {Data.map((item) => {
           if (item.subNav && item.subNav.length) {
             return <DropdownNavLink item={item} key={item.title} />;
@@ -100,9 +113,9 @@ function sidebar() {
             </div>
           );
         })}
-        <p className="text-white text-center font-bold text-sm bottom-0 absolute px-4">
+        {/* <p className="text-white text-center font-bold text-sm bottom-0 absolute px-4">
           Powered by Pakam Technology
-        </p>
+        </p> */}
       </SidebarParent>
     </>
   );
