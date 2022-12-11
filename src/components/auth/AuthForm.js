@@ -40,7 +40,7 @@ const HeaderBody = styled.div`
 `;
 
 const SubmitButton = styled.button`
-  ${tw`disabled:cursor-not-allowed disabled:opacity-50 hover:text-secondary hover:border-2 hover:bg-white hover:border-secondary outline-none text-white bg-secondary rounded-lg text-xl py-3 w-full`}
+  ${tw`disabled:cursor-not-allowed disabled:opacity-50 hover:text-secondary hover:border-2 hover:bg-white hover:border-secondary outline-none text-white bg-btnColor rounded-lg text-xl py-3 w-full`}
   // height: 70px
   transition: .2s ease-in-out;
 `;

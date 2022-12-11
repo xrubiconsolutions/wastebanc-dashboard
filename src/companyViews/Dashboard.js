@@ -30,7 +30,8 @@ const colors = [
   "#EF5DA8",
   "#009A00",
   "#F5000F",
-  "#006700",
+  // "#006700",
+  "#295011",
   "#FE0110",
 ];
 const DashbordContainer = styled.div`
@@ -156,7 +157,7 @@ const Dashboard = () => {
           render: (text) => <p>{moment(text).format("YYYY-MM-DD")}</p>,
         },
         {
-          title: "Waste Quantity(bags)",
+          title: "Waste Quantity (Kg)",
           dataIndex: "quantity",
           key: "quantity",
         },
@@ -284,6 +285,7 @@ const Dashboard = () => {
         showModal={showModal}
         setShowModal={setShowModal}
         userData={rowInfo}
+        completed
       />
       <DashbordContainer>
         <Filter onFilter={handleMetricsFilter} />

@@ -54,17 +54,17 @@ p {
 }
 
 .ant-tabs-tab-active {
-  color: #006700 !important;
+  color: #295011 !important;
 }
 .ant-tabs-tab:hover {
-  color: #006700 !important;
+  color: #295011 !important;
 }
 .ant-tabs-tab.ant-tabs-tab-active {
-  border-bottom: 2px solid #006700 !important;
+  border-bottom: 2px solid #295011 !important;
   z-index: 2;
 }
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: #006700 !important;
+  color: #295011 !important;
 }
 .ant-tabs-nav-list {
   transform: translate(50px, 0px) !important;
@@ -117,8 +117,8 @@ thead[class*="ant-table-thead"] th {
 .ant-radio-group-solid
   .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
   color: #fff;
-  background: #006700 !important;
-  border-color: #006700 !important;
+  background: #295011 !important;
+  border-color: #295011 !important;
 }
 .ant-radio-button-wrapper:hover {
   position: relative;
@@ -145,14 +145,20 @@ thead[class*="ant-table-thead"] th {
   border-radius: 50px;
 }
 .ant-pagination-item-active {
-  border-color: #006700;
+  border-color: #295011;
 }
 .ant-pagination-item-active a {
-  color: #006700;
+  color: #295011;
 }
 .ant-pagination-item-active a:hover {
-  color: #006700;
+  color: #295011;
 }
 .ant-pagination-item-active:hover {
-  border-color: #006700;
+  border-color: #295011;
 } */
+
+.ant-tabs-ink-bar {
+  position: absolute !important;
+  background: #295011 !important;
+  pointer-events: none !important;
+}
