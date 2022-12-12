@@ -77,15 +77,15 @@ const SidebarData = [
   //   path: "/waste_picker",
   //   icon: "/assets/images/waste_picker.svg",
   // },
-  {
-    title: "Billing",
-    path: "/billing",
-    icon: "/assets/images/invoice-bill.svg",
-  },
+  // {
+  //   title: "Billing",
+  //   path: "/billing",
+  //   icon: "/assets/images/invoice-bill.svg",
+  // },
   {
     title: "Payout ",
     path: "/payout_requests",
-    icon: "/assets/images/icons.svg",
+    icon: "/assets/images/Calendar.svg",
   },
 ];
 
