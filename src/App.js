@@ -48,6 +48,7 @@ function App() {
             component={AuthLayout}
             redirectPathname="/admin"
           />
+
           <ProtectedRoute
             path="/user"
             condition={data && loginMode === "user_admin"}

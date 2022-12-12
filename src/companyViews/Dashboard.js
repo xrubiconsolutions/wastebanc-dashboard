@@ -310,6 +310,7 @@ const Dashboard = () => {
                 .reverse();
             })}
         </div>
+
         <MapWrapper
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGv53NEoMm3uPyA9U45ibSl3pOlqkHWN8"
           loadingElement={<div style={{ height: `100%` }} />}

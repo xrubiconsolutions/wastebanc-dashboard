@@ -162,3 +162,7 @@ thead[class*="ant-table-thead"] th {
   background: #295011 !important;
   pointer-events: none !important;
 }
+
+.transit {
+  transition: all 600ms ease-in-out;
+}

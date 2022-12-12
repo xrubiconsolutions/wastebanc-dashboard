@@ -16,6 +16,10 @@ import ChangePassword from "../../companyViews/ChangePassword/ChangePassword";
 import WastePickerAssign from "../../companyViews/WastePicker/WastePickerAssign";
 import WastePicker from "../../companyViews/WastePicker/WastePicker";
 import Billing from "../../companyViews/Billing/Billing";
+import { PayoutRequest } from "../../companyViews/UserPayment/Payment";
+import { CompletedPayoutPayment } from "../../companyViews/UserPayment/CompletedPayoutPayment";
+import { PendingPayoutPayment } from "../../companyViews/UserPayment/PendingPayoutPayment";
+import { FailedPayoutPayment } from "../../companyViews/UserPayment/FailedPayoutPayment";
 
 const routes = [
   { name: "dashboard", path: "dashboard", component: Dashboard },
@@ -108,6 +112,28 @@ const routes = [
     name: "billing",
     path: "billing",
     component: Billing,
+  },
+  {
+    name: "payout_requests",
+    path: "payout_requests",
+    component: PayoutRequest,
+  },
+  {
+    name: "completed_payout",
+    path: "completed_payout",
+    component: CompletedPayoutPayment,
+  },
+
+  {
+    name: "failed_payout",
+    path: "failed_payout",
+    component: FailedPayoutPayment,
+  },
+
+  {
+    name: "pending_payout",
+    path: "pending_payout",
+    component: PendingPayoutPayment,
   },
 ];
 export default routes;

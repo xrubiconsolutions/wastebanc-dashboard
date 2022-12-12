@@ -6,6 +6,7 @@ import * as FiIcons from "react-icons/fi";
 import * as BiIcons from "react-icons/bi";
 import * as IoIcons from "react-icons/io5";
 import * as IoIcon from "react-icons/io";
+import { RiLogoutBoxLine } from "react-icons/ri";
 
 // Ui SidebarComponent data //
 const SidebarData = [
@@ -81,6 +82,18 @@ const SidebarData = [
     path: "/billing",
     icon: "/assets/images/invoice-bill.svg",
   },
+  {
+    title: "Payout ",
+    path: "/payout_requests",
+    icon: "/assets/images/icons.svg",
+  },
 ];
 
+export const LogoutData = [
+  {
+    title: "Logout",
+    path: "/logout",
+    icon: "/assets/images/logout.svg",
+  },
+];
 export default SidebarData;

@@ -8,7 +8,7 @@ import {
 
 export const MapWrapper = withScriptjs(
   withGoogleMap((props) => {
-    // console.log(props);
+    console.log("map propss!!!", props);
     return (
       <GoogleMap
         defaultZoom={12}
