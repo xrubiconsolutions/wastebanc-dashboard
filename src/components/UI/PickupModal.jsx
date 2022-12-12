@@ -109,6 +109,7 @@ const PickupModal = ({
         <TitleText className="">More Details</TitleText>
         <StyledButton
           buttonSize="btn--medium"
+          buttonStyle="btn--primary--solid"
           onClick={() => setShowModal(false)}
         >
           Close
@@ -168,10 +169,28 @@ const PickupModal = ({
               ))}
             </FlexContainer>
           </InfoItem>
-          <InfoItem>
-            <InfoTitle>Waste Quantity:</InfoTitle>
-            <InfoValue>{userData.quantity} bags</InfoValue>
-          </InfoItem>
+
+          {completed && (
+            <InfoItem>
+              <InfoTitle>Waste Quantity:</InfoTitle>
+              <InfoValue>{userData.quantity} kg</InfoValue>
+            </InfoItem>
+          )}
+
+          {cancelled && (
+            <InfoItem>
+              <InfoTitle>Waste Quantity:</InfoTitle>
+              <InfoValue>{userData.quantity} bags</InfoValue>
+            </InfoItem>
+          )}
+
+          {missed && (
+            <InfoItem>
+              <InfoTitle>Waste Quantity:</InfoTitle>
+              <InfoValue>{userData.quantity} bags</InfoValue>
+            </InfoItem>
+          )}
+
           <InfoItem>
             <InfoTitle>Pickup Location:</InfoTitle>
             <InfoValue>{userData.address}</InfoValue>
@@ -300,7 +319,7 @@ const PickupModal = ({
 
           {!missed && !cancelled && !pending && (
             <InfoItem>
-              <InfoTitle>Recycler No:</InfoTitle>
+              <InfoTitle>Agent's Number:</InfoTitle>
               <InfoValue>{userData.collectedPhone}</InfoValue>
             </InfoItem>
           )}
@@ -339,7 +358,7 @@ const PickupModal = ({
           {!missed ||
             (!cancelled && (
               <InfoItem>
-                <InfoTitle>Waste Collector:</InfoTitle>
+                <InfoTitle>Agent:</InfoTitle>
                 <InfoValue>{userData.recycler}</InfoValue>
               </InfoItem>
             ))}
@@ -353,7 +372,7 @@ const PickupModal = ({
 
           {!completed && !accepted && !pending && (
             <InfoItem>
-              <InfoTitle>Cancelled Reason:</InfoTitle>
+              <InfoTitle>Reason:</InfoTitle>
               <InfoValue>{userData.cancelReason}</InfoValue>
             </InfoItem>
           )}

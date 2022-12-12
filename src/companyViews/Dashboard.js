@@ -30,7 +30,8 @@ const colors = [
   "#EF5DA8",
   "#009A00",
   "#F5000F",
-  "#006700",
+  // "#006700",
+  "#295011",
   "#FE0110",
 ];
 const DashbordContainer = styled.div`
@@ -54,20 +55,11 @@ const Dashboard = () => {
   const [pickupPagination, setPickupPagination] = useState();
 
   const dispatch = useDispatch();
+  let dtFilter = [];
   const {
     dashboard: { currentMonthCardContent, recentPickup },
     schedules: { currentMonthPendingSchedule },
   } = useSelector((state) => state);
-
-  const date = new Date();
-  const currentMonth = {
-    start: moment(new Date(date.getFullYear(), date.getMonth(), 1)).format(
-      "YYYY-MM-DD"
-    ),
-    end: moment(new Date(date.getFullYear(), date.getMonth() + 1, 1)).format(
-      "YYYY-MM-DD"
-    ),
-  };
 
   const d = new Date();
   d.setDate(d.getDate());
@@ -76,13 +68,15 @@ const Dashboard = () => {
     end: d,
   };
 
-  const handlePickupFilter = async (date, page = 1) => {
+  const handlePickupFilter = async (page = 1) => {
     const res = await dispatch(
-      getFilteredCompanyRecentPickups({ currentMonth: date, page })
+      getFilteredCompanyRecentPickups(...payload, page)
     );
-    const { companySchedules, ...paginationData } = res.payload;
-    setTableBody(companySchedules);
-    setPickupPagination(paginationData);
+    if (!res.error) {
+      const { companySchedules, ...paginationData } = res.payload;
+      setTableBody(companySchedules);
+      setPickupPagination(paginationData);
+    }
   };
 
   const handlePickupSearch = async (key, page = 1) => {
@@ -115,6 +109,12 @@ const Dashboard = () => {
       setPickupPagination(paginationData);
     }
   };
+
+  useEffect(() => {
+    if (!currentMonthCardContent) dispatch(getCompanyMatrix(payload));
+    if (!recentPickup) setTableBody(recentPickup);
+    if (!currentMonthPendingSchedule) dispatch(getCompanyPendingSchedules());
+  }, []);
 
   const data = [
     {
@@ -157,7 +157,7 @@ const Dashboard = () => {
           render: (text) => <p>{moment(text).format("YYYY-MM-DD")}</p>,
         },
         {
-          title: "Waste Quantity(bags)",
+          title: "Waste Quantity (Kg)",
           dataIndex: "quantity",
           key: "quantity",
         },
@@ -194,6 +194,7 @@ const Dashboard = () => {
 
   const generateCardData = (source, data) => {
     const newData = [...source];
+
     // console.log()
     // be careful with object manipulations, do not try to mutate the instance
     // of object used as a component state, just like the returned result of this function
@@ -223,14 +224,18 @@ const Dashboard = () => {
     return newData;
   };
 
+  useEffect(() => {
+    const fmtCardData = generateCardData(
+      CardDashbordDetails,
+      currentMonthCardContent
+    );
+    setBodyData(fmtCardData);
+  }, [currentMonthCardContent, currentMonthPendingSchedule]);
+
   const handleMetricsFilter = async (date) => {
     const res = await dispatch(getFilteredCompanyMatrix(date));
-
-    const fmtFilterResult = generateCardData(
-      CardDashbordDetails,
-      res?.payload?.data
-    );
-    setBodyData(fmtFilterResult);
+    dtFilter = generateCardData(CardDashbordDetails, res?.payload?.data);
+    setBodyData(dtFilter);
   };
 
   const openInfo = (mark, markId) => {
@@ -239,8 +244,10 @@ const Dashboard = () => {
   };
 
   const onRefresh = () => {
+    dispatch(getCompanyMatrix(payload));
     fetchRecent();
   };
+
   useEffect(() => {
     onRefresh();
   }, []);
@@ -253,6 +260,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (!currentMonthCardContent) dispatch(getCompanyMatrix(payload));
+
     // if (!recentPickup) {
     //   const payload = {
     //     page: currentPage,
@@ -277,6 +285,7 @@ const Dashboard = () => {
         showModal={showModal}
         setShowModal={setShowModal}
         userData={rowInfo}
+        completed
       />
       <DashbordContainer>
         <Filter onFilter={handleMetricsFilter} />
@@ -292,7 +301,7 @@ const Dashboard = () => {
                       title={el.title}
                       amount={el.amount}
                       link={el.link}
-                      progress={el.progress}
+                      // progress={el.progress}
                       style={{ color: colors[i] }}
                       key={i}
                     />
@@ -301,6 +310,7 @@ const Dashboard = () => {
                 .reverse();
             })}
         </div>
+
         <MapWrapper
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGv53NEoMm3uPyA9U45ibSl3pOlqkHWN8"
           loadingElement={<div style={{ height: `100%` }} />}
