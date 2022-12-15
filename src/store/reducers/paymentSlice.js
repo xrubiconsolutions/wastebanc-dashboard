@@ -6,6 +6,7 @@ import {
   companyOutstanding,
   companyCharity,
   companyDirect,
+  getpendingPayoutRequest,
 } from "../actions";
 
 const initialState = {
@@ -15,6 +16,8 @@ const initialState = {
   companydirectPayment: null,
   companycharityPayment: null,
   companyoutstandingPayment: null,
+  totalWithdrawalAmount: 0,
+  pay: "",
 };
 
 const dashboardSlice = createSlice({
@@ -39,6 +42,9 @@ const dashboardSlice = createSlice({
     },
     [companyOutstanding.fulfilled]: (state, { payload }) => {
       state.companyoutstandingPayment = payload.data;
+    },
+    [getpendingPayoutRequest.fulfilled]: (state, { payload }) => {
+      state.totalWithdrawalAmount = payload.data;
     },
   },
 });

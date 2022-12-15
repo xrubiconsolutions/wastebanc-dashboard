@@ -15,6 +15,8 @@ module.exports = {
         error: "#FE0110",
         success: "#00BA88",
         "bd-color": "#BDBDBD",
+        btnColor: "#295011",
+        amount: "#00966D",
       },
 
       outline: {
