@@ -119,4 +119,67 @@ export default class PaymentService {
     );
     return res?.data || res;
   }
+
+  static async getPendingPayoutRequest(date) {
+    const res = await baseAxios.get(
+      `wallet/transactions?status=initiated&start=${date.start}&end=${date.end}&page=1`
+    );
+    return res?.data || res;
+  }
+
+  static async searchPendingPayoutRequest(key) {
+    const res = await baseAxios.get(
+      `wallet/transactions?status=initiated&key=${key}&page=1`
+    );
+    return res?.data || res;
+  }
+
+  static async filterPendingPayoutRequest(date) {
+    const res = await baseAxios.get(
+      `wallet/transactions?status=initiated&start=${date.start}&end=${date.end}&page=1`
+    );
+    return res?.data || res;
+  }
+
+  static async getCompletedPayoutRequest(date) {
+    const res = await baseAxios.get(
+      `wallet/transactions?status=successful&start=${date.start}&end=${date.end}&page=1`
+    );
+    return res?.data || res;
+  }
+
+  static async searchCompletedPayoutRequest(key) {
+    const res = await baseAxios.get(
+      `wallet/transactions?status=successful&key=${key}&page=1`
+    );
+    return res?.data || res;
+  }
+
+  static async filterCompletedPayoutRequest(date) {
+    const res = await baseAxios.get(
+      `wallet/transactions?status=successful&start=${date.start}&end=${date.end}&page=1`
+    );
+    return res?.data || res;
+  }
+
+  static async getFailedPayoutRequest(data) {
+    const res = await baseAxios.get(
+      `wallet/transactions?status=failed&start=${data.start}&end=${data.end}&page=${data.page}`
+    );
+    return res?.data || res;
+  }
+
+  static async searchFailedPayoutRequest(key) {
+    const res = await baseAxios.get(
+      `wallet/transactions?status=failed&key=${key}&page=1`
+    );
+    return res?.data || res;
+  }
+
+  static async filterFailedPayoutRequest(date) {
+    const res = await baseAxios.get(
+      `wallet/transactions?status=failde&start=${date.start}&end=${date.end}&page=1`
+    );
+    return res?.data || res;
+  }
 }

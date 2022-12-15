@@ -8,7 +8,7 @@ export const Back = () => {
   return (
     <div
       className="flex items-center justify-center pt-5 hover:cursor-pointer"
-      onClick={() => history.push("/user/payout_requests")}
+      onClick={() => history.goBack()}
     >
       <IoIosArrowBack /> <span className="pl-2 text-sm">Back</span>
     </div>
