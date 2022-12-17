@@ -104,6 +104,7 @@ const Dashboard = () => {
     );
 
     if (!res.error) {
+      console.log(res.payload);
       const { companySchedules, ...paginationData } = res.payload;
       setTableBody(companySchedules);
       setPickupPagination(paginationData);

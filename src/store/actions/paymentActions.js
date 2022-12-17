@@ -312,6 +312,12 @@ export const searchCompanyOutstanding = createAsyncThunk(
   }
 );
 
+/****************************
+ *
+ * Payout Actions Commpany
+ *
+ ****************************/
+
 export const getpendingPayoutRequest = createAsyncThunk(
   "get/pending-payout-request",
   async (data, { dispatch }) => {
@@ -332,7 +338,8 @@ export const searchpendingPayoutRequest = createAsyncThunk(
   async (data, { dispatch }) => {
     dispatch(startLoad());
     try {
-      const res = await PaymentService.searchPendingPayoutRequest(data);
+      const { key, page } = data;
+      const res = await PaymentService.searchPendingPayoutRequest(key, page);
       return res;
     } catch (err) {
       handleError(err, dispatch);
@@ -346,7 +353,11 @@ export const filterpendingPayoutRequest = createAsyncThunk(
   async (data, { dispatch }) => {
     dispatch(startLoad());
     try {
-      const res = await PaymentService.filterPendingPayoutRequest(data);
+      const { page, currentMonth } = data;
+      const res = await PaymentService.filterPendingPayoutRequest(
+        page,
+        currentMonth
+      );
       return res;
     } catch (err) {
       handleError(err, dispatch);
@@ -376,7 +387,8 @@ export const searchcompletedPayoutRequest = createAsyncThunk(
   async (data, { dispatch }) => {
     dispatch(startLoad());
     try {
-      const res = await PaymentService.searchCompletedPayoutRequest(data);
+      const { key, page } = data;
+      const res = await PaymentService.searchCompletedPayoutRequest(key, page);
       return res;
     } catch (err) {
       handleError(err, dispatch);
@@ -391,7 +403,11 @@ export const filtercompletedPayoutRequest = createAsyncThunk(
   async (data, { dispatch }) => {
     dispatch(startLoad());
     try {
-      const res = await PaymentService.filterCompletedPayoutRequest(data);
+      const { page, currentMonth } = data;
+      const res = await PaymentService.filterCompletedPayoutRequest(
+        page,
+        currentMonth
+      );
       return res;
     } catch (err) {
       handleError(err, dispatch);
@@ -421,7 +437,8 @@ export const searchfailedPayoutRequest = createAsyncThunk(
   async (data, { dispatch }) => {
     dispatch(startLoad());
     try {
-      const res = await PaymentService.searchFailedPayoutRequest(data);
+      const { key, page } = data;
+      const res = await PaymentService.searchFailedPayoutRequest(key, page);
       return res;
     } catch (err) {
       handleError(err, dispatch);
@@ -436,7 +453,11 @@ export const filterfailedPayoutRequest = createAsyncThunk(
   async (data, { dispatch }) => {
     dispatch(startLoad());
     try {
-      const res = await PaymentService.filterFailedPayoutRequest(data);
+      const { page, currentMonth } = data;
+      const res = await PaymentService.filterFailedPayoutRequest(
+        page,
+        currentMonth
+      );
       return res;
     } catch (err) {
       handleError(err, dispatch);

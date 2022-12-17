@@ -4,7 +4,7 @@ import styled from "styled-components";
 import tw from "twin.macro";
 import StyledButton from "../../components/UI/btn";
 import Tabcontent from "../../components/UI/TabContent";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { truncate } from "../../utils/constants";
 import { Card } from "./Card";
 import { useHistory } from "react-router";
@@ -33,12 +33,12 @@ export const PayoutRequest = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedKey, setSelectedKey] = useState("0");
-  const [fetchPendingPayoutData, setFetchedPendingPayoutData] = useState([]);
   const [pendingPayoutPaginationData, setPendingPayoutPaginationData] =
     useState();
   const [fetchFailedPaginationData, setFetchedFailedPaginationData] =
     useState();
   const [completedPaginationData, setCompletedPaginationData] = useState();
+  const [fetchPendingPayoutData, setFetchedPendingPayoutData] = useState([]);
 
   const [fetchCompletedPayoutData, setFetchedCompletedPayoutData] = useState(
     []
@@ -54,44 +54,57 @@ export const PayoutRequest = () => {
     end: d,
   };
 
-  // total balcance
-  // const totalCustomerAmount = useSelector((state) => state);
-  // let total = 0;
-  // totalCustomerAmount.payments.totalWithdrawalAmount.result?.map(
-  //   (i) => (total += i.withdrawalAmount)
-  // );
+  const { pendingRequest, completedRequest, failedRequest } = useSelector(
+    (state) => state?.payments
+  );
+  console.log(pendingRequest, completedRequest, failedRequest);
 
   const dispatch = useDispatch();
-  const fetchPendingPayoutRequest = async (date = payload) => {
-    const res = await dispatch(getpendingPayoutRequest(date));
+  const fetchPendingPayoutRequest = async (page = 1) => {
+    const res = await dispatch(
+      getpendingPayoutRequest({
+        ...payload,
+        page,
+      })
+    );
     if (!res.error) {
       const { result, ...paginationData } = res.payload.data;
-      // const { ...paginationData } = res.payload;
       setFetchedPendingPayoutData(result);
-      setPendingPayoutPaginationData({ ...paginationData });
+      setPendingPayoutPaginationData(paginationData);
     }
   };
 
-  const searchPendingPayoutRequest = async (key) => {
-    const res = await dispatch(searchpendingPayoutRequest(key));
-    if (!res.error) {
-      const { result } = res.payload.data;
-      setFetchedPendingPayoutData(result);
-    }
-  };
-
-  const filterPendingPayoutRequest = async (date = payload) => {
-    const res = await dispatch(filterpendingPayoutRequest(date));
+  const searchPendingPayoutRequest = async (key, page = 1) => {
+    const res = await dispatch(searchpendingPayoutRequest({ key, page }));
     if (!res.error) {
       const { result, ...paginationData } = res.payload.data;
-      console.log("paginationData", paginationData);
       setFetchedPendingPayoutData(result);
-      setPendingPayoutPaginationData({ ...paginationData });
+      setPendingPayoutPaginationData({ ...paginationData, key });
+      setTotalPages(paginationData.totalPages);
     }
   };
 
-  const fetchCompletedPayoutRequest = async (date = payload) => {
-    const res = await dispatch(getcompletedPayoutRequest(date));
+  const filterPendingPayoutRequest = async (date, page = 1) => {
+    const res = await dispatch(
+      filterpendingPayoutRequest({
+        currentMonth: date,
+        page,
+      })
+    );
+    if (!res.error) {
+      const { result, ...paginationData } = res.payload.data;
+      setFetchedPendingPayoutData(result);
+      setPendingPayoutPaginationData({ ...paginationData, date });
+    }
+  };
+
+  const fetchCompletedPayoutRequest = async (page = 1) => {
+    const res = await dispatch(
+      getcompletedPayoutRequest({
+        ...payload,
+        page,
+      })
+    );
     if (!res.error) {
       const { result, ...paginationData } = res.payload.data;
       setFetchedCompletedPayoutData(result);
@@ -99,49 +112,67 @@ export const PayoutRequest = () => {
     }
   };
 
-  const searchCompletedPayoutRequest = async (key) => {
-    const res = await dispatch(searchcompletedPayoutRequest(key));
-    if (!res.error) {
-      const { result } = res.payload.data;
-      setFetchedCompletedPayoutData(result);
-    }
-  };
-
-  const filterCompletedPayoutRequest = async (date = payload) => {
-    const res = await dispatch(filtercompletedPayoutRequest(date));
+  const searchCompletedPayoutRequest = async (key, page = 1) => {
+    const res = await dispatch(
+      searchcompletedPayoutRequest({
+        key,
+        page,
+      })
+    );
     if (!res.error) {
       const { result, ...paginationData } = res.payload.data;
       setFetchedCompletedPayoutData(result);
+      setCompletedPaginationData({ ...paginationData, key });
+      setTotalPages(paginationData.totalPages);
+    }
+  };
+
+  const filterCompletedPayoutRequest = async (date, page = 1) => {
+    const res = await dispatch(
+      filtercompletedPayoutRequest({ currentMonth: date, page })
+    );
+    if (!res.error) {
+      const { result, ...paginationData } = res.payload.data;
+      setFetchedCompletedPayoutData(result);
+      setCompletedPaginationData({ ...paginationData, date });
     }
   };
 
   const fetchFailedPayoutRequest = async (page = 1) => {
     const res = await dispatch(getfailedPayoutRequest({ ...payload, page }));
-    console.log("resssponseee", res);
-    if (!res.error) {
-      const { result, ...paginationData } = res.payload.data;
-      console.log("pagination data", paginationData);
-      setFailedPayoutRequest(result);
-      setFetchedFailedPaginationData({ ...paginationData, date: payload });
-    }
-  };
-
-  const searchFailedPayoutRequest = async (key) => {
-    const res = await dispatch(searchfailedPayoutRequest(key));
-    if (!res.error) {
-      const { result } = res.payload.data;
-      setFailedPayoutRequest(result);
-    }
-  };
-
-  const filterFailedPayoutRequest = async (date = payload) => {
-    const res = await dispatch(filterfailedPayoutRequest(date));
     if (!res.error) {
       const { result, ...paginationData } = res.payload.data;
       setFailedPayoutRequest(result);
+      setFetchedFailedPaginationData(paginationData);
     }
   };
 
+  const searchFailedPayoutRequest = async (key, page = 1) => {
+    const res = await dispatch(searchfailedPayoutRequest({ key, page }));
+    if (!res.error) {
+      const { result, ...paginationData } = res.payload.data;
+      setFailedPayoutRequest(result);
+      setFetchedFailedPaginationData({ ...paginationData, key });
+      setTotalPages(paginationData.totalPages);
+    }
+  };
+
+  const filterFailedPayoutRequest = async (date, page = 1) => {
+    const res = await dispatch(
+      filterfailedPayoutRequest({ currentMonth: date, page })
+    );
+    if (!res.error) {
+      const { result, ...paginationData } = res.payload.data;
+      setFailedPayoutRequest(result);
+      setFetchedFailedPaginationData({ ...paginationData, date });
+    }
+  };
+
+  useEffect(() => {
+    if (!pendingRequest) setFetchedPendingPayoutData(pendingRequest);
+    if (!completedRequest) setFetchedCompletedPayoutData(completedRequest);
+    if (!failedRequest) setFetchedPendingPayoutData(failedRequest);
+  }, [pendingRequest, completedRequest, failedRequest]);
   useEffect(() => {
     fetchPendingPayoutRequest();
     fetchCompletedPayoutRequest();
@@ -168,11 +199,11 @@ export const PayoutRequest = () => {
       title: "Pending Requests",
       link: "Pending Requests",
       data: fetchPendingPayoutData,
+      totalPages: pendingPayoutPaginationData?.totalPages,
       paginationData: pendingPayoutPaginationData,
       searchHandler: searchPendingPayoutRequest,
       filterHandler: filterPendingPayoutRequest,
-      totalPages: pendingPayoutPaginationData?.totalPages,
-
+      fetch: fetchPendingPayoutRequest,
       columns: [
         {
           title: "Full Name",
@@ -183,6 +214,11 @@ export const PayoutRequest = () => {
           title: "Amount Requested (Naira)",
           dataIndex: "withdrawalAmount",
           key: "withdrawalAmount",
+        },
+        {
+          title: "Beneficary Name",
+          dataIndex: "beneName",
+          key: "beneName",
         },
 
         {
@@ -220,6 +256,8 @@ export const PayoutRequest = () => {
       filterHandler: filterCompletedPayoutRequest,
       paginationData: completedPaginationData,
       totalPages: completedPaginationData?.totalPages,
+      fetch: fetchCompletedPayoutRequest,
+
       columns: [
         {
           title: "Full Name",
@@ -273,6 +311,7 @@ export const PayoutRequest = () => {
       filterHandler: filterFailedPayoutRequest,
       paginationData: fetchFailedPaginationData,
       totalPages: fetchFailedPaginationData?.totalPages,
+      fetch: fetchFailedPayoutRequest,
       columns: [
         {
           title: "Full Name",
@@ -339,7 +378,7 @@ export const PayoutRequest = () => {
           onRefresh={onRefresh}
           totalPages={totalPages}
           onSwitch={onSwitch}
-          setCurrentPage={setCurrentPage}
+          // setCurrentPage={setCurrentPage}
         />
       </AggregatorsContainer>
     </>

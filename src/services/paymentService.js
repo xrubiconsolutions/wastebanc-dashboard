@@ -120,44 +120,50 @@ export default class PaymentService {
     return res?.data || res;
   }
 
-  static async getPendingPayoutRequest(date) {
+  /****************************
+   *
+   * Company Payout services
+   *
+   ****************************/
+
+  static async getPendingPayoutRequest(data) {
     const res = await baseAxios.get(
-      `wallet/transactions?status=initiated&start=${date.start}&end=${date.end}&page=1`
+      `wallet/transactions?status=initiated&start=${data.start}&end=${data.end}&page=${data.page}`
     );
     return res?.data || res;
   }
 
-  static async searchPendingPayoutRequest(key) {
+  static async searchPendingPayoutRequest(key, page) {
     const res = await baseAxios.get(
-      `wallet/transactions?status=initiated&key=${key}&page=1`
+      `wallet/transactions?status=initiated&key=${key}&page=${page}`
     );
     return res?.data || res;
   }
 
-  static async filterPendingPayoutRequest(date) {
+  static async filterPendingPayoutRequest(page, currentMonth) {
     const res = await baseAxios.get(
-      `wallet/transactions?status=initiated&start=${date.start}&end=${date.end}&page=1`
+      `wallet/transactions?status=initiated&start=${currentMonth.start}&end=${currentMonth.end}&page=${page}`
     );
     return res?.data || res;
   }
 
-  static async getCompletedPayoutRequest(date) {
+  static async getCompletedPayoutRequest(data) {
     const res = await baseAxios.get(
-      `wallet/transactions?status=successful&start=${date.start}&end=${date.end}&page=1`
+      `wallet/transactions?status=successful&start=${data.start}&end=${data.end}&page=${data.page}`
     );
     return res?.data || res;
   }
 
-  static async searchCompletedPayoutRequest(key) {
+  static async searchCompletedPayoutRequest(key, page) {
     const res = await baseAxios.get(
-      `wallet/transactions?status=successful&key=${key}&page=1`
+      `wallet/transactions?status=successful&key=${key}&page=${page}`
     );
     return res?.data || res;
   }
 
-  static async filterCompletedPayoutRequest(date) {
+  static async filterCompletedPayoutRequest(page, currentMonth) {
     const res = await baseAxios.get(
-      `wallet/transactions?status=successful&start=${date.start}&end=${date.end}&page=1`
+      `wallet/transactions?status=successful&start=${currentMonth.start}&end=${currentMonth.end}&page=${page}`
     );
     return res?.data || res;
   }
@@ -169,16 +175,16 @@ export default class PaymentService {
     return res?.data || res;
   }
 
-  static async searchFailedPayoutRequest(key) {
+  static async searchFailedPayoutRequest(key, page) {
     const res = await baseAxios.get(
-      `wallet/transactions?status=failed&key=${key}&page=1`
+      `wallet/transactions?status=failed&key=${key}&page=${page}`
     );
     return res?.data || res;
   }
 
-  static async filterFailedPayoutRequest(date) {
+  static async filterFailedPayoutRequest(page, currentMonth) {
     const res = await baseAxios.get(
-      `wallet/transactions?status=failde&start=${date.start}&end=${date.end}&page=1`
+      `wallet/transactions?status=failde&start=${currentMonth.start}&end=${currentMonth.end}&page=${page}`
     );
     return res?.data || res;
   }
