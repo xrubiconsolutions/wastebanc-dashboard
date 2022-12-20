@@ -104,6 +104,7 @@ const Dashboard = () => {
     );
 
     if (!res.error) {
+      console.log(res.payload);
       const { companySchedules, ...paginationData } = res.payload;
       setTableBody(companySchedules);
       setPickupPagination(paginationData);
@@ -310,6 +311,7 @@ const Dashboard = () => {
                 .reverse();
             })}
         </div>
+
         <MapWrapper
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGv53NEoMm3uPyA9U45ibSl3pOlqkHWN8"
           loadingElement={<div style={{ height: `100%` }} />}

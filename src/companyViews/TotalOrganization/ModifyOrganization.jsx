@@ -353,6 +353,7 @@ const ModifyOrganization = ({ match }) => {
       setBodyCategories(userInfo.categories);
     }
   }, [userInfo, lcds, subAreaOptions, lgaIndex, subAreaOptions, locations]);
+  console.log("categoryssss", categories);
 
   // updates the lcda options when changes occur in the LGA multiselect component
   useEffect(() => {

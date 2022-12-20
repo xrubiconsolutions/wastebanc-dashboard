@@ -247,4 +247,8 @@ export const PageTitle = {
   billing: "Billing",
   financials: "Financials",
   generated_invoice: "Generated_Invoice",
+  payout_requests: "Payment Request",
+  completed_payout: "Completed Request",
+  pending_payout: "Pending Request",
+  failed_payout: "Failed Request",
 };
