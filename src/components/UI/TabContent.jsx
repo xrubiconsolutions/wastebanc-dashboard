@@ -2,6 +2,7 @@ import { Tabs, Button } from "antd";
 import DataTable from "./Table";
 import tw from "twin.macro";
 import styled from "styled-components";
+import { useState } from "react";
 
 const { TabPane } = Tabs;
 
@@ -29,12 +30,16 @@ const Tabcontent = ({
     onSwitch(key);
   };
 
+  // const [activeKey, setActiveKey] = useState(0);
+  // const newTabIndex = useRef(0);
+
   return (
     <TabContainer>
       <Tabs defaultActiveKey="0" onChange={callback}>
         {data.map((el, i) => {
           return (
             <TabPane tab={el.title} key={i}>
+              {/* {console.log("el", el, "iiiiiiii", i)} */}
               <DataTable
                 data={el.data}
                 columns={el.columns}

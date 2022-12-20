@@ -12,6 +12,7 @@ const initialState = {
 const appReducer = createSlice({
   name: "app",
   initialState,
+
   reducers: {
     startLoad(state) {
       state.loading = true;

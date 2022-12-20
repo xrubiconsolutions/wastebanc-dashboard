@@ -4,6 +4,9 @@ import Data from "./data";
 import { NavLink } from "react-router-dom";
 import tw from "twin.macro";
 import DropdownNavLink from "./SubMenu";
+import { logout } from "../../../store/reducers/authSlice";
+import { useDispatch } from "react-redux";
+import { LogoutData } from "./data";
 
 const SidebarParent = styled.div`
   position: absolute;
@@ -79,7 +82,8 @@ const StyledNavLink = styled(NavLink)`
     // background: rgba(255, 255, 255, 0.1);
   }
 `;
-function sidebar() {
+function Sidebar() {
+  const dispatch = useDispatch();
   return (
     <>
       <SidebarParent>
@@ -95,24 +99,48 @@ function sidebar() {
             Powered by Pakam Technology
           </p>
         </div>
-        {Data.map((item) => {
-          if (item.subNav && item.subNav.length) {
-            return <DropdownNavLink item={item} key={item.title} />;
-          }
-          return (
-            <div key={item.title}>
-              <StyledNavLink
-                exact
-                to={`/user${item.path}`}
-                activeClassName="selected"
-                className="flex space-x-4 justify-start items-center"
-              >
-                <img src={item.icon} alt={item.title} />
-                <p>{item.title}</p>
-              </StyledNavLink>
-            </div>
-          );
-        })}
+        <div className="border-b-2 border-white border-solid pb-8 ">
+          {Data.map((item) => {
+            if (item.subNav && item.subNav.length) {
+              return <DropdownNavLink item={item} key={item.title} />;
+            }
+            return (
+              <div key={item.title}>
+                <StyledNavLink
+                  exact
+                  to={`/user${item.path}`}
+                  activeClassName="selected"
+                  className="flex space-x-4 justify-start items-center"
+                >
+                  <img src={item.icon} alt={item.title} />
+                  <p>{item.title}</p>
+                </StyledNavLink>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="" onClick={() => dispatch(logout())}>
+          {LogoutData.map((item) => {
+            if (item.subNav && item.subNav.length) {
+              return <DropdownNavLink item={item} key={item.title} />;
+            }
+            return (
+              <div key={item.title}>
+                <StyledNavLink
+                  exact
+                  to={`/user${item.path}`}
+                  activeClassName="selected"
+                  className="flex space-x-4 justify-start items-center"
+                >
+                  <img src={item.icon} alt={item.title} />
+                  <p>{item.title}</p>
+                </StyledNavLink>
+              </div>
+            );
+          })}
+        </div>
+
         {/* <p className="text-white text-center font-bold text-sm bottom-0 absolute px-4">
           Powered by Pakam Technology
         </p> */}
@@ -121,4 +149,4 @@ function sidebar() {
   );
 }
 
-export default sidebar;
+export default Sidebar;

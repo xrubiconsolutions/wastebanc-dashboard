@@ -53,6 +53,7 @@ const NavBarRight = styled.div`
 const Navbar = () => {
   const location = useLocation();
   const getTitle = location.pathname.split("/");
+  console.log("get title: ", getTitle);
   let getTitleEnum = getTitle[getTitle.length - 1];
   return (
     <NavContainer>
