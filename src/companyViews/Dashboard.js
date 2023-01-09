@@ -68,9 +68,9 @@ const Dashboard = () => {
     end: d,
   };
 
-  const handlePickupFilter = async (page = 1) => {
+  const handlePickupFilter = async (date, page = 1) => {
     const res = await dispatch(
-      getFilteredCompanyRecentPickups(...payload, page)
+      getFilteredCompanyRecentPickups({ currentMonth: date, page })
     );
     if (!res.error) {
       const { companySchedules, ...paginationData } = res.payload;

@@ -220,7 +220,7 @@ const TotalAggregators = () => {
       title: "Approved Agents",
       link: "Approved Aggregators",
       data: fetchedAggregators,
-      // totalPages: approvedPagination?.totalPages,
+      totalPages: approvedPagination?.totalPages,
       paginationData: approvedPagination,
       filterHandler: filterApprovedCollector,
       searchHandler: searchApprovedCollector,
