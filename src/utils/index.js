@@ -239,6 +239,7 @@ export const formUserDashboardItems = ({
 };
 
 export const pureReverse = (n) => (n ? n.reduce((a, b) => [b, ...a], []) : []);
+
 export const getLoginMode = () => localStorage.getItem("login_mode");
 
 export const chunk = (arr, size) =>
