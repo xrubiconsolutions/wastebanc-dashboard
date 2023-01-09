@@ -7,6 +7,7 @@ const useForm = (entries, matchFields = [], precheck = false) => {
   // stores all form input values
   const formKeys = {};
   const initFormValues = {};
+
   Object.keys(entries).forEach((k) => {
     formKeys[k] = "";
 
@@ -28,7 +29,6 @@ const useForm = (entries, matchFields = [], precheck = false) => {
   });
 
   const [_formValues, setFormValues] = useState(initFormValues);
-
   // spread the form keys with empty values into objects
   const [errorMsgs, setErrorMsgs] = useState(formKeys);
   const [isValid, toggleValid] = useState(false);
@@ -106,6 +106,7 @@ const useForm = (entries, matchFields = [], precheck = false) => {
     );
     toggleValid(validityResult);
   };
+
   useEffect(() => {
     // check for invalid input and set form validity
     const validityResult = !Object.entries(errorMsgs).some(
@@ -117,6 +118,7 @@ const useForm = (entries, matchFields = [], precheck = false) => {
     );
     toggleValid(validityResult);
   }, [entries, errorMsgs]);
+
   return {
     setValue,
     errorMsgs,

@@ -57,7 +57,7 @@ export const PayoutRequest = () => {
   const { pendingRequest, completedRequest, failedRequest } = useSelector(
     (state) => state?.payments
   );
-  console.log(pendingRequest, completedRequest, failedRequest);
+  // console.log(pendingRequest, completedRequest, failedRequest);
 
   const dispatch = useDispatch();
   const fetchPendingPayoutRequest = async (page = 1) => {
@@ -173,6 +173,7 @@ export const PayoutRequest = () => {
     if (!completedRequest) setFetchedCompletedPayoutData(completedRequest);
     if (!failedRequest) setFetchedPendingPayoutData(failedRequest);
   }, [pendingRequest, completedRequest, failedRequest]);
+
   useEffect(() => {
     fetchPendingPayoutRequest();
     fetchCompletedPayoutRequest();

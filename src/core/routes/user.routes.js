@@ -113,22 +113,22 @@ const routes = [
     path: "billing",
     component: Billing,
   },
-  {
-    name: "payout_requests",
-    path: "payout_requests",
-    component: PayoutRequest,
-  },
-  {
-    name: "completed_payout",
-    path: "completed_payout",
-    component: CompletedPayoutPayment,
-  },
+  // {
+  //   name: "payout_requests",
+  //   path: "payout_requests",
+  //   component: PayoutRequest,
+  // },
+  // {
+  //   name: "completed_payout",
+  //   path: "completed_payout",
+  //   component: CompletedPayoutPayment,
+  // },
 
-  {
-    name: "failed_payout",
-    path: "failed_payout",
-    component: FailedPayoutPayment,
-  },
+  // {
+  //   name: "failed_payout",
+  //   path: "failed_payout",
+  //   component: FailedPayoutPayment,
+  // },
 
   {
     name: "pending_payout",

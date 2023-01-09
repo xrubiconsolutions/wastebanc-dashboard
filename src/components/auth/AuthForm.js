@@ -173,6 +173,7 @@ const AuthForm = ({
 
         <div>
           {loading && <Loader />}
+
           <FormContainer>
             <LogoWrapper>
               <img
