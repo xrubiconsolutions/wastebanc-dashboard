@@ -101,7 +101,7 @@ export const getRecentPickups = createAsyncThunk(
 // purpose of this duplicate is the prevent caching in the redux store
 // while the other recent pickup is cached
 export const getFilteredRecentPickups = createAsyncThunk(
-  "recent/pickup",
+  "recent filtered/pickup",
   async (data, { dispatch }) => {
     dispatch(startLoad());
     try {
