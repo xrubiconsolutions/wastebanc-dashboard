@@ -2,7 +2,7 @@ import { setError, stopLoad } from "../reducers/appSlice";
 
 export const handleError = (err, dispatch) => {
   // handle non-server based erorrs
-  console.log(err);
+  // console.log(err);
   if (!err.response && !err.data)
     dispatch(
       setError("There seems to be an issue currently, please try again")

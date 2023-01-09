@@ -26,6 +26,7 @@ const AuthLayout = () => {
   useEffect(() => {
     dispatch(clearError());
   }, [dispatch]);
+
   return (
     <LayoutContainer>
       <Switch>

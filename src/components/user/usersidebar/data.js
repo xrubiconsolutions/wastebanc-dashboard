@@ -77,16 +77,16 @@ const SidebarData = [
   //   path: "/waste_picker",
   //   icon: "/assets/images/waste_picker.svg",
   // },
-  // {
-  //   title: "Billing",
-  //   path: "/billing",
-  //   icon: "/assets/images/invoice-bill.svg",
-  // },
   {
-    title: "Payout ",
-    path: "/payout_requests",
-    icon: "/assets/images/Calendar.svg",
+    title: "Billing",
+    path: "/billing",
+    icon: "/assets/images/invoice-bill.svg",
   },
+  // {
+  //   title: "Payoutsss ",
+  //   path: "/payout_requests",
+  //   icon: "/assets/images/Calendar.svg",
+  // },
 ];
 
 export const LogoutData = [
