@@ -35,6 +35,7 @@ function App() {
       <Router>
         <Switch>
           <Redirect exact from="/" to="/auth" />
+
           <ProtectedRoute
             path="/admin"
             condition={data && loginMode === "super_admin"}

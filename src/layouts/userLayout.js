@@ -30,11 +30,13 @@ const UserLayout = () => {
   if (firstLogin) {
     return <Route render={firstPasswordReset} />;
   }
+
   return (
     <>
       <LayoutContainer>
         <Navbar />
         <Sidebar />
+
         <div className="children">
           <Switch>
             <Route

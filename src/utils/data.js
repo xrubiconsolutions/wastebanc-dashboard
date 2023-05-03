@@ -251,4 +251,5 @@ export const PageTitle = {
   completed_payout: "Completed Request",
   pending_payout: "Pending Request",
   failed_payout: "Failed Request",
+  evacuation: "Evacuation Request",
 };

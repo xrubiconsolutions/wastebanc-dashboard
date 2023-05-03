@@ -21,7 +21,6 @@ const ForgotPassword = ({ history }) => {
 
   const handler = async (data) => {
     sessionStorage.setItem("data", JSON.stringify(data));
-
     const res = await dispatch(resetPassword(data));
     if (res.meta.requestStatus === "fulfilled")
       history.push({

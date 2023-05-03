@@ -153,7 +153,7 @@ function Sidebar() {
                 activeClassName="selected"
                 className="flex space-x-4 justify-start items-center"
               >
-                <img src={`/${item.icon}`} alt={item.title} />
+                {/* <img src={`/${item.icon}`} alt={item.title} /> */}
                 <p>{item.title}</p>
               </StyledNavLink>
             </div>
