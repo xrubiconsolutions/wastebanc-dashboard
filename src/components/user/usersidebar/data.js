@@ -82,6 +82,13 @@ const SidebarData = [
     path: "/billing",
     icon: "/assets/images/invoice-bill.svg",
   },
+
+  {
+    title: "Evacuation Request",
+    path: "/evacuation",
+    icon: "/assets/images/eva.svg",
+  },
+
   // {
   //   title: "Payoutsss ",
   //   path: "/payout_requests",

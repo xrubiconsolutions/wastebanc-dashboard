@@ -30,7 +30,7 @@ const bottomOptions = [
 
 const TableContainer = styled.div`
   ${tw`bg-white h-full`}
-  overflow-y: scroll; ;
+  overflow-y: scroll;
 `;
 const FilterFix = styled.div`
   // margin-left: 36rem;
@@ -107,6 +107,7 @@ const DataTable = ({
                 <FilterFix raffle={raffle} show={noFilter}>
                   <Filter onFilter={onFilter} />
                 </FilterFix>
+
                 {data && (
                   <StyledButton
                     raffle

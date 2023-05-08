@@ -81,6 +81,7 @@ const ChangePassword = () => {
       setPostModal(true);
     }
   };
+  
   const pages = [{ name: "Dashboard", link: "/user/dashboard" }];
 
   return (
