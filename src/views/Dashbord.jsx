@@ -1,41 +1,40 @@
-import React, { useState, useEffect } from "react";
+import { Popover, Space, Tag } from "antd";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import tw from "twin.macro";
-import Filter from "../components/UI/Filter";
 import ContentCard from "../components/UI/ContentCard";
-import Tabcontent from "../components/UI/TabContent";
-import { chunk, formatValue } from "../utils";
-import { CardDashbordDetails } from "../utils/data";
-import { Tag, Space } from "antd";
-import StyledButton from "../components/UI/btn";
-import { claimPermissions, infoData, truncate } from "../utils/constants";
-import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
 import Disable from "../components/UI/Disable";
-import { Popover } from "antd";
+import Filter from "../components/UI/Filter";
+import Tabcontent from "../components/UI/TabContent";
+import StyledButton from "../components/UI/btn";
+import { chunk, formatValue } from "../utils";
+import { claimPermissions, infoData, truncate } from "../utils/constants";
+import { CardDashbordDetails } from "../utils/data";
 
+import { MapWrapper } from "../components/GoogleMaps/Map";
+import Location from "../components/UI/Location";
+import NewAggregators from "../components/UI/NewAggregators";
+import NewUserModal from "../components/UI/NewUserModal";
+import PickupModal from "../components/UI/PickupModal";
+import Modal from "../components/UI/modal";
 import {
-  filterMatrix,
   FilterNewAggregators,
-  SearchNewAggregators,
   FilterNewUsers,
-  getcurrentMonthMatrix,
+  FilterNewWastePickers,
+  SearchNewAggregators,
+  SearchNewUsers,
+  SearchNewWastePickers,
+  filterMatrix,
+  getFilteredRecentPickups,
   getNewAggregators,
   getNewUsers,
   getRecentPickups,
-  SearchNewUsers,
-  getFilteredRecentPickups,
-  searchRecentPickups,
   getWastePickers,
-  FilterNewWastePickers,
-  SearchNewWastePickers,
+  getcurrentMonthMatrix,
+  searchRecentPickups,
 } from "../store/actions";
-import { MapWrapper } from "../components/GoogleMaps/Map";
-import PickupModal from "../components/UI/PickupModal";
-import NewUserModal from "../components/UI/NewUserModal";
-import NewAggregators from "../components/UI/NewAggregators";
-import Location from "../components/UI/Location";
-import Modal from "../components/UI/modal";
 
 const colors = [
   "#00966D",

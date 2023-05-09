@@ -1,12 +1,12 @@
 import React from "react";
-import styled from "styled-components";
-import ProtectedRoute from "../core/routes/ProtectedRoute";
 import { Redirect, Route, Switch } from "react-router";
-import { Navbar, Sidebar } from "../components/user/index";
-import userRoutes from "../core/routes/user.routes";
-import firstPasswordReset from "../pages/auth/firstPasswordReset";
+import styled from "styled-components";
 import tw from "twin.macro";
 import { TwakReact } from "../components/Chat/index";
+import { Navbar, Sidebar } from "../components/user/index";
+import ProtectedRoute from "../core/routes/ProtectedRoute";
+import userRoutes from "../core/routes/user.routes";
+import firstPasswordReset from "../pages/auth/firstPasswordReset";
 
 const LayoutContainer = styled.section`
   ${tw`h-full`};

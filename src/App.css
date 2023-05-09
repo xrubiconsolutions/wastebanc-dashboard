@@ -166,3 +166,22 @@ thead[class*="ant-table-thead"] th {
 .transit {
   transition: all 600ms ease-in-out;
 }
+
+.ant-drawer-content {
+  background: linear-gradient(
+    178.54deg,
+    #008300 -24.78%,
+    #005700 98.76%
+  ) !important;
+  box-shadow: 0px 30px 24px rgba(0, 0, 0, 0.06) !important;
+}
+.ant-drawer-header {
+  background: #008300 !important;
+  /* box-shadow: 0px 30px 24px rgba(0, 0, 0, 0.06) !important; */
+}
+.ant-drawer-body {
+  padding: 0px !important;
+}
+.ant-drawer-close {
+  color: white;
+}

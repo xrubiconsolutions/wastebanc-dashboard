@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import ProtectedRoute from "../core/routes/ProtectedRoute";
-import { Redirect, Route, Switch } from "react-router";
-import { Navbar, Sidebar } from "../components";
-import adminRoutes, { filterRoutes } from "../core/routes/admin.routes";
 import { useSelector } from "react-redux";
-import FirstPasswordReset from "../pages/auth/firstPasswordReset";
+import { Redirect, Route, Switch } from "react-router";
+import styled from "styled-components";
 import tw from "twin.macro";
+import { Navbar, Sidebar } from "../components";
+import ProtectedRoute from "../core/routes/ProtectedRoute";
+import adminRoutes, { filterRoutes } from "../core/routes/admin.routes";
+import FirstPasswordReset from "../pages/auth/firstPasswordReset";
 
 const LayoutContainer = styled.section`
   ${tw`h-full`};

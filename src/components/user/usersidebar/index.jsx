@@ -1,9 +1,9 @@
 import React from "react";
-import styled from "styled-components";
-import Data from "./data";
 import { NavLink } from "react-router-dom";
+import styled from "styled-components";
 import tw from "twin.macro";
 import DropdownNavLink from "./SubMenu";
+import Data from "./data";
 
 const SidebarParent = styled.div`
   /* width: 0; */
@@ -93,7 +93,7 @@ const StyledNavLink = styled(NavLink)`
     // bg-label
     border-l-4
     border-white
-  `}// background: rgba(255, 255, 255, 0.1);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  `}// background: rgba(255, 255, 255, 0.1);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   }
 `;
 function sidebar() {
