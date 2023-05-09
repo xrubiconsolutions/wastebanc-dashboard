@@ -18,7 +18,7 @@ const Input = styled.input`
   }
   ::placeholder {
     font-size: 14px;
-    color: #005700;
+    color: #295011;
   }
 `;
 

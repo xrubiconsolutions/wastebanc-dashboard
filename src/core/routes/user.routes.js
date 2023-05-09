@@ -79,8 +79,8 @@ const routes = [
     component: DropOff,
   },
   {
-    name: "total_aggregators",
-    path: "total_aggregators",
+    name: "total_agents",
+    path: "total_agents",
     component: TotalAggregators,
   },
   {

@@ -114,7 +114,7 @@ const PendingModal = ({
               title.toLowerCase() === "status" &&
               value.toLowerCase() !== "pending"
             )
-              color = "#005700";
+              color = "#295011";
 
             return (
               <InfoItem key={title}>
@@ -185,7 +185,7 @@ const PendingModal = ({
               <Pointer
                 color={
                   userData.completionStatus === "Active" || "completed"
-                    ? "#005700"
+                    ? "#295011"
                     : "#FE0110"
                 }
               />

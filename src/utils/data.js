@@ -216,6 +216,7 @@ export const PageTitle = {
   total_dropoff: "Total Drop-off",
   total_users: "Total Users",
   total_aggregators: "Total Aggregators",
+  total_agents: "Total Agents",
   total_aggregators_all: "Total Organization",
   total_organizations: "Total Organizations",
   total_organizations_completed_schedules: "Total Organizations",

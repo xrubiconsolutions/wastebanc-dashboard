@@ -60,7 +60,7 @@ const WastePickerAssignModal = ({
   return (
     <>
       <Modal
-        color={error ? "red" : "#005700"}
+        color={error ? "red" : "#295011"}
         type="postAction"
         show={showPostModal}
         close={() => setPostModal(false)}

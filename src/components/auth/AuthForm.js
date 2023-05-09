@@ -48,7 +48,7 @@ const SubmitButton = styled.button`
 const RecoveryCodeText = styled.p`
   ${tw`text-sm text-label text-center mt-3`}
   > span {
-    color: #005700;
+    color: #295011;
   }
 `;
 

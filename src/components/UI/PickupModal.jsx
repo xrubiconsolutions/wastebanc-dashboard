@@ -128,7 +128,7 @@ const PickupModal = ({
               title.toLowerCase() === "status" &&
               value.toLowerCase() !== "pending"
             )
-              color = "#005700";
+              color = "#295011";
 
             return (
               <InfoItem key={title}>
@@ -219,7 +219,7 @@ const PickupModal = ({
                 userAgencies
                 color={
                   userData.completionStatus === "completed"
-                    ? "#005700"
+                    ? "#295011"
                     : userData.completionStatus === "accepted"
                     ? "#3a32a8"
                     : "#FE0110"

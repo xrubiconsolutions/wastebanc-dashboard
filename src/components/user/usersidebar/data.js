@@ -45,8 +45,8 @@ const SidebarData = [
     ],
   },
   {
-    title: "Total Aggregators",
-    path: "/total_aggregators",
+    title: "Total Agents",
+    path: "/total_agents",
     icon: "/assets/images/aggregators.svg",
   },
   {

@@ -145,16 +145,16 @@ thead[class*="ant-table-thead"] th {
   border-radius: 50px;
 }
 .ant-pagination-item-active {
-  border-color: #295011;
+  border-color: #2A5012;
 }
 .ant-pagination-item-active a {
-  color: #295011;
+  color: #2A5012;
 }
 .ant-pagination-item-active a:hover {
-  color: #295011;
+  color: #2A5012;
 }
 .ant-pagination-item-active:hover {
-  border-color: #295011;
+  border-color: #2A5012;
 } */
 
 .ant-tabs-ink-bar {
@@ -171,7 +171,7 @@ thead[class*="ant-table-thead"] th {
   background: linear-gradient(
     178.54deg,
     #008300 -24.78%,
-    #005700 98.76%
+    #295011 98.76%
   ) !important;
   box-shadow: 0px 30px 24px rgba(0, 0, 0, 0.06) !important;
 }

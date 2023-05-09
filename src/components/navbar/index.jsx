@@ -60,7 +60,7 @@ const NavBarRight = styled.div`
 `;
 
 const SidebarDrawer = styled(Drawer)`
-  /* background: linear-gradient(178.54deg, #008300 -24.78%, #005700 98.76%);
+  /* background: linear-gradient(178.54deg, #008300 -24.78%, #295011 98.76%);
   box-shadow: 0px 30px 24px rgba(0, 0, 0, 0.06); */
 
   display: block;
@@ -81,7 +81,7 @@ const SidebarDrawer = styled(Drawer)`
 //   left: 0px;
 //   border-radius: 0px;
 //   color: #ffff;
-//   background: linear-gradient(178.54deg, #008300 -24.78%, #005700 98.76%);
+//   background: linear-gradient(178.54deg, #008300 -24.78%, #295011 98.76%);
 //   box-shadow: 0px 30px 24px rgba(0, 0, 0, 0.06);
 //   overflow-y: auto;
 // `;

@@ -31,7 +31,7 @@ const colors = [
   "#009A00",
   "#F5000F",
   // "#006700",
-  "#295011",
+  "#2A5012",
   "#FE0110",
 ];
 const DashbordContainer = styled.div`

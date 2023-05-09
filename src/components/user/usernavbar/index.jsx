@@ -58,7 +58,7 @@ const NavNotification = styled.img`
   ${tw`hidden lg:block`}
 `;
 const SidebarDrawer = styled(Drawer)`
-  /* background: linear-gradient(178.54deg, #008300 -24.78%, #005700 98.76%);
+  /* background: linear-gradient(178.54deg, #008300 -24.78%, #295011 98.76%);
   box-shadow: 0px 30px 24px rgba(0, 0, 0, 0.06); */
 
   display: block;
@@ -125,7 +125,7 @@ const StyledNavLink = styled(NavLink)`
     // bg-label
     border-l-4
     border-white
-  `}// background: rgba(255, 255, 255, 0.1);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  `}// background: rgba(255, 255, 255, 0.1);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   }
 `;
 
@@ -284,7 +284,7 @@ export default Navbar;
 //   ${tw`hidden lg:block`}
 // `;
 // const SidebarDrawer = styled(Drawer)`
-//   /* background: linear-gradient(178.54deg, #008300 -24.78%, #005700 98.76%);
+//   /* background: linear-gradient(178.54deg, #008300 -24.78%, #295011 98.76%);
 //   box-shadow: 0px 30px 24px rgba(0, 0, 0, 0.06); */
 // `;
 
