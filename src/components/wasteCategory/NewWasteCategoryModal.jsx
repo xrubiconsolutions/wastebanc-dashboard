@@ -50,7 +50,6 @@ const NewWasteCategoryModal = ({
       name: formValues.name,
       wastepicker: formValues.wastepicker,
     };
-    // console.log(data, "dataaaa");
     const res = await dispatch(createCategory(data));
     if (!res.error) dispatch(getCategory());
     setPostModal(true);

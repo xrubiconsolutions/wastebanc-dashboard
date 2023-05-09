@@ -88,7 +88,6 @@ const UpdateCategoryModal = ({
         <div className="flex flex-col">
           {Object.entries(values).map(([key, input], index) => (
             <>
-              {/* {console.log("key", key)} */}
               <FormInput
                 placeholder={input.placeholder}
                 type={input.type}

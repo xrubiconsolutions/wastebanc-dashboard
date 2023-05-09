@@ -54,9 +54,7 @@ const WastePickerModal = ({
     setTimeout(() => setPostModal(false), 2000);
   };
 
-  useEffect(() => {
-    // console.log("The error messages: ", errorMsgs, isValid);
-  }, [errorMsgs, isValid]);
+  useEffect(() => {}, [errorMsgs, isValid]);
 
   return (
     <>

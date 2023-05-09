@@ -44,7 +44,6 @@ const WastePickerAssignModal = ({
   const history = useHistory();
 
   const assignHandler = async () => {
-    console.log("The organisation: ", organisationId);
     if (!organisationId) return;
     const payload = {
       organisationId,
