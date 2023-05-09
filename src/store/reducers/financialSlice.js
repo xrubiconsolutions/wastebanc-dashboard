@@ -15,11 +15,9 @@ const financialsSlice = createSlice({
   reducers: {},
   extraReducers: {
     [fetchFinancialCompleted.fulfilled](state, { payload }) {
-      // console.log("Completed payload: ", payload);
       state.completedPayment = payload.data.invoices;
     },
     [fetchFinancialOutstandings.fulfilled](state, { payload }) {
-      // console.log("Outstandings payload: ", payload);
       state.outstandingPayment = payload.data.invoices;
     },
   },

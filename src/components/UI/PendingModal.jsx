@@ -93,7 +93,6 @@ const PendingModal = ({
   setShowPending = {},
   userData,
 }) => {
-  // console.log(userData, "data");
   return (
     <Modal show={showPending} close={() => setShowPending(false)} width="48rem">
       <ModalTitle>

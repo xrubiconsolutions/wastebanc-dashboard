@@ -7,8 +7,9 @@ export const currentMonthPending = createAsyncThunk(
   "currentMonth/pending",
   async (data, { dispatch }) => {
     dispatch(startLoad());
+    const { page, currentMonth } = data;
     try {
-      const res = await ScheduleService.getPendingSchedule(data);
+      const res = await ScheduleService.getPendingSchedule(page, currentMonth);
       return res;
     } catch (err) {
       handleError(err, dispatch);
@@ -90,10 +91,11 @@ export const getCompanyCompletedSchedule = createAsyncThunk(
   async (data, { dispatch }) => {
     dispatch(startLoad());
     try {
-      const { page, currentMonth } = data;
+      const { page, currentMonth, scheduleApproval } = data;
       const res = await ScheduleService.getCompanyCompletedSchedule(
         page,
-        currentMonth
+        currentMonth,
+        scheduleApproval
       );
       return res;
     } catch (err) {
@@ -103,6 +105,7 @@ export const getCompanyCompletedSchedule = createAsyncThunk(
     }
   }
 );
+
 export const currentMonthCancelled = createAsyncThunk(
   "currentMonth/cancelled",
   async (data, { dispatch }) => {
@@ -406,7 +409,6 @@ export const searchAccepted = createAsyncThunk(
 export const searchCompanyAccepted = createAsyncThunk(
   "search company/accepted",
   async (data, { dispatch }) => {
-    // console.log(data);
     dispatch(startLoad());
     try {
       const { page, key } = data;
@@ -571,6 +573,156 @@ export const searchCompanyMissed = createAsyncThunk(
       handleError(err, dispatch);
     } finally {
       // stop loading eventually
+      dispatch(stopLoad());
+    }
+  }
+);
+
+export const approvedCompletedSchedues = createAsyncThunk(
+  "approve/completed",
+  async (data, { dispatch }) => {
+    dispatch(startLoad());
+    try {
+      const res = await ScheduleService.approveCompletedSchedules(data);
+      return res;
+    } catch (err) {
+      handleError(err, dispatch);
+    } finally {
+      dispatch(stopLoad());
+    }
+  }
+);
+
+export const rejectCompletedSchedules = createAsyncThunk(
+  "approve/completed",
+  async (data, { dispatch }) => {
+    dispatch(startLoad());
+    try {
+      const res = await ScheduleService.rejectCompletedSchedules(data);
+      return res;
+    } catch (err) {
+      handleError(err, dispatch);
+    } finally {
+      dispatch(stopLoad());
+    }
+  }
+);
+
+export const getCompanyApprovedCompletedSchedule = createAsyncThunk(
+  "get-approved/completed",
+  async (data, { dispatch }) => {
+    dispatch(startLoad());
+    try {
+      const { page, currentMonth, scheduleApproval } = data;
+      const res = await ScheduleService.getCompanyApproveCompletedSchedule(
+        page,
+        currentMonth,
+        scheduleApproval
+      );
+      return res;
+    } catch (err) {
+      handleError(err, dispatch);
+    } finally {
+      dispatch(stopLoad());
+    }
+  }
+);
+
+export const searchCompanyApprovedCompletedSchedule = createAsyncThunk(
+  "search-approved/completed",
+  async (data, { dispatch }) => {
+    dispatch(startLoad());
+    try {
+      const { key, page, scheduleApproval } = data;
+      const res = await ScheduleService.searchCompanyApproveCompletedSchedule(
+        key,
+        page,
+        scheduleApproval
+      );
+      return res;
+    } catch (err) {
+      handleError(err, dispatch);
+    } finally {
+      dispatch(stopLoad());
+    }
+  }
+);
+
+export const filterCompanyApprovedCompletedSchedule = createAsyncThunk(
+  "get-approved/completed",
+  async (data, { dispatch }) => {
+    dispatch(startLoad());
+    try {
+      const { page, currentMonth, scheduleApproval } = data;
+      const res = await ScheduleService.filterCompanyApproveCompletedSchedule(
+        page,
+        currentMonth,
+        scheduleApproval
+      );
+      return res;
+    } catch (err) {
+      handleError(err, dispatch);
+    } finally {
+      dispatch(stopLoad());
+    }
+  }
+);
+
+export const getCompanyRejectedCompletedSchedule = createAsyncThunk(
+  "get-rejected/completed",
+  async (data, { dispatch }) => {
+    dispatch(startLoad());
+    try {
+      const { page, currentMonth, scheduleApproval } = data;
+      const res = await ScheduleService.getCompanyRejectCompletedSchedule(
+        page,
+        currentMonth,
+        scheduleApproval
+      );
+      return res;
+    } catch (err) {
+      handleError(err, dispatch);
+    } finally {
+      dispatch(stopLoad());
+    }
+  }
+);
+
+export const filterCompanyRejectedCompletedSchedule = createAsyncThunk(
+  "filter-rejected/completed",
+  async (data, { dispatch }) => {
+    dispatch(startLoad());
+    try {
+      const { page, currentMonth, scheduleApproval } = data;
+      const res = await ScheduleService.filterCompanyRejectCompletedSchedule(
+        page,
+        currentMonth,
+        scheduleApproval
+      );
+      return res;
+    } catch (err) {
+      handleError(err, dispatch);
+    } finally {
+      dispatch(stopLoad());
+    }
+  }
+);
+
+export const searchCompanyRejectedCompletedSchedule = createAsyncThunk(
+  "search-rejected/completed",
+  async (data, { dispatch }) => {
+    dispatch(startLoad());
+    try {
+      const { key, page, scheduleApproval } = data;
+      const res = await ScheduleService.searchCompanyRejectCompletedSchedule(
+        key,
+        page,
+        scheduleApproval
+      );
+      return res;
+    } catch (err) {
+      handleError(err, dispatch);
+    } finally {
       dispatch(stopLoad());
     }
   }

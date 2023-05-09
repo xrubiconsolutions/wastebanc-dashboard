@@ -6,7 +6,6 @@ import * as FiIcons from "react-icons/fi";
 import * as BiIcons from "react-icons/bi";
 import * as IoIcons from "react-icons/io5";
 import * as IoIcon from "react-icons/io";
-import { RiLogoutBoxLine } from "react-icons/ri";
 
 // Ui SidebarComponent data //
 const SidebarData = [
@@ -46,9 +45,7 @@ const SidebarData = [
     ],
   },
   {
-    // title: "Total Aggregators",
-    title: "Total Agents",
-
+    title: "Total Aggregators",
     path: "/total_aggregators",
     icon: "/assets/images/aggregators.svg",
   },
@@ -70,37 +67,16 @@ const SidebarData = [
     icon: "/assets/images/Map.svg",
     // icon: <BiIcons.BiMessageRoundedDetail />,
   },
-
-  // comment of aste pickers ..
-  // {
-  //   title: "Waste Picker",
-  //   path: "/waste_picker",
-  //   icon: "/assets/images/waste_picker.svg",
-  // },
+  {
+    title: "Waste Picker",
+    path: "/waste_picker",
+    icon: "/assets/images/waste_picker.svg",
+  },
   {
     title: "Billing",
     path: "/billing",
     icon: "/assets/images/invoice-bill.svg",
   },
-
-  {
-    title: "Evacuation Request",
-    path: "/evacuation",
-    icon: "/assets/images/eva.svg",
-  },
-
-  // {
-  //   title: "Payoutsss ",
-  //   path: "/payout_requests",
-  //   icon: "/assets/images/Calendar.svg",
-  // },
 ];
 
-export const LogoutData = [
-  {
-    title: "Logout",
-    path: "/logout",
-    icon: "/assets/images/Logout.svg",
-  },
-];
 export default SidebarData;

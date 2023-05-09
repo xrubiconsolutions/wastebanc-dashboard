@@ -29,10 +29,18 @@ const Crumb = styled.li`
   }
 `;
 
-const BreadCrumb = ({ pages, current }) => {
+const BreadCrumb = ({ pages, current, previous }) => {
   return (
     <Breadcrumbs>
       {pages.map((el, i) => {
+        return (
+          <Crumb key={i}>
+            <Link to={el.link}>{el?.name}</Link>
+          </Crumb>
+        );
+      })}
+
+      {previous?.map((el, i) => {
         return (
           <Crumb key={i}>
             <Link to={el.link}>{el?.name}</Link>

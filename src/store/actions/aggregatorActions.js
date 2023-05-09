@@ -187,11 +187,8 @@ export const toggleStatusAggregator = createAsyncThunk(
   async (data, { dispatch }) => {
     dispatch(startLoad());
     try {
-      const { collectorId, status } = data;
-      const res = await AggregatorService.toggleStatusAggregator(
-        collectorId,
-        status
-      );
+      const { id, status } = data;
+      const res = await AggregatorService.toggleStatusAggregator(id, status);
       return res;
     } catch (err) {
       handleError(err, dispatch);

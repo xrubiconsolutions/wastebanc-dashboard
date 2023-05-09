@@ -1,41 +1,57 @@
+import ChangePassword from "../../views/ChangePassword/ChangePassword";
 import Dashbord from "../../views/Dashbord";
 import DropOff from "../../views/DropOff/DropOff";
 import DropOffLocation from "../../views/DropOffLocation/DropOffLocation";
+import Financials from "../../views/Financials";
+import IncidentDetails from "../../views/IncidentDetails/IncidentDetails";
 import IncidentLog from "../../views/IncidentLog/IncidentLog";
+import Location from "../../views/Location/Location";
 import ManageAreas from "../../views/ManageAreas/ManageAreas";
-import TotalPayment from "../../views/Payment/TotalPayment";
 import OutstandingPayment from "../../views/Payment/OutstandingPayment";
+import TotalPayment from "../../views/Payment/TotalPayment";
+import ProfileDetails from "../../views/ProfileDetails/ProfileDetails";
+import Raffle from "../../views/Raffle/Raffle";
 import RecyclerWaste from "../../views/RecyclerWaste/RecyclerWaste";
+import Resources from "../../views/Resources/Resources";
+import Roles from "../../views/Roles/Roles";
+import AllAggregators from "../../views/TotalAggregators/AllAggregators";
+import TotalAggregators from "../../views/TotalAggregators/TotalAggregators";
+import GeneratedInvoices from "../../views/TotalOrganization/GeneratedInvoices";
+import InvoiceGenerate from "../../views/TotalOrganization/InvoiceGenerate";
+import ModifyOrganization from "../../views/TotalOrganization/ModifyOrganization";
+import SetupOrganization from "../../views/TotalOrganization/SetupOrganization";
+import TotalCompletedSchedule from "../../views/TotalOrganization/TotalCompletedSchedule";
+import TotalOrganization from "../../views/TotalOrganization/TotalOrganization";
+import WasteOrganization from "../../views/TotalOrganization/WasteOrganization";
+import { InsuranceDetails } from "../../views/TotalUser/Insurance/InsuranceDetails";
+import { InsuranceUserDetails } from "../../views/TotalUser/Insurance/InsuranceUserDetails";
+import TotalInsuranceUser from "../../views/TotalUser/Insurance/TotalInsuranceUser";
+import RenewalHistory from "../../views/TotalUser/Insurance/renewal";
+import TotalUser from "../../views/TotalUser/TotalUser";
+import UserDetails from "../../views/TotalUser/UserDetails";
+import UserDropOff from "../../views/TotalUser/dropoff/UserDropOff";
+import BankPayout from "../../views/TotalUser/payout/BankPayout";
+import CharityPayout from "../../views/TotalUser/payout/CharityPayout";
+import InsurancePurchase from "../../views/TotalUser/payout/InsurancePurchase";
+import { PayoutBreakdown } from "../../views/TotalUser/payout/PayoutBreakdown";
+import UserPayout from "../../views/TotalUser/payout/UserPayout";
+import UserAcceptedSchedule from "../../views/TotalUser/schedules/UserAcceptedSchedule";
+import UserCancelledSchedule from "../../views/TotalUser/schedules/UserCancelledSchedule";
+import UserCompletedSchedule from "../../views/TotalUser/schedules/UserCompletedSchedule";
+import UserMissedSchedule from "../../views/TotalUser/schedules/UserMissedSchedule";
+import UserPendingSchedule from "../../views/TotalUser/schedules/UserPendingSchedule";
+import TotalWaste from "../../views/TotalWaste/TotalWaste";
+import UserAgencies from "../../views/UserAgencies/UserAgencies";
+import UserAgency from "../../views/UserAgencies/UserAgency";
+import WasteCategory from "../../views/WasteCategory/WasteCategory";
 import WastePicker from "../../views/WastePicker/WastePicker";
 import WastePickerAssign from "../../views/WastePicker/WastePickerAssign";
+import WastePickerProfile from "../../views/WastePicker/WastePickerProfile";
 import AcceptedSchedule from "../../views/schedule/AcceptedSchedule";
 import CancelledSchedule from "../../views/schedule/CancelledSchedule";
 import CompletedSchedule from "../../views/schedule/CompletedSchedule";
 import MissedSchedule from "../../views/schedule/MissedSchedule";
 import PendingSchedule from "../../views/schedule/PendingSchedule";
-import TotalAggregators from "../../views/TotalAggregators/TotalAggregators";
-import AllAggregators from "../../views/TotalAggregators/AllAggregators";
-import TotalOrganization from "../../views/TotalOrganization/TotalOrganization";
-import TotalUser from "../../views/TotalUser/TotalUser";
-import TotalWaste from "../../views/TotalWaste/TotalWaste";
-import Raffle from "../../views/Raffle/Raffle";
-import WasteOrganization from "../../views/TotalOrganization/WasteOrganization";
-import SetupOrganization from "../../views/TotalOrganization/SetupOrganization";
-import ModifyOrganization from "../../views/TotalOrganization/ModifyOrganization";
-import ProfileDetails from "../../views/ProfileDetails/ProfileDetails";
-import IncidentDetails from "../../views/IncidentDetails/IncidentDetails";
-import WasteCategory from "../../views/WasteCategory/WasteCategory";
-import Roles from "../../views/Roles/Roles";
-import UserAgencies from "../../views/UserAgencies/UserAgencies";
-import Location from "../../views/Location/Location";
-import UserAgency from "../../views/UserAgencies/UserAgency";
-import ChangePassword from "../../views/ChangePassword/ChangePassword";
-import Resources from "../../views/Resources/Resources";
-import WastePickerProfile from "../../views/WastePicker/WastePickerProfile";
-import Financials from "../../views/Financials";
-import GeneratedInvoices from "../../views/TotalOrganization/GeneratedInvoices";
-import TotalCompletedSchedule from "../../views/TotalOrganization/TotalCompletedSchedule";
-import InvoiceGenerate from "../../views/TotalOrganization/InvoiceGenerate";
 
 const userInfo = JSON.parse(localStorage.getItem("current_user"));
 const whiteList = [
@@ -59,6 +75,7 @@ const routes = [
     path: "total-schedule/pending_schedule",
     component: PendingSchedule,
   },
+
   {
     name: "cancelled_schedule",
     path: "total-schedule/cancelled_schedule",
@@ -88,6 +105,22 @@ const routes = [
     name: "total_users",
     path: "total_users",
     component: TotalUser,
+  },
+  {
+    name: "total_users",
+    path: "total_users/total_insurance_user",
+    component: TotalInsuranceUser,
+  },
+  {
+    name: "user_details",
+    path: "user_details/:id",
+    component: UserDetails,
+  },
+
+  {
+    name: "insurance_details",
+    path: "insurance_details/:id",
+    component: InsuranceDetails,
   },
   {
     name: "total_aggregators",
@@ -234,15 +267,85 @@ const routes = [
   },
   {
     name: "user_agency",
-    // path: "/user_agency/:id",
-    path: "user_agency",
+    path: "user_agency/:id",
     component: UserAgency,
   },
   {
     name: "financials",
-    // path: "/user_agency/:id",
     path: "financials",
     component: Financials,
+  },
+
+  {
+    name: "user_pending_schedule",
+    path: "user_pending_schedule/:id",
+    component: UserPendingSchedule,
+  },
+
+  {
+    name: "user_completed_schedule",
+    path: "user_completed_schedule/:id",
+    component: UserCompletedSchedule,
+  },
+
+  {
+    name: "user_missed_schedule",
+    path: "user_missed_schedule/:id",
+    component: UserMissedSchedule,
+  },
+
+  {
+    name: "user_cancelled_schedule",
+    path: "user_cancelled_schedule/:id",
+    component: UserCancelledSchedule,
+  },
+
+  {
+    name: "user_dropoff_request",
+    path: "user_dropoff_request/:id",
+    component: UserDropOff,
+  },
+
+  {
+    name: "user_payout_history",
+    path: "user_payout_history/:id",
+    component: UserPayout,
+  },
+
+  {
+    name: "user_accepted_schedule",
+    path: "user_accepted_schedule/:id",
+    component: UserAcceptedSchedule,
+  },
+
+  {
+    name: "bank_payout",
+    path: "bank_payout/:id",
+    component: BankPayout,
+  },
+
+  {
+    name: "charity_payout",
+    path: "charity_payout/:id",
+    component: CharityPayout,
+  },
+
+  {
+    name: "insurance_purchase",
+    path: "insurance_purchase/:id",
+    component: InsurancePurchase,
+  },
+
+  {
+    name: "renewal_history",
+    path: "renewal_history/:id",
+    component: RenewalHistory,
+  },
+
+  {
+    name: "payout_breakdown",
+    path: "payout_breakdown/:id",
+    component: PayoutBreakdown,
   },
 ];
 

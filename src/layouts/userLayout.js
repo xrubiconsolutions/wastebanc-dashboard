@@ -6,15 +6,24 @@ import { Navbar, Sidebar } from "../components/user/index";
 import userRoutes from "../core/routes/user.routes";
 import firstPasswordReset from "../pages/auth/firstPasswordReset";
 import tw from "twin.macro";
+import { TwakReact } from "../components/Chat/index";
 
 const LayoutContainer = styled.section`
   ${tw`h-full`};
   .children {
+    ${tw``};
     height: calc(100% - 70px);
-    width: calc(100% - 253px);
-    margin-left: auto;
+    width: 100%;
+    /* width: calc(100% - 253px); */
+    margin-left: 0;
     margin-top: 80px;
     padding: 10px 1rem;
+    @media (min-width: 920px) {
+      margin-top: 80px;
+      margin-left: auto;
+      padding: 10px 1rem;
+      width: calc(100% - 253px);
+    }
     /* position: relative; */
   }
 `;
@@ -24,7 +33,6 @@ const Item = styled.p`
 `;
 
 const UserLayout = () => {
-  // console.log("For User resetting functionality!!!");
   const firstLogin =
     localStorage.getItem("firstLogin") === "true" ? true : false;
   if (firstLogin) {
@@ -36,7 +44,6 @@ const UserLayout = () => {
       <LayoutContainer>
         <Navbar />
         <Sidebar />
-
         <div className="children">
           <Switch>
             <Route
@@ -56,6 +63,7 @@ const UserLayout = () => {
           </Switch>
         </div>
       </LayoutContainer>
+      <TwakReact />
     </>
   );
 };

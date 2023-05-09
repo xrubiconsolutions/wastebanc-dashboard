@@ -2,7 +2,6 @@ import { setError, stopLoad } from "../reducers/appSlice";
 
 export const handleError = (err, dispatch) => {
   // handle non-server based erorrs
-  // console.log(err);
   if (!err.response && !err.data)
     dispatch(
       setError("There seems to be an issue currently, please try again")
@@ -20,242 +19,274 @@ export const handleError = (err, dispatch) => {
     dispatch(stopLoad());
   }
   if (err.response?.data?.statusCode === 401) {
-    // console.log("Now logging out");
     localStorage.clear();
   }
   throw err;
 };
 
 export {
-  fetchAdminProfile,
+  createUserAgencies,
+  deleteUserAgency,
+  getUserAgencies,
+  modifyUserAgency,
+} from "./agenciesActions";
+export { getAllAdmins, uploadFile } from "./appActions";
+export {
   editAdminProfile,
+  fetchAdminProfile,
   updateUserPassword,
 } from "./authActions";
 export {
-  createOrganization,
-  getAllOrganizations,
-  getLGA,
-  editCompanyProfile,
-  deleteCompany,
-} from "./orgActions";
-export { getAllAdmins, uploadFile } from "./appActions";
-export {
-  getAllResponders,
-  approveResponder,
-  deleteResponders,
-  declineResponder,
-} from "./responderActions";
-export {
-  getAllLocations,
   createLocation,
-  modifyLocation,
   deleteLocation,
+  getAllLocations,
   getAllWorldLocations,
+  modifyLocation,
 } from "./locationActions";
 export {
-  getUserAgencies,
-  createUserAgencies,
-  modifyUserAgency,
-  deleteUserAgency,
-} from "./agenciesActions";
+  createOrganization,
+  deleteCompany,
+  editCompanyProfile,
+  getAllOrganizations,
+  getLGA,
+} from "./orgActions";
+export {
+  approveResponder,
+  declineResponder,
+  deleteResponders,
+  getAllResponders,
+} from "./responderActions";
 
 export {
-  getRoles,
-  getClaims,
-  createRole,
-  updateRole,
-  deleteRole,
-} from "./roleActions";
-export {
-  getCategory,
-  createCategory,
-  deleteCategory,
-} from "./wasteCategoryAction";
-export {
-  searchUser,
-  filterUser,
-  currentMonthUser,
-  totalUser,
-  totalUssdUsers,
-  searchUssdUser,
-  filterUssdUser,
-} from "./userAction";
-export {
-  filterMatrix,
-  getcurrentMonthMatrix,
-  getNewAggregators,
   FilterNewAggregators,
-  SearchNewAggregators,
-  getNewUsers,
-  SearchNewUsers,
   FilterNewUsers,
-  getRecentPickups,
+  FilterNewWastePickers,
+  SearchNewAggregators,
+  SearchNewUsers,
+  SearchNewWastePickers,
+  filterMatrix,
   getCompanyMatrix,
-  getFilteredCompanyMatrix,
   getCompanyRecentPickups,
-  getFilteredRecentPickups,
+  getFilteredCompanyMatrix,
   getFilteredCompanyRecentPickups,
+  getFilteredRecentPickups,
+  getNewAggregators,
+  getNewUsers,
+  getRecentPickups,
+  getWastePickers,
+  getcurrentMonthMatrix,
   searchCompanyPickups,
   searchRecentPickups,
-  getWastePickers,
-  FilterNewWastePickers,
-  SearchNewWastePickers,
 } from "./dashboardAction";
 export {
+  SearchCollectorDropoff,
+  // new
+  approvedDropoff,
   currentMonthDropoff,
+  deleteCompanyDropoff,
+  filterCollectorDropoff,
+  filterDropoff,
+  getCollectorDropoff,
   getCompanyDropoff,
   searchDropoff,
-  filterDropoff,
-  SearchCollectorDropoff,
-  filterCollectorDropoff,
-  getCollectorDropoff,
-  deleteCompanyDropoff,
 } from "./dropOffAction";
+export {
+  createRole,
+  deleteRole,
+  getClaims,
+  getRoles,
+  updateRole,
+} from "./roleActions";
+export {
+  currentMonthUser,
+  filterUser,
+  filterUssdUser,
+  insuranceUserDetail,
+  insuranceUsers,
+  searchUser,
+  searchUssdUser,
+  serachInsuranceUsers,
+  totalUser,
+  totalUsersCompletedDropoffSchedule,
+  totalUsersCompletedPickupSchedule,
+  totalUsersDropoffSearchSchedules,
+  totalUsersPickupSearchSchedules,
+  totalUssdUsers,
+  userAcceptedSchedule,
+  userCancelledSchedule,
+  userCompletedSchedule,
+  userDetail,
+  userDropoffRequest,
+  userMissedSchedule,
+  userPendingSchedule,
+  userRenewalHistory,
+  userSearCancelledSchedule,
+  userSearchAcceptedSchedule,
+  userSearchCompletedSchedule,
+  userSearchDropoffRequest,
+  userSearchMissedSchedule,
+  userSearchPendingSchedule,
+  usersSearchRenewalHistory,
+} from "./userAction";
+export {
+  createCategory,
+  deleteCategory,
+  getCategory,
+} from "./wasteCategoryAction";
 
 export {
-  currentMonthPending,
+  approvedCompletedSchedues,
   currentMonthAccepted,
-  currentMonthCompleted,
   currentMonthCancelled,
-  getCompanyPendingSchedules,
-  getCompanyAcceptedSchedule,
-  getCompanyCancelledSchedule,
-  getCompanyCompletedSchedule,
-  getCompanyMissedSchedule,
+  currentMonthCompleted,
   currentMonthMissed,
-  searchPending,
-  searchAccepted,
-  searchCompleted,
-  searchCancelled,
-  searchCompanyAccepted,
-  searchCompanyCancelled,
-  searchCompanyCompleted,
-  searchCompanyMissed,
-  searchMissed,
-  filterMissed,
-  filterCancelled,
-  filterCompleted,
+  currentMonthPending,
   filterAccepted,
-  filterPending,
+  filterCancelled,
   filterCompanyAccepted,
+  filterCompanyApprovedCompletedSchedule,
   filterCompanyCancelled,
   filterCompanyCompleted,
   filterCompanyMissed,
+  // testing
+  filterCompanyRejectedCompletedSchedule,
+  filterCompleted,
+  filterMissed,
+  filterPending,
+  getCompanyAcceptedSchedule,
+  getCompanyApprovedCompletedSchedule,
+  getCompanyCancelledSchedule,
+  getCompanyCompletedSchedule,
+  getCompanyMissedSchedule,
+  getCompanyPendingSchedules,
+  getCompanyRejectedCompletedSchedule,
+  rejectCompletedSchedules,
+  searchAccepted,
+  searchCancelled,
+  searchCompanyAccepted,
+  searchCompanyApprovedCompletedSchedule,
+  searchCompanyCancelled,
+  searchCompanyCompleted,
+  searchCompanyMissed,
+  searchCompanyRejectedCompletedSchedule,
+  searchCompleted,
+  searchMissed,
+  searchPending,
 } from "./scheduleActions";
 
 export {
-  filterAggregator,
-  mapAggregator,
-  getCompanyAggregator,
-  getCompanyPending,
-  searchAggregator,
-  deleteAggregator,
-  toggleStatusAggregator,
   approveCompanyCollector,
+  companySearchAggregator,
   declineCompanyCollector,
+  deleteAggregator,
+  filterAggregator,
   filterCompanyAggregator,
   filterCompanyPending,
-  companySearchAggregator,
+  getCompanyAggregator,
+  getCompanyPending,
+  mapAggregator,
+  searchAggregator,
+  toggleStatusAggregator,
 } from "./aggregatorActions";
 
 export {
-  currentMonthDirect,
-  currentMonthCharity,
-  currentMonthOutstanding,
-  companyDirect,
   companyCharity,
+  companyDirect,
   companyOutstanding,
-  searchDirect,
-  searchCharity,
-  searchOutstanding,
-  searchCompanyDirect,
-  searchCompanyCharity,
-  searchCompanyOutstanding,
-  filterDirect,
+  currentMonthCharity,
+  currentMonthDirect,
+  currentMonthOutstanding,
   filterCharity,
-  filterOutstanding,
-  filterCompanyDirect,
   filterCompanyCharity,
+  filterCompanyDirect,
   filterCompanyOutstanding,
-  getpendingPayoutRequest,
-  getcompletedPayoutRequest,
-  searchpendingPayoutRequest,
-  filterpendingPayoutRequest,
-  searchcompletedPayoutRequest,
+  filterDirect,
+  filterOutstanding,
   filtercompletedPayoutRequest,
-  getfailedPayoutRequest,
-  searchfailedPayoutRequest,
   filterfailedPayoutRequest,
+  filterpendingPayoutRequest,
+  getcompletedPayoutRequest,
+  getfailedPayoutRequest,
+  getpendingPayoutRequest,
+  searchCharity,
+  searchCompanyCharity,
+  searchCompanyDirect,
+  searchCompanyOutstanding,
+  searchDirect,
+  searchOutstanding,
+  searchcompletedPayoutRequest,
+  searchfailedPayoutRequest,
+  searchpendingPayoutRequest,
 } from "./paymentActions";
 
 export {
-  getManagedArea,
   createManagedArea,
-  updateManagedArea,
-  searchManagedArea,
   getAllAreas,
+  getManagedArea,
   getStateAreas,
   getSubAreas,
+  searchManagedArea,
+  updateManagedArea,
 } from "./areaActions";
 export {
+  Collector,
   filterWasteCollector,
   searchWasteCollector,
-  Collector,
 } from "./wasteCollectionAction";
 
 export {
-  getOrganisationsProfile,
-  getOrganisations,
-  getAllOrganisations,
-  findOrganisation,
-  createOrganisation,
-  updateOrganisation,
-  updateOrganisationCompany,
-  searchOrganisations,
-  deleteOrganisation,
-  getOrganisationAggregators,
-  searchOrganisationAggregators,
-  getOutstandingInvoice,
-  searchOutstandingInvoice,
-  filterOutstandingInvoice,
-  getCompletedInvoice,
-  searchCompletedInvoice,
-  filterCompletedInvoice,
-  getCompletedSchedules,
-  searchCompletedDropffSchedules,
-  filterCompletedDropffSchedules,
-  getCompletedPickupSchedules,
-  searchCompletedPickupSchedules,
-  filterCompletedPickupSchedules,
-  getGeneratedInvoice,
-  downloadInvoices,
-  disableOrganisation,
-  enableOrganisation,
-} from "./organisationActions";
+  filterAdminWaste,
+  getAdminWaste,
+  getAdminWasteStats,
+  searchAdminWaste,
+} from "./adminWasteStatAction";
 export {
-  getCompanyWasteStats,
-  getCompanyWaste,
   filterCompanyWaste,
+  getCompanyWaste,
+  getCompanyWasteStats,
   searchCompanyWaste,
 } from "./companyWasteStatsAction";
 export {
-  getAdminWasteStats,
-  searchAdminWaste,
-  filterAdminWaste,
-  getAdminWaste,
-} from "./adminWasteStatAction";
-export {
-  getMapGeoFence,
-  createDropOffLocation,
-  mapDropOffLocation,
-} from "./geoFenceAction";
-export { getClients, postRaffle, searchClients } from "./raffleAction";
-export { ReportLog, searchReportLog, filterReportLog } from "./reportAction";
-export {
+  filterdDropoffLocations,
   getDropoffLocations,
   searchDropoffLocations,
-  filterdDropoffLocations,
 } from "./dropoffLocationsAction";
+export {
+  createDropOffLocation,
+  getMapGeoFence,
+  mapDropOffLocation,
+} from "./geoFenceAction";
+export {
+  createOrganisation,
+  deleteOrganisation,
+  disableOrganisation,
+  downloadInvoices,
+  enableOrganisation,
+  filterCompletedDropffSchedules,
+  filterCompletedInvoice,
+  filterCompletedPickupSchedules,
+  filterOutstandingInvoice,
+  findOrganisation,
+  getAllOrganisations,
+  getCompletedInvoice,
+  getCompletedPickupSchedules,
+  getCompletedSchedules,
+  getGeneratedInvoice,
+  getOrganisationAggregators,
+  getOrganisations,
+  getOrganisationsProfile,
+  getOutstandingInvoice,
+  searchCompletedDropffSchedules,
+  searchCompletedInvoice,
+  searchCompletedPickupSchedules,
+  searchOrganisationAggregators,
+  searchOrganisations,
+  searchOutstandingInvoice,
+  updateOrganisation,
+  updateOrganisationCompany,
+} from "./organisationActions";
+export { getClients, postRaffle, searchClients } from "./raffleAction";
+export { ReportLog, filterReportLog, searchReportLog } from "./reportAction";
 
 export {
   getUserLocations,
@@ -263,42 +294,51 @@ export {
 } from "./userAgencyLocationAction";
 
 export {
-  getResources,
   createResources,
+  deleteResources,
+  getResources,
   updateResources,
-  deleteResources, // getParticularResources,
 } from "./resourceActions";
 
 export {
-  createPicker,
-  getPickers,
-  getBank,
-  validateAccount,
-  getAssignedPickers,
-  getUnassignedPickers,
-  getPickersWithData,
-  assignPicker,
-  unassignPicker,
   ApprovedPickerCompany,
-  getCompanyPickerPending,
+  assignPicker,
+  createPicker,
   disableCompanyPickerCollector,
   enableCompanyPickerCollector,
+  getAssignedPickers,
+  getBank,
+  getCompanyPickerPending,
   getCompanyWastePickerStats,
+  getPickers,
+  getPickersWithData,
+  getUnassignedPickers,
+  unassignPicker,
+  validateAccount,
 } from "./wastePickerActions";
 
 export {
-  fetchFinancialSummary,
+  completeFinancialPayment,
+  downloadInvoice,
   fetchFinancialCompleted,
   fetchFinancialOutstandings,
-  completeFinancialPayment,
+  fetchFinancialSummary,
   fetchTransactionInvoice,
-  downloadInvoice,
 } from "../actions/financialsActions";
 export {
-  estimatedCost,
-  ongoingCost,
-  billingHistory,
-  searchBillingHistory,
-  filterBillingHistory,
   AccountDetails,
+  billingHistory,
+  estimatedCost,
+  filterBillingHistory,
+  ongoingCost,
+  searchBillingHistory,
 } from "./billingActions";
+
+export {
+  InsuranceSearchPurchases,
+  insurancePurchases,
+  payoutCharity,
+  payoutSearchCharity,
+  payoutpending,
+  payoutpendingSearch,
+} from "./payoutAction";

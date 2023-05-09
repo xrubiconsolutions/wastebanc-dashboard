@@ -65,7 +65,6 @@ const TotalPayoutModal = ({
   setShowPayout = {},
   userData,
 }) => {
-  // console.log(userData, 'data')
   return (
     <Modal show={showPayout} close={() => setShowPayout(false)} width="48rem">
       <ModalTitle>
