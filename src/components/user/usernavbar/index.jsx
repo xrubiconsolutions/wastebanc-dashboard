@@ -125,7 +125,7 @@ const StyledNavLink = styled(NavLink)`
     // bg-label
     border-l-4
     border-white
-  `}// background: rgba(255, 255, 255, 0.1);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  `}// background: rgba(255, 255, 255, 0.1);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   }
 `;
 
@@ -134,7 +134,19 @@ const Navbar = () => {
   const [placement, setPlacement] = useState("left");
   const location = useLocation();
   const getTitle = location.pathname.split("/");
-  let getTitleEnum = getTitle[getTitle.length - 1];
+  let getTitleEnum;
+
+  for (let i = getTitle.length - 1; i >= 0; i--) {
+    if (getTitle[i].includes("_")) {
+      getTitleEnum = getTitle[i];
+      break;
+    }
+  }
+
+  if (!getTitleEnum) {
+    getTitleEnum = getTitle[getTitle.length - 1];
+  }
+
   const showDrawer = () => {
     setOpen(true);
   };

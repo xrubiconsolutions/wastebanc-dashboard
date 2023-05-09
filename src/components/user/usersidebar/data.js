@@ -77,6 +77,11 @@ const SidebarData = [
     path: "/billing",
     icon: "/assets/images/invoice-bill.svg",
   },
+  {
+    title: "Evacuation Request",
+    path: "/evacuation",
+    icon: "/assets/images/Folder.svg",
+  },
 ];
 
 export default SidebarData;

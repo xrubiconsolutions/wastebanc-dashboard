@@ -6,7 +6,7 @@ import StyledButton from "../../components/UI/btn";
 import Tabcontent from "../../components/UI/TabContent";
 import { Link } from "react-router-dom";
 
-const TotalUser = () => {
+const EvacuationRequest = () => {
   const [showModal, setShowModal] = useState(false);
   const [rowInfo, setRowInfo] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
@@ -315,4 +315,4 @@ const TotalUser = () => {
   );
 };
 
-export default TotalUser;
+export default EvacuationRequest;

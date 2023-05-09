@@ -259,6 +259,9 @@ export const PageTitle = {
   user_details: "Total Users",
   renewal_history: "Total Insurance Users",
   insurance_details: "Total Insurance Users",
-
-  // total_insurance_user: "Total Insurance User",
+  evacuation: "Evacuation Request",
+  approval_breakdown_request: "Breakdown Request",
+  breakdown_request: "Breakdown Request",
+  approved_breakdown_request: "Breakdown Request",
+  rejected_breakdown_request: "Breakdown Request",
 };
