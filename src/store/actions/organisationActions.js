@@ -470,3 +470,33 @@ export const downloadInvoices = createAsyncThunk(
     }
   }
 );
+
+export const disableOrganisation = createAsyncThunk(
+  "organisation/disable",
+  async (data, { dispatch }) => {
+    dispatch(startLoad());
+    try {
+      const res = await OrganisationService.disableOrganisation(data);
+      return res;
+    } catch (err) {
+      handleError(err, dispatch);
+    } finally {
+      dispatch(stopLoad());
+    }
+  }
+);
+
+export const enableOrganisation = createAsyncThunk(
+  "organisation/enable",
+  async (data, { dispatch }) => {
+    dispatch(startLoad());
+    try {
+      const res = await OrganisationService.enableOrganisation(data);
+      return res;
+    } catch (err) {
+      handleError(err, dispatch);
+    } finally {
+      dispatch(stopLoad());
+    }
+  }
+);

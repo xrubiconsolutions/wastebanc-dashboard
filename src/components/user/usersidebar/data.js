@@ -100,7 +100,7 @@ export const LogoutData = [
   {
     title: "Logout",
     path: "/logout",
-    icon: "/assets/images/logout.svg",
+    icon: "/assets/images/Logout.svg",
   },
 ];
 export default SidebarData;

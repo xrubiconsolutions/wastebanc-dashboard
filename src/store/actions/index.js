@@ -76,6 +76,9 @@ export {
   filterUser,
   currentMonthUser,
   totalUser,
+  totalUssdUsers,
+  searchUssdUser,
+  filterUssdUser,
 } from "./userAction";
 export {
   filterMatrix,
@@ -226,6 +229,8 @@ export {
   filterCompletedPickupSchedules,
   getGeneratedInvoice,
   downloadInvoices,
+  disableOrganisation,
+  enableOrganisation,
 } from "./organisationActions";
 export {
   getCompanyWasteStats,

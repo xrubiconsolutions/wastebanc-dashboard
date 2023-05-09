@@ -53,4 +53,25 @@ export default class UserService {
     const res = await baseAxios.get(`/user/total/get`);
     return res?.data || res;
   }
+
+  static async getTottalUssdUSers(currentMonth, page) {
+    const res = await baseAxios.get(
+      `/v2/clients?start=${currentMonth.start}&end=${currentMonth.end}&channel=ussd&page=${page}`
+    );
+    return res?.data || res;
+  }
+
+  static async searchUssdUsers(key, page) {
+    const res = await baseAxios.get(
+      `/v2/clients?key=${key}&channel=ussd&page=${page}`
+    );
+    return res?.data || res;
+  }
+
+  static async filterUssdUser(page, currentMonth) {
+    const res = await baseAxios.get(
+      `/v2/clients?start=${currentMonth.start}&end=${currentMonth.end}&channel=ussd&page=${page}`
+    );
+    return res?.data || res;
+  }
 }

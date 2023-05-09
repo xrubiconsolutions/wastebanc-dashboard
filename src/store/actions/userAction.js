@@ -67,3 +67,54 @@ export const currentMonthUser = createAsyncThunk(
     }
   }
 );
+
+export const totalUssdUsers = createAsyncThunk(
+  "ussd/users",
+  async (data, { dispatch }) => {
+    dispatch(startLoad());
+    try {
+      const { currentMonth, page } = data;
+      const res = await UserService.getTottalUssdUSers(currentMonth, page);
+      return res;
+    } catch (err) {
+      handleError(err, dispatch);
+    } finally {
+      // stop loading eventually
+      dispatch(stopLoad());
+    }
+  }
+);
+
+export const searchUssdUser = createAsyncThunk(
+  "search/user",
+  async (data, { dispatch }) => {
+    dispatch(startLoad());
+    try {
+      const { page, key } = data;
+      const res = await UserService.searchUssdUsers(key, page);
+      return res;
+    } catch (err) {
+      handleError(err, dispatch);
+    } finally {
+      // stop loading eventually
+      dispatch(stopLoad());
+    }
+  }
+);
+
+export const filterUssdUser = createAsyncThunk(
+  "filterussd/user",
+  async (data, { dispatch }) => {
+    dispatch(startLoad());
+    try {
+      const { page, currentMonth } = data;
+      const res = await UserService.filterUssdUser(page, currentMonth);
+      return res;
+    } catch (err) {
+      handleError(err, dispatch);
+    } finally {
+      // stop loading eventually
+      dispatch(stopLoad());
+    }
+  }
+);

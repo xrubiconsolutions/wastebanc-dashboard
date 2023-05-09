@@ -12,6 +12,7 @@ import {
   searchCancelled,
 } from "../../store/actions";
 import PickupModal from "../../components/UI/PickupModal";
+import { Popover } from "antd";
 
 const CancelledSchedule = () => {
   /****************************
@@ -170,18 +171,38 @@ const CancelledSchedule = () => {
       key: "address",
       render: (text) => <p>{truncate(text, 30)}</p>,
     },
+    // {
+    //   title: "Waste Category",
+    //   dataIndex: "categories",
+    //   key: "categories",
+    //   render: (wastes) => (
+    //     <span>
+    //       {(wastes?.slice(0, 3) || []).map((waste) => {
+    //         return <Tag key={waste}>{waste.name || waste}</Tag>;
+    //       })}
+    //     </span>
+    //   ),
+    // },
+
     {
       title: "Waste Category",
       dataIndex: "categories",
       key: "categories",
-      render: (wastes) => (
+      render: (categories) => (
         <span>
-          {(wastes.slice(0, 3) || []).map((waste) => {
-            return <Tag key={waste}>{waste.name || waste}</Tag>;
+          {(categories.slice(0, 3) || []).map((waste) => {
+            return (
+              <Tag key={waste}>
+                <Popover content={waste?.name || waste}>
+                  {truncate(waste?.name, 10)}
+                </Popover>
+              </Tag>
+            );
           })}
         </span>
       ),
     },
+
     {
       title: "Customer Phone",
       dataIndex: "phone",
@@ -198,7 +219,7 @@ const CancelledSchedule = () => {
             onClick={() => {
               setRowInfo(record);
               setShowPending(true);
-              // console.log(record.info);
+         
             }}
           >
             See More
@@ -209,7 +230,6 @@ const CancelledSchedule = () => {
             onClick={() => {
               setRowInfo(record);
               setShowModal(true);
-              // console.log(record.info);
             }}
           >
             See More
@@ -232,7 +252,8 @@ const CancelledSchedule = () => {
         showModal={showModal}
         setShowModal={setShowModal}
         userData={rowInfo}
-        pending
+        // pending
+        cancelled
       />
 
       <div>

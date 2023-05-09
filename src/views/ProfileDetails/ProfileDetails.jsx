@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import tw from "twin.macro";
 import styled from "styled-components";
 import { FlexContainer } from "../../components/styledElements/index";
@@ -8,6 +8,8 @@ import { findOrganisation } from "../../store/actions";
 import { claimPermissions } from "../../utils/constants";
 import BreadCrumb from "../../components/UI/breadCrumbs";
 import { Tag } from "antd";
+import { disableOrganisation, enableOrganisation } from "../../store/actions";
+import Modal from "antd/lib/modal/Modal";
 
 const OrganizationContainer = styled.div`
   //   display: grid;
@@ -22,7 +24,7 @@ const NavBarLeft = styled.div`
   .text {
     font-size: 15px;
     color: "#0e0e0e";
-  } ;
+  }
 `;
 const ModalBackground = styled.div`
   ${tw`p-3 mt-4`}
@@ -70,6 +72,8 @@ const ProfileDetails = ({ match }) => {
     (claim) => claim.claimId.title === claimPermissions.ORGANISATION.title
   );
 
+  const { error } = useSelector((state) => state.app);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -115,6 +119,72 @@ const ProfileDetails = ({ match }) => {
     },
   ];
   const pages = [{ name: "Organization", link: "/admin/total_organizations" }];
+
+  const [message, setMessage] = useState("");
+  const [deleteflag, setDeleteModaFlagl] = useState(true);
+
+  const handleDisableOrganisation = async () => {
+    try {
+      const res = await dispatch(
+        disableOrganisation(selectedOrganisation?._id)
+      );
+      if (!res.error) {
+        setMessage(res.payload.message);
+        // setPostAction(true);
+      }
+    } catch (error) {}
+  };
+
+  const handleEnableOrganisation = async () => {
+    try {
+      const res = await dispatch(enableOrganisation(selectedOrganisation?._id));
+      if (!res.error) {
+        setMessage(res.payload.message);
+        // setPostAction(true);
+      }
+    } catch (error) {}
+  };
+
+  const optiondata = [
+    {
+      pathname: "/admin/total_aggregators_all/",
+      title: "See Aggregators",
+    },
+
+    {
+      pathname: "/admin/total_organizations_wastePicker/",
+      title: "Waste Pickers",
+      state: selectedOrganisation,
+    },
+
+    {
+      pathname: "/admin/total_organizations_generated_invoices/",
+      title: " Generated Invoices",
+    },
+
+    {
+      pathname: "/admin/total_organizations_completed_schedules/",
+      title: "Completed Schedules",
+    },
+
+    {
+      pathname: "/admin/total_organizations_modify/",
+      title: "Modify Organization",
+    },
+
+    {
+      title: "Disable Organization",
+      handler: handleDisableOrganisation,
+    },
+
+    {
+      title: "Enable Organization",
+      handler: handleEnableOrganisation,
+    },
+
+    { title: "Delete Organization", deleteflag: deleteflag },
+  ];
+
   return (
     <>
       <OrganizationContainer>
@@ -153,7 +223,11 @@ const ProfileDetails = ({ match }) => {
       <ModalBackground>
         <OrgainzationTitle>
           Organization Details
-          <Option selectedOrganisation={selectedOrganisation} />
+          <Option
+            selectedOrganisation={selectedOrganisation}
+            optiondata={optiondata}
+            message={message}
+          />
         </OrgainzationTitle>
         <ColumnStyle>
           <InfoWrapper>
