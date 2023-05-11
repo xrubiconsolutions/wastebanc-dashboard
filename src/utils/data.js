@@ -1,4 +1,4 @@
-export const colors = ["#00966D", "#5D5FEF", "#F5000F", "#009A00"];
+export const colors = ["#00966D", "#F5000F", "#5D5FEF", "#EF5DA8"];
 
 export const CardDashbordDetails = [
   {
@@ -15,16 +15,16 @@ export const CardDashbordDetails = [
     link: "/admin/total_waste",
   },
   {
-    icon: "/assets/images/totalPayment.svg",
-    title: "Total Waste Pickers",
-    amount: "12.5k",
-    link: "/admin/waste_picker",
-  },
-  {
     icon: "/assets/images/totalUnderstanding.svg",
     title: "Total Organisations",
     amount: "4.5k",
     link: "/admin/total_organizations",
+  },
+  {
+    icon: "/assets/images/health.svg",
+    title: "Insurance Users",
+    user: "20",
+    link: "/admin/total_users/total_insurance_user",
   },
   {
     icon: "/assets/images/totalSchedule.svg",
@@ -126,7 +126,7 @@ export const TotalCardUser = [
   },
   {
     icon: "/assets/images/userVector.svg",
-    title: "Total User",
+    title: "Total Users",
     user: "20",
   },
 ];
@@ -144,7 +144,7 @@ export const TotalCardWastePicker = [
   },
   {
     icon: "/assets/images/userVector.svg",
-    title: "Total Pickers",
+    title: "Pending Pickers",
     user: "20",
   },
   {
@@ -215,8 +215,8 @@ export const PageTitle = {
   missed_schedule: "Total Schedule - Missed",
   total_dropoff: "Total Drop-off",
   total_users: "Total Users",
-  // total_aggregators: "Total Aggregators",
-  total_aggregators: "Total Agents",
+  total_aggregators: "Total Aggregators",
+  total_agents: "Total Agents",
   total_aggregators_all: "Total Organization",
   total_organizations: "Total Organizations",
   total_organizations_completed_schedules: "Total Organizations",
@@ -241,10 +241,28 @@ export const PageTitle = {
   user_agency: "User Agencies",
   roles_permission: "Roles & Claims",
   manage_drop_off: "Manage Drop-Off",
-  geo_fencing: "Geo-Fenced Agent",
+  geo_fencing: "Geo-Fenced Aggregators",
   change_password: "Change Password",
   resource: "Resource",
   billing: "Billing",
   financials: "Financials",
-  generated_invoice: "Generated_Invoice",
+  generated_invoice: "Generated Invoice",
+  total_insurance_user: "Total Insurance Users",
+  user_payout_history: "Payout History",
+  user_dropoff_request: "Total Users",
+  user_missed_schedule: "Total Users",
+  user_accepted_schedule: "Total Users",
+  user_completed_schedule: "Total Users",
+  user_pending_schedule: "Total Users",
+  bank_payout: "Payout History",
+  charity_payout: "Payout History",
+  insurance_purchase: "Payout History",
+  user_details: "Total Users",
+  renewal_history: "Total Insurance Users",
+  insurance_details: "Total Insurance Users",
+  evacuation: "Evacuation Request",
+  approval_breakdown_request: "Breakdown Request",
+  breakdown_request: "Breakdown Request",
+  approved_breakdown_request: "Breakdown Request",
+  rejected_breakdown_request: "Breakdown Request",
 };

@@ -7,6 +7,7 @@ import PickupModal from "../../components/UI/PickupModal";
 import { infoData, truncate } from "../../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
+import { Popover } from "antd";
 import {
   currentMonthMissed,
   filterMissed,
@@ -62,7 +63,6 @@ const MissedSchedule = () => {
   };
 
   const onFilter = async (date, page = 1) => {
-    console.log("date", date);
     const res = await dispatch(
       filterMissed({
         page,
@@ -110,14 +110,33 @@ const MissedSchedule = () => {
       key: "address",
       render: (text) => <p>{truncate(text, 30)}</p>,
     },
+    // {
+    //   title: "Waste Category",
+    //   dataIndex: "categories",
+    //   key: "categories",
+    //   render: (wastes) => (
+    //     <span>
+    //       {(wastes?.slice(0, 3) || []).map((waste) => {
+    //         return <Tag key={waste}>{waste?.name || waste}</Tag>;
+    //       })}
+    //     </span>
+    //   ),
+    // },
+
     {
       title: "Waste Category",
       dataIndex: "categories",
       key: "categories",
-      render: (wastes) => (
+      render: (categories) => (
         <span>
-          {(wastes.slice(0, 3) || []).map((waste) => {
-            return <Tag key={waste}>{waste?.name || waste}</Tag>;
+          {(categories.slice(0, 3) || []).map((waste) => {
+            return (
+              <Tag key={waste}>
+                <Popover content={waste?.name || waste}>
+                  {truncate(waste?.name, 10)}
+                </Popover>
+              </Tag>
+            );
           })}
         </span>
       ),
@@ -138,7 +157,7 @@ const MissedSchedule = () => {
             onClick={() => {
               setRowInfo(record);
               setShowPending(true);
-              // console.log(record.info);
+             
             }}
           >
             See More
@@ -149,7 +168,6 @@ const MissedSchedule = () => {
             onClick={() => {
               setRowInfo(record);
               setShowModal(true);
-              // console.log(record.info);
             }}
           >
             See More

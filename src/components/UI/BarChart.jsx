@@ -111,11 +111,9 @@ import { months } from "../../utils/constants";
 // }
 
 function BarChart({ data }) {
-  console.log(data, "dattaa");
   const [num, setNum] = useState(0);
   const [modData, setModData] = useState([]);
   function addByClickBar(params) {
-    // console.log("params", params);
     setNum(num + 1);
   }
   const onEvents = {

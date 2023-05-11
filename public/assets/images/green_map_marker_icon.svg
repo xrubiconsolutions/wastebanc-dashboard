@@ -17,11 +17,11 @@
 </filter>
 <linearGradient id="paint0_linear_297_3517" x1="99.7704" y1="23.2452" x2="102.121" y2="92.5918" gradientUnits="userSpaceOnUse">
 <stop stop-color="#008300"/>
-<stop offset="1" stop-color="#005700"/>
+<stop offset="1" stop-color="#295011"/>
 </linearGradient>
 <linearGradient id="paint1_linear_297_3517" x1="95.0578" y1="48.7905" x2="95.2609" y2="56.7264" gradientUnits="userSpaceOnUse">
 <stop stop-color="#008300"/>
-<stop offset="1" stop-color="#005700"/>
+<stop offset="1" stop-color="#295011"/>
 </linearGradient>
 <clipPath id="clip0_297_3517">
 <rect width="41.1023" height="54.8031" fill="white" transform="translate(79.9043 37.8452)"/>

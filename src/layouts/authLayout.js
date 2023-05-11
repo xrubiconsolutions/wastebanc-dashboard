@@ -14,6 +14,8 @@ const LayoutContainer = styled.div`
   flex
   items-center
   justify-center
+  overflow-hidden
+
 `}
 `;
 
@@ -78,7 +80,7 @@ c-112 104 -218 203 -236 219 l-31 29 -145 -218z"
             </svg> */}
           </span>
           <p className="text-secondary font-bold text-base">
-            Powered by Wastebanc
+            Powered by Pakam Technology
           </p>
         </Item>
       </div>

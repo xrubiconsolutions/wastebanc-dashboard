@@ -55,7 +55,7 @@ export default class AggregatorService {
       ? `/v2/company-collectors?companyVerified=true&start=${data.start}&end=${
           data.end
         }&page=${data.page || 1}`
-      : `/v2/company-collectors?companyVerified=false&key=${data.key}&page=${
+      : `/v2/company-collectors?companyVerified=true&key=${data.key}&page=${
           data.page || 1
         }`;
     const res = await baseAxios.get(url);

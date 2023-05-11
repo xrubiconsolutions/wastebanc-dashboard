@@ -54,14 +54,12 @@ const WastePickerModal = ({
     setTimeout(() => setPostModal(false), 2000);
   };
 
-  useEffect(() => {
-    // console.log("The error messages: ", errorMsgs, isValid);
-  }, [errorMsgs, isValid]);
+  useEffect(() => {}, [errorMsgs, isValid]);
 
   return (
     <>
       <Modal
-        color={error ? "red" : "#005700"}
+        color={error ? "red" : "#295011"}
         type="postAction"
         show={showPostModal}
         close={() => setPostModal(false)}

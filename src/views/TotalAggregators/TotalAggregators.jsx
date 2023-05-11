@@ -20,6 +20,8 @@ import {
 import moment from "moment";
 import { chunk } from "../../utils";
 import { MapWrapper } from "./AggregatorsMap";
+import Modal from "../../components/UI/modal";
+import { deleteAggregator, toggleStatusAggregator } from "../../store/actions";
 
 const AggregatorsContainer = styled.div`
   ${tw`space-y-4`}
@@ -56,9 +58,8 @@ const TotalAggregators = () => {
     // end: moment(new Date(date.getFullYear(), date.getMonth() + 1, 1)).format(
     //   "YYYY-MM-DD"
     // ),
-
-    start: moment().startOf("year").format("YYYY-MM-DD"),
-    end: moment().endOf("year").format("YYYY-MM-DD"),
+    // start: moment().startOf("year").format("YYYY-MM-DD"),
+    // end: moment().endOf("year").format("YYYY-MM-DD"),
   });
 
   const [paginationData, setPaginationData] = useState();
@@ -67,8 +68,10 @@ const TotalAggregators = () => {
   const [fetchedData, setFetchedData] = useState();
   const [enabledData, setEnabledData] = useState();
   const [disabledData, setDisabledData] = useState();
+  const { error } = useSelector((state) => state.app);
+  const [showPostModal, setPostModal] = useState(false);
+  const [postMessage, setPostMessage] = useState();
 
-  // testing
   const openInfo = (mark, markId) => {
     setMarkerId(markId);
     setIsOpen(mark);
@@ -168,7 +171,7 @@ const TotalAggregators = () => {
   };
 
   useEffect(() => {
-    if (!aggregatorsMap) dispatch(mapAggregator(currentMonth));
+    if (!aggregatorsMap) dispatch(mapAggregator(payload));
   }, []);
 
   useEffect(() => {
@@ -281,6 +284,11 @@ const TotalAggregators = () => {
     onRefresh();
   }, []);
 
+  // console.log(
+  //   "data",
+  //   fetchedData?.map((d) => d.status)
+  // );
+
   /****************************
    *
    * handler functions and utils
@@ -305,6 +313,24 @@ const TotalAggregators = () => {
     setBodyData(dt);
   }, [aggregatorsMap]);
 
+  // const [modalOpen, setModalOpen] = useState(false);
+
+  const deleteHandler = async (data) => {
+    const payload = {
+      collectorId: data.id,
+    };
+    const res = await dispatch(deleteAggregator(payload));
+    const { message } = res.payload;
+    setPostMessage(message);
+
+    if (!res.error) {
+      setPostModal(!showPostModal);
+    }
+    onRefresh();
+  };
+
+  const [enabled, setEnabled] = useState("Enabled");
+
   const data = [
     {
       title: "All",
@@ -324,6 +350,7 @@ const TotalAggregators = () => {
       //
       data: fetchedData?.map((collect) => ({
         key: collect.aggregatorId,
+        id: collect._id,
         name: collect.fullname,
         lga: "alimosho",
         schedules: collect.schedules,
@@ -385,18 +412,24 @@ const TotalAggregators = () => {
               >
                 See More
               </StyledButton>
-              <Vector
+
+              {/* <Vector
                 onClick={() => {
                   setSelectedInfo(record);
                 }}
               >
-                <Disable data={selectedInfo} onRefresh={onRefresh} />
-              </Vector>
+                <Disable
+                  data={selectedInfo}
+                  onRefresh={onRefresh}
+                  deletehandler={() => deleteHandler(record)}
+                />
+              </Vector> */}
             </Space>
           ),
         },
       ],
     },
+
     {
       title: "Enabled",
       link: "Enabled",
@@ -416,6 +449,7 @@ const TotalAggregators = () => {
       //     })),
       data: enabledData?.map((collect) => ({
         key: collect.aggregatorId,
+        id: collect._id,
         name: collect.fullname,
         lga: "alimosho",
         phone: collect.phone,
@@ -480,7 +514,11 @@ const TotalAggregators = () => {
                   setSelectedInfo(record);
                 }}
               >
-                <Disable data={selectedInfo} onRefresh={onRefresh} />
+                <Disable
+                  data={selectedInfo}
+                  onRefresh={onRefresh}
+                  deletehandler={() => deleteHandler(record)}
+                />
               </Vector>
             </Space>
           ),
@@ -508,6 +546,7 @@ const TotalAggregators = () => {
         // disabledData.length > 0 &&
         disabledData?.map((collect) => ({
           key: collect.aggregatorId,
+          id: collect._id,
           name: collect.fullname,
           lga: "alimosho",
           schedules: collect.schedules,
@@ -573,7 +612,12 @@ const TotalAggregators = () => {
                   setSelectedInfo(record);
                 }}
               >
-                <Disable data={selectedInfo} onRefresh={onRefresh} />
+                <Disable
+                  data={selectedInfo}
+                  onRefresh={onRefresh}
+                  deletehandler={() => deleteHandler(record)}
+                  enabled={enabled}
+                />
               </Vector>
             </Space>
           ),
@@ -584,6 +628,17 @@ const TotalAggregators = () => {
 
   return (
     <>
+      <Modal
+        color={error ? "red" : "#295011"}
+        type="postAction"
+        show={showPostModal}
+        close={() => {
+          setPostModal(false);
+        }}
+      >
+        {!error ? postMessage : error}
+      </Modal>
+
       <ApprovedModal
         showPending={showPending}
         setShowPending={setShowPending}

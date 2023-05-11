@@ -51,8 +51,7 @@ export const loginAdmin = createAsyncThunk(
         localStorage.setItem("lasepa_admin_token", res.token);
         await dispatch(getCompanyMatrix(currentMonth));
       }
-      // console.log("The diffs: ", res);
-      // console.log("Company user login data", JSON.stringify(res));
+
       localStorage.setItem("current_company", JSON.stringify(res));
 
       return res;
@@ -112,6 +111,7 @@ export const changePassword = createAsyncThunk(
     }
   }
 );
+
 export const updateUserPassword = createAsyncThunk(
   "auth/updatePassword",
   async (data, { dispatch }) => {
@@ -167,6 +167,7 @@ const AuthSlice = createSlice({
       state.token = "";
     },
   },
+
   extraReducers: {
     [loginUser.fulfilled]: (state, { payload }) => {
       const { token, ...data } = payload;

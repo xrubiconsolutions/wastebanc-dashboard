@@ -30,7 +30,6 @@ const LocationButton = ({ onFilter }) => {
   };
 
   const { getAllLocation } = useSelector((state) => state?.userAgencyLocation);
-  // console.log(getAllLocation, "getAllLocationgetAllLocation");
 
   useEffect(() => {
     if (!getAllLocation) dispatch(getUserLocations());
@@ -42,9 +41,6 @@ const LocationButton = ({ onFilter }) => {
       setValue(currentVal);
     }
   }, [getAllLocation]);
-
-  console.log("setting value", value);
-  console.log("allAllocations", getAllLocation);
 
   return (
     <div className="group">

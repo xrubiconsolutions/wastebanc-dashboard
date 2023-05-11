@@ -5,10 +5,11 @@ import ResourceService from "../../services/resourceService";
 
 export const getResources = createAsyncThunk(
   "resource/get",
-  async (_, { dispatch }) => {
+  async (data, { dispatch }) => {
+    const { page, currentMonth } = data;
     dispatch(startLoad());
     try {
-      const res = await ResourceService.getResources();
+      const res = await ResourceService.getResources(page, currentMonth);
       return res;
     } catch (err) {
       handleError(err, dispatch);
@@ -40,8 +41,8 @@ export const updateResources = createAsyncThunk(
   async (data, { dispatch }) => {
     dispatch(startLoad());
     try {
-      const { resourceId } = data;
-      const res = await ResourceService.updateResources(resourceId);
+      const { id, resourceData } = data;
+      const res = await ResourceService.updateResources(id, resourceData);
       return res;
     } catch (err) {
       handleError(err, dispatch);

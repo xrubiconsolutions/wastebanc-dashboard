@@ -45,10 +45,8 @@ const SidebarData = [
     ],
   },
   {
-    // title: "Total Aggregators",
     title: "Total Agents",
-
-    path: "/total_aggregators",
+    path: "/total_agents",
     icon: "/assets/images/aggregators.svg",
   },
   {
@@ -69,17 +67,20 @@ const SidebarData = [
     icon: "/assets/images/Map.svg",
     // icon: <BiIcons.BiMessageRoundedDetail />,
   },
-
-  // comment of aste pickers ..
-  // {
-  //   title: "Waste Picker",
-  //   path: "/waste_picker",
-  //   icon: "/assets/images/waste_picker.svg",
-  // },
+  {
+    title: "Waste Picker",
+    path: "/waste_picker",
+    icon: "/assets/images/waste_picker.svg",
+  },
   {
     title: "Billing",
     path: "/billing",
     icon: "/assets/images/invoice-bill.svg",
+  },
+  {
+    title: "Evacuation Request",
+    path: "/evacuation",
+    icon: "/assets/images/Folder.svg",
   },
 ];
 

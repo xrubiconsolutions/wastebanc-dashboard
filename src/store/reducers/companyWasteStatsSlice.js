@@ -12,7 +12,6 @@ const companyWasteStatsSlice = createSlice({
   reducers: {},
   extraReducers: {
     [getCompanyWasteStats.fulfilled]: (state, { payload }) => {
-      // console.log("The payload rsult: ", payload.data);
       state.companyWasteStats = payload.data;
     },
     [getCompanyWaste.fulfilled]: (state, { payload }) => {

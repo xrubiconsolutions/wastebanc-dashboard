@@ -51,7 +51,6 @@ const IncidentLog = () => {
   useEffect(() => {
     if (!incidentLog) {
       dispatch(ReportLog(currentMonth));
-      // console.log(bodyData, "boddyy");
     } else {
       setBodyData(incidentLog);
     }

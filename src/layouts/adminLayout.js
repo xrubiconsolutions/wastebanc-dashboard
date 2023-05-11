@@ -1,22 +1,32 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import ProtectedRoute from "../core/routes/ProtectedRoute";
-import { Redirect, Route, Switch } from "react-router";
-import { Navbar, Sidebar } from "../components";
-import adminRoutes, { filterRoutes } from "../core/routes/admin.routes";
 import { useSelector } from "react-redux";
-import FirstPasswordReset from "../pages/auth/firstPasswordReset";
+import { Redirect, Route, Switch } from "react-router";
+import styled from "styled-components";
 import tw from "twin.macro";
+import { Navbar, Sidebar } from "../components";
+import ProtectedRoute from "../core/routes/ProtectedRoute";
+import adminRoutes, { filterRoutes } from "../core/routes/admin.routes";
+import FirstPasswordReset from "../pages/auth/firstPasswordReset";
 
 const LayoutContainer = styled.section`
-  // ${tw`h-full`};
+  ${tw`h-full`};
   .children {
+    ${tw``};
     height: calc(100% - 70px);
-    width: calc(100% - 253px);
-    margin-left: auto;
+    width: 100%;
+    /* width: calc(100% - 253px); */
+    margin-left: 0;
     margin-top: 80px;
     padding: 10px 1rem;
-  } // position: relative;
+
+    @media (min-width: 920px) {
+      margin-top: 80px;
+      margin-left: auto;
+      padding: 10px 1rem;
+      width: calc(100% - 253px);
+    }
+    /* position: relative; */
+  }
 `;
 
 const Item = styled.p`

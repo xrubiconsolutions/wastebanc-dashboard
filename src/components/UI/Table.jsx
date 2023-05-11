@@ -12,6 +12,7 @@ import Filter from "./Filter";
 import { FlexContainer } from "../styledElements";
 import { FaAngleLeft } from "react-icons/fa";
 import PaginationBars from "./Paginationbars";
+import { convertToCSV } from "../../utils";
 // import Pagination from '../../views/Pagination/Pagination';
 
 const topOptions = [
@@ -30,7 +31,7 @@ const bottomOptions = [
 
 const TableContainer = styled.div`
   ${tw`bg-white h-full`}
-  overflow-y: scroll; ;
+  overflow-y: scroll;
 `;
 const FilterFix = styled.div`
   // margin-left: 36rem;
@@ -45,11 +46,11 @@ const RefeshContainer = styled.button`
   // margin-bottom: -40px;
 `;
 const PaginationContainer = styled.div`
-  ${tw`flex items-center justify-between w-full `}
+  ${tw`flex items-center justify-between w-full  overflow-x-hidden`}
   padding: .5rem 1.5rem;
 `;
 const FilterCSVHandler = styled.div`
-  ${tw`flex items-center gap-4`}
+  ${tw`flex items-center md:flex-row flex-col gap-4`}
 `;
 
 const DataTable = ({
@@ -69,15 +70,15 @@ const DataTable = ({
   paginationData,
   noFilter,
   nopagination,
+  showFilter,
+  showSearchBar,
 }) => {
   const location = useLocation();
   const getTitle = location.pathname.split("/");
   let getTitleEnum = getTitle[getTitle.length - 1];
   const pageSize = 20;
-  // console.log(paginationData, "pag data table");
 
   const handleRefresh = () => {
-    // console.log(refreshUrl, "-----refreshUrl");
     onRefresh();
   };
 
@@ -86,7 +87,11 @@ const DataTable = ({
   };
 
   const pullData = (page) => {
-    if (!paginationData.key && !(paginationData.start || paginationData.end)) {
+    // console.log(paginationData, "paginationData");
+    if (
+      !paginationData.key &&
+      !(paginationData.date?.start || paginationData.date?.end)
+    ) {
       onFetch(page);
       return;
     }
@@ -101,20 +106,22 @@ const DataTable = ({
         {header ? (
           <>
             <div className="flex justify-between items-center px-5 py-2">
-              <SearchBar onSearch={onSearch} />
+              {!showSearchBar && <SearchBar onSearch={onSearch} />}
 
               <FilterCSVHandler>
                 <FilterFix raffle={raffle} show={noFilter}>
-                  <Filter onFilter={onFilter} />
+                  {!showFilter && <Filter onFilter={onFilter} />}
                 </FilterFix>
+
                 {data && (
                   <StyledButton
                     raffle
                     buttonStyle="btn--primary--outline"
                     buttonSize="btn--small"
+                    // className="hidden md:block"
                   >
                     <CSVLink
-                      data={data}
+                      data={data && convertToCSV(data)}
                       filename={PageTitle[getTitleEnum]}
                       className="text-secondary hover:text-white font-semibold"
                     >
@@ -164,6 +171,9 @@ const DataTable = ({
           // }}
           pagination={false}
           dataSource={data}
+          responsive={true}
+          scroll={{ x: 800 }}
+          sticky={true}
         ></Table>
       </>
     </TableContainer>

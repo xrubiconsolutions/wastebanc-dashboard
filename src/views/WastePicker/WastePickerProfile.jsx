@@ -83,7 +83,6 @@ const WastePickerProfile = ({ match }) => {
   const {
     state: { record },
   } = location;
-  // console.log(record);
 
   const dispatch = useDispatch();
 

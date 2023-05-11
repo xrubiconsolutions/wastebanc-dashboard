@@ -44,7 +44,6 @@ const WastePickerAssignModal = ({
   const history = useHistory();
 
   const assignHandler = async () => {
-    console.log("The organisation: ", organisationId);
     if (!organisationId) return;
     const payload = {
       organisationId,
@@ -61,7 +60,7 @@ const WastePickerAssignModal = ({
   return (
     <>
       <Modal
-        color={error ? "red" : "#005700"}
+        color={error ? "red" : "#295011"}
         type="postAction"
         show={showPostModal}
         close={() => setPostModal(false)}

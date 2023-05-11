@@ -19,7 +19,7 @@ export const baseURL =
   // :
   // "https://packamserver.herokuapp.com/api",
   // "https://pakam-staging.herokuapp.com/api";
-  "https://wastebancapi.pakam.ng/api";
+  "https://wastebanc-staging.herokuapp.com/api";
 
 const axiosInstance = axios.create({
   baseURL,
@@ -37,6 +37,7 @@ export const axiosInstanceV2 = axios.create({
     // "https://pakam-staging.herokuapp.com/api/v2",
     "https://wastebancapi.pakam.ng/api",
 });
+
 axiosInstance.interceptors.request.use(reqInterceptor, (err) =>
   console.log(err)
 );

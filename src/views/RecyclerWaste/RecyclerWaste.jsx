@@ -20,7 +20,7 @@ const columns = [
     render: (text) => <p>{truncate(text, 150)}</p>,
   },
   {
-    title: "Total Collected",
+    title: "Total Collected (Kg)",
     dataIndex: "total",
     key: "total",
   },
@@ -111,7 +111,7 @@ const RecyclerWaste = () => {
 
   const fetchAll = async (date) => {
     const res = await dispatch(Collector(payload));
-    // console.log("All Recycler waste", res);
+
     if (!res.error) {
       const { result, ...paginationData } = res.payload.data;
       setBodyData(result);

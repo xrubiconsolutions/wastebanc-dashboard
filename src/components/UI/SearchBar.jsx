@@ -29,6 +29,7 @@ const SearchForm = styled.div`
     }
   }
 `;
+
 const Searchwrapper = styled.div`
   background: transparent;
   //   padding: 0px 28px 0px;
@@ -66,6 +67,7 @@ const Searchinput = styled.input`
     // color: $primary-color;
   }
 `;
+
 const SearchBar = ({ onSearch }) => {
   const [searchInput, setSearchInput] = useState("");
 
@@ -83,7 +85,6 @@ const SearchBar = ({ onSearch }) => {
     event.preventDefault();
     const { value } = event.target;
     setSearchInput(value);
-    // console.log("The search key is: ", searchInput);
     onSearch(searchInput);
     setSearchInput("");
   };

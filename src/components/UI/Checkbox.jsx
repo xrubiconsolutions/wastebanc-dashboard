@@ -15,8 +15,8 @@ export const CheckBox = styled.input`
   + .custom-checkbox {
     height: 24px;
     width: 24px;
-    border: 2px solid #005700;
-    border-color: ${(props) => props.color || "#005700"};
+    border: 2px solid #295011;
+    border-color: ${(props) => props.color || "#295011"};
     border-radius: 5px;
     position: absolute;
   }
@@ -28,7 +28,7 @@ export const CheckBox = styled.input`
     box-shadow: 1px -1px 2px purple, -1px 1px 2px purple;
   }
   &:checked + .custom-checkbox {
-    background-color: ${(props) => props.color || "#005700"};
+    background-color: ${(props) => props.color || "#295011"};
   }
   + .custom-checkbox:after {
     content: "";

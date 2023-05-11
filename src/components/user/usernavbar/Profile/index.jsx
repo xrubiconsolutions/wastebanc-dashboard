@@ -38,8 +38,8 @@ function Profile() {
   // const {
   //   userInfo: { companyName},
   // } = useSelector((state) => state.auth);
-  const companyName = localStorage.getItem("current_companyname")
-  const initials = companyName && companyName[0]
+  const companyName = localStorage.getItem("current_companyname");
+  const initials = companyName && companyName[0];
 
   const ProfileContent = () => (
     <>
@@ -72,7 +72,9 @@ function Profile() {
           >
             <ProfileContent />
           </FlexContainer>
-          <ProfileItem onClick={() =>history.push("/user/total_organizations_modify")}>
+          <ProfileItem
+            onClick={() => history.push("/user/total_organizations_modify")}
+          >
             <FiUser />
             <ItemText>Edit Organization</ItemText>
           </ProfileItem>
@@ -89,7 +91,6 @@ function Profile() {
             <IoLogOutOutline />
             <ItemText>Logout</ItemText>
           </ProfileItem>
-        
         </div>
       </Modal>
     </ProfileContainer>

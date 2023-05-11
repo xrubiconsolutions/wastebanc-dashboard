@@ -187,7 +187,7 @@ const WasteOrganization = ({ match }) => {
       ...bankData,
       organisation: state.selectedOrganisation._id,
     };
-    // console.log("Final data: ", finalData);
+
     const res = await dispatch(createPicker(finalData));
     if (!res.error) {
       fetchPickers();
@@ -303,9 +303,7 @@ const WasteOrganization = ({ match }) => {
     wastePickerEntries.bank.options = banks;
     // ban = allBanks.find((bank) => bank.value === );
   }, [allBanks]);
-  useEffect(() => {
-    // console.log("The collectors and pagination: ", tableBody, paginationData);
-  }, [tableBody, paginationData]);
+  useEffect(() => {}, [tableBody, paginationData]);
 
   useEffect(() => {
     //fills country select with available countries in locations state
@@ -361,6 +359,7 @@ const WasteOrganization = ({ match }) => {
       resolveAccount(accountNum);
     } else if (accountNum === "") formState.setValue("accountName", "none");
   }, [formState.formValues.accountNumber]);
+
   const pages = [
     { name: "Profile Details", link: `/admin/profile_details/${id}` },
   ];

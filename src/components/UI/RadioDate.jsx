@@ -25,8 +25,8 @@ function RadioDate({ setAfter, setBefore, changeHandler }) {
     if (!["start", "end"].includes(rangeSide)) return;
     rangeSide === "start" ? setBefore(dateObj) : setAfter(dateObj);
     rangeSide === "start" ? setValueFrom(dateObj) : setValueto(dateObj);
-    // console.log(dateObj, dateStr, rangeSide);
   };
+
   return (
     <>
       <Row>

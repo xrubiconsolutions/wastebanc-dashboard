@@ -5,10 +5,18 @@ import { Link } from "react-router-dom";
 import { DownOutlined } from "@ant-design/icons";
 import DeleteModal from "../../components/common/DeleteModal";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteOrganisation, getOrganisations } from "../../store/actions";
+import {
+  deleteOrganisation,
+  getOrganisations,
+  enableOrganisation,
+  disableOrganisation,
+} from "../../store/actions";
 import moment from "moment";
 import { useHistory } from "react-router";
 import { claimPermissions } from "../../utils/constants";
+import Modal from "./modal";
+import { PayoutOptionModal } from "../../views/TotalUser/PayoutOptionModal";
+import { setModalOpening, setPayout } from "../../store/reducers/appSlice";
 
 const ModalBackground = styled.div`
   width: 200px;
@@ -51,7 +59,12 @@ const OverlayBackground = styled.div`
   z-index: 10;
 `;
 
-function OptionModal({ setModalOpen, selectedOrganisation }) {
+function OptionModal({
+  setModalOpen,
+  selectedOrganisation,
+  optiondata,
+  message,
+}) {
   const [showDeleteModal, setDeleteModal] = useState(false);
   const date = new Date();
   const currentMonth = {
@@ -74,6 +87,8 @@ function OptionModal({ setModalOpen, selectedOrganisation }) {
     (claim) => claim.claimId.title === claimPermissions.ORGANISATION.title
   );
 
+  const { error, modal } = useSelector((state) => state.app);
+
   const deleteHandler = () => {
     dispatch(deleteOrganisation(selectedOrganisation._id))
       .unwrap()
@@ -83,103 +98,110 @@ function OptionModal({ setModalOpen, selectedOrganisation }) {
       });
   };
 
+  const [showPostAction, setPostAction] = useState(false);
+  const [pay, setPay] = useState([]);
+  const [modaltoggler, setModalToggler] = useState(true);
+
+  const handleModalToggler = () => {
+    setModalToggler(!modaltoggler);
+  };
+
   return (
     <>
+      <Modal
+        show={showPostAction}
+        close={() => {
+          setPostAction(false);
+        }}
+        type="postAction"
+      >
+        <p>{!error ? message : error}</p>
+      </Modal>
+
       <DeleteModal
         showModal={showDeleteModal}
         setShowModal={setDeleteModal}
         handleDelete={deleteHandler}
         type="account"
+        title="Delete"
         name={selectedOrganisation.companyName}
       />
 
       <div className="modalContainer">
         <ModalBackground>
           <Menu>
-            <Menu.Item key="0">
-              <Link
-                to={{
-                  pathname: `/admin/total_aggregators_all/${selectedOrganisation._id}`,
-                }}
-              >
-                See Aggregators
-              </Link>
-            </Menu.Item>
-            <Menu.Divider />
-            <>
-              <Menu.Item key="1">
-                <Link
-                  to={{
-                    pathname: `/admin/total_organizations_wastePicker/${selectedOrganisation._id}`,
-                    state: { selectedOrganisation },
-                  }}
-                >
-                  Waste Pickers
-                </Link>
-              </Menu.Item>
-              <Menu.Divider />
-            </>
-            <>
-              <Menu.Item key="2">
-                <Link
-                  to={{
-                    pathname: `/admin/total_organizations_generated_invoices/${selectedOrganisation._id}`,
-                    state: { selectedOrganisation },
-                  }}
-                >
-                  Generated Invoices
-                </Link>
-              </Menu.Item>
-              <Menu.Divider />
-            </>
-
-            <>
-              <Menu.Item key="3">
-                <Link
-                  to={{
-                    pathname: `/admin/total_organizations_completed_schedules/${selectedOrganisation._id}`,
-                    state: { selectedOrganisation },
-                  }}
-                >
-                  Completed Schedules
-                </Link>
-              </Menu.Item>
-              <Menu.Divider />
-            </>
-
-            {orgPermissions?.edit && (
-              <>
-                <Menu.Item key="5">
-                  <Link
-                    to={{
-                      pathname: `/admin/total_organizations_modify/${selectedOrganisation._id}`,
-                    }}
-                  >
-                    Modify Organization
-                  </Link>
-                </Menu.Item>
-                <Menu.Divider />
-              </>
+            {optiondata?.map(
+              (
+                { pathname, title, deleteflag, handler, payoutroutes },
+                index
+              ) => {
+                return (
+                  <>
+                    <Menu.Item key={index}>
+                      <Link
+                        style={{ color: `${deleteflag && "red"}` }}
+                        to={{
+                          pathname: `${
+                            pathname
+                              ? `${pathname}${
+                                  selectedOrganisation._id ||
+                                  selectedOrganisation
+                                }`
+                              : `${
+                                  selectedOrganisation._id ||
+                                  selectedOrganisation
+                                }`
+                          }`,
+                          state: { selectedOrganisation },
+                        }}
+                        onClick={() => {
+                          if (deleteflag) {
+                            setDeleteModal(true);
+                            // setPostAction(true);
+                          } else if (payoutroutes) {
+                            handleModalToggler();
+                            setPay(payoutroutes);
+                            dispatch(setPayout(payoutroutes));
+                            dispatch(setModalOpening(modaltoggler));
+                          } else if (handler) {
+                            handler();
+                            setPostAction(true);
+                          } else;
+                        }}
+                      >
+                        {title}
+                      </Link>
+                    </Menu.Item>
+                    <Menu.Divider />
+                  </>
+                );
+              }
             )}
 
-            {orgPermissions?.delete && (
-              <Menu.Item key="4">
+            {/* {orgPermissions?.delete && (
+              <Menu.Item key="7">
                 <Link
                   to="#"
                   style={{ color: "red" }}
                   onClick={() => setDeleteModal(true)}
                 >
-                  Disable Organization
+                  Delete Organization
                 </Link>
               </Menu.Item>
-            )}
+            )} */}
           </Menu>
         </ModalBackground>
         <OverlayBackground
           onClick={() => {
             setModalOpen(false);
+            dispatch(setModalOpening(false));
           }}
         ></OverlayBackground>
+
+        <PayoutOptionModal
+          pay={pay}
+          selectedOrganisation={selectedOrganisation}
+        />
       </div>
     </>
   );

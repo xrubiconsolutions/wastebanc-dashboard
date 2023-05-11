@@ -10,7 +10,6 @@ export const getUserLocations = createAsyncThunk(
     dispatch(startLoad());
     try {
       const res = await UserAgencyLocationService.getUserAgencyLocation();
-      // console.log(res, "res ----getAllLocation");
       return res;
     } catch (err) {
       handleError(err, dispatch);
@@ -29,7 +28,7 @@ export const updateUserLocations = createAsyncThunk(
       const res = await UserAgencyLocationService.updateUserAgencyLocation(
         data
       );
-      console.log(res);
+
       return res;
     } catch (err) {
       handleError(err, dispatch);
