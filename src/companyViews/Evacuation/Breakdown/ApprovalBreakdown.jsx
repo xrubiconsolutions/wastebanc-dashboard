@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
-import tw from "twin.macro";
+import moment from "moment";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router";
 import styled from "styled-components";
-import { FlexContainer } from "../../../components/styledElements/index";
+import tw from "twin.macro";
 import BreadCrumb from "../../../components/UI/breadCrumbs";
-import Button from "../../../components/UI/button";
-import DataTable from "../../../components/UI/Table";
-import Tabcontent from "../../../components/UI/TabContent";
 
+import { useDispatch } from "react-redux";
+import { FlexContainer } from "../../../components/styledElements/index";
+import { approveRequest } from "../../../store/actions";
+import BreakdownTable from "./BreakdownTable";
 export const UserContainer = styled.div`
   margin-bottom: 20px;
   display: grid;
@@ -53,14 +55,14 @@ const BreakDownContainer = styled.div`
 
 const ButtonContainer = styled.div`
   > button {
-    ${tw`text-sm px-7 py-2 rounded-md transition-all ease-in-out duration-500`}
+    ${tw`text-sm px-6 py-2 rounded-md transition-all ease-in-out duration-500`}
   }
   > button:first-child {
-    ${tw`bg-secondary text-white hover:bg-white hover:text-secondary border-2 border-secondary`}
+    ${tw`bg-secondary text-white hover:bg-transparent hover:text-secondary border-2 border-secondary `}
   }
 
   > button:last-child {
-    ${tw`bg-white text-red-400 border-[2px] border-red-400   hover:bg-secondary hover:text-white`}
+    ${tw`bg-transparent text-red-400 border-[2px] border-red-400   hover:bg-secondary hover:text-white  hover:border-transparent`}
   }
 `;
 const ApprovalBreakdown = ({ match }) => {
@@ -70,79 +72,48 @@ const ApprovalBreakdown = ({ match }) => {
 
   useEffect(() => {}, []);
 
+  const { state } = useLocation();
+
   const data = [
     {
-      title: "Agent's Name",
-      value: "",
-    },
-    {
-      title: "Phone Number",
-      value: "",
-    },
-
-    {
       title: "Waste Quantity",
-      value: "",
+      value: state?.weight,
     },
 
     {
       title: "Collector's Phone Number",
-      value: "",
+      value: state["collectors"].phone,
     },
 
     {
       title: "Location",
-      value: "",
+      value: state["collectors"].address,
     },
 
     {
       title: "Date of Request",
-      value: "",
+      value: moment(state?.date).format("YYYY-MM-DD"),
     },
 
     {
       title: "Collector's Name",
-      value: "",
+      value: state["collectors"].fullname,
     },
   ];
   const pages = [{ name: "Awaiting Approval", link: "/user/evacuation" }];
 
-  const columns = [
-    {
-      title: "Date",
-      dataIndex: "date",
-      key: "date",
-    },
+  const dispatch = useDispatch();
 
-    {
-      title: "Agent's Name",
-      dataIndex: "agent",
-      key: "agent",
-    },
+  const approveReq = async (id = "64551af4e6b4df6121ea0614") => {
+    try {
+      const res = await dispatch(approveRequest());
+      console.log("approval", res);
+    } catch (error) {}
+  };
 
-    {
-      title: "Phone Number",
-      dataIndex: "phone",
-      key: "phone",
-    },
-    {
-      title: "Location",
-      dataIndex: "location",
-      key: "location",
-      render: (text) => (
-        <p className="space-x-2 ">
-          {text}
-          <span>Kg</span>
-        </p>
-      ),
-    },
-
-    {
-      title: "Waste Quanity",
-      dataIndex: "waste",
-      key: "waste",
-    },
-  ];
+  useEffect(() => {
+    approveReq();
+  }, []);
 
   return (
     <>
@@ -175,20 +146,9 @@ const ApprovalBreakdown = ({ match }) => {
             })}
           </GridContainer>
         </ModalBackground>
-      </BreakDownContainer>
 
-      <DataTable
-        data=""
-        columns={columns}
-        header
-        onSearch=""
-        onFilter=""
-        onRefresh=""
-        setCurrentPage=""
-        paginationData=""
-        totalPages=""
-        onFetch=""
-      />
+        <BreakdownTable state={state} />
+      </BreakDownContainer>
     </>
   );
 };

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
-import tw from "twin.macro";
+import moment from "moment";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router";
 import styled from "styled-components";
-import { FlexContainer } from "../../../components/styledElements/index";
+import tw from "twin.macro";
 import BreadCrumb from "../../../components/UI/breadCrumbs";
-import Button from "../../../components/UI/button";
-import DataTable from "../../../components/UI/Table";
+import { FlexContainer } from "../../../components/styledElements/index";
+import BreakdownTable from "./BreakdownTable";
 
 export const UserContainer = styled.div`
   margin-bottom: 20px;
@@ -31,9 +32,6 @@ const UserTitle = styled.div`
   ${tw`text-xl font-medium`}
 `;
 
-const InfoWrapper = styled.div`
-  ${tw`flex flex-wrap gap-10 gap-x-12 w-11/12`}
-`;
 const InfoItem = styled.div`
   ${tw`flex flex-col space-y-2`}
 `;
@@ -69,79 +67,35 @@ const UserDetails = ({ match }) => {
 
   useEffect(() => {}, []);
 
+  const { state } = useLocation();
+
   const data = [
     {
-      title: "Agent's Name",
-      value: "",
-    },
-    {
-      title: "Phone Number",
-      value: "",
-    },
-
-    {
       title: "Waste Quantity",
-      value: "",
+      value: state?.weight,
     },
 
     {
       title: "Collector's Phone Number",
-      value: "",
+      value: state["collectors"].phone,
     },
 
     {
       title: "Location",
-      value: "",
+      value: state["collectors"].address,
     },
 
     {
       title: "Date of Request",
-      value: "",
+      value: moment(state?.date).format("YYYY-MM-DD"),
     },
 
     {
       title: "Collector's Name",
-      value: "",
+      value: state["collectors"].fullname,
     },
   ];
   const pages = [{ name: "Incoming", link: "/user/evacuation" }];
-
-  const columns = [
-    {
-      title: "Date",
-      dataIndex: "date",
-      key: "date",
-    },
-
-    {
-      title: "Agent's Name",
-      dataIndex: "agent",
-      key: "agent",
-    },
-
-    {
-      title: "Phone Number",
-      dataIndex: "phone",
-      key: "phone",
-    },
-    {
-      title: "Location",
-      dataIndex: "location",
-      key: "location",
-      render: (text) => (
-        <p className="space-x-2 ">
-          {text}
-          <span>Kg</span>
-        </p>
-      ),
-    },
-
-    {
-      title: "Waste Quanity",
-      dataIndex: "waste",
-      key: "waste",
-    },
-  ];
 
   return (
     <>
@@ -176,18 +130,7 @@ const UserDetails = ({ match }) => {
         </ModalBackground>
       </BreakDownContainer>
 
-      <DataTable
-        data=""
-        columns={columns}
-        header
-        onSearch=""
-        onFilter=""
-        onRefresh=""
-        setCurrentPage=""
-        paginationData=""
-        totalPages=""
-        onFetch=""
-      />
+      <BreakdownTable state={state} />
     </>
   );
 };

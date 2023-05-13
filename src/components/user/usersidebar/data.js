@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 // react-icons//
 import React from "react";
-import * as HiIcons from "react-icons/hi";
-import * as FiIcons from "react-icons/fi";
 import * as BiIcons from "react-icons/bi";
-import * as IoIcons from "react-icons/io5";
+import * as FiIcons from "react-icons/fi";
+import * as HiIcons from "react-icons/hi";
 import * as IoIcon from "react-icons/io";
+import * as IoIcons from "react-icons/io5";
 
 // Ui SidebarComponent data //
 const SidebarData = [

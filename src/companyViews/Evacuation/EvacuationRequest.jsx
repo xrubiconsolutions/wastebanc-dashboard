@@ -1,18 +1,49 @@
+import { Space } from "antd";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { Tag, Space } from "antd";
-import InfoModal from "../../components/UI/InfoModal";
-import { useDispatch, useSelector } from "react-redux";
-import StyledButton from "../../components/UI/btn";
-import Tabcontent from "../../components/UI/TabContent";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import Tabcontent from "../../components/UI/TabContent";
+import StyledButton from "../../components/UI/btn";
+import {
+  companyFilterEvacuationRequest,
+  companySearchEvacuationRequest,
+  evacuationRequest,
+} from "../../store/actions";
 
 const EvacuationRequest = () => {
-  const [showModal, setShowModal] = useState(false);
   const [rowInfo, setRowInfo] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const dispatch = useDispatch();
   const [selectedKey, setSelectedKey] = useState("0");
+
+  const [approvedEvacuationBodyData, setApprovedEvacuationBodyData] = useState(
+    []
+  );
+  const [approvedEvacuationPagintionData, setApprovedEvacuationPaginationData] =
+    useState();
+
+  const [rejectedEvacuationBodyData, setRejectedEvacuationBodyData] = useState(
+    []
+  );
+  const [rejectedEvacuationPagintionData, setRejectedEvacuationPaginationData] =
+    useState();
+
+  const [pendingEvacuationBodyData, setPendingEvacuationBodyData] = useState(
+    []
+  );
+  const [pendingEvacuationPagintionData, setPendingEvacuationPaginationData] =
+    useState();
+
+  const [
+    awaitingApprovalEvacuationBodyData,
+    setAwaitingApprovalEvacuationBodyData,
+  ] = useState([]);
+  const [
+    awaitingApprovalEvacuationPagintionData,
+    setAwaitingApprovalEvacuationPaginationData,
+  ] = useState();
 
   const d = new Date();
 
@@ -22,46 +53,256 @@ const EvacuationRequest = () => {
     end: d,
   };
 
+  const onSwitch = (key) => {
+    setSelectedKey(key);
+  };
+
+  const fetchPendingEvacuationRequest = async () => {
+    const res = await dispatch(
+      evacuationRequest({ status: "PENDING", page: 1 })
+    );
+
+    if (!res.error) {
+      const { requests, ...paginationData } = res.payload.data;
+      setPendingEvacuationBodyData(requests);
+      setPendingEvacuationPaginationData({ ...paginationData, date: payload });
+    }
+  };
+
+  const fetchAwaitingApprovalEvacuationRequest = async () => {
+    const res = await dispatch(
+      evacuationRequest({ status: "ACCEPTED", page: 1 })
+    );
+
+    if (!res.error) {
+      const { requests, ...paginationData } = res.payload.data;
+      setAwaitingApprovalEvacuationBodyData(requests);
+      setAwaitingApprovalEvacuationPaginationData({
+        ...paginationData,
+        date: payload,
+      });
+    }
+  };
+
+  const fetchApprovedEvacuationRequest = async () => {
+    const res = await dispatch(
+      evacuationRequest({ status: "APPROVED", page: 1 })
+    );
+
+    if (!res.error) {
+      const { requests, ...paginationData } = res.payload.data;
+      setApprovedEvacuationBodyData(requests);
+      setApprovedEvacuationPaginationData({ ...paginationData, date: payload });
+    }
+  };
+
+  const fetchRejectedEvacuationRequest = async () => {
+    const res = await dispatch(
+      evacuationRequest({ status: "REJECTED", page: 1 })
+    );
+
+    if (!res.error) {
+      const { requests, ...paginationData } = res.payload.data;
+      setRejectedEvacuationBodyData(requests);
+      setRejectedEvacuationPaginationData({ ...paginationData, date: payload });
+    }
+  };
+
+  const searchAwatingApprovalEvacuationRequest = async (key, page = 1) => {
+    const res = await dispatch(
+      companySearchEvacuationRequest({
+        status: "ACCEPTED",
+        key,
+        page,
+      })
+    );
+
+    if (!res.error) {
+      const { requests, ...paginationData } = res.payload.data;
+      setAwaitingApprovalEvacuationBodyData(requests);
+      setAwaitingApprovalEvacuationPaginationData({
+        ...paginationData,
+        date: payload,
+      });
+      setTotalPages(paginationData.totalPages);
+    }
+  };
+
+  const searchPendingEvacuationRequest = async (key, page = 1) => {
+    const res = await dispatch(
+      companySearchEvacuationRequest({
+        status: "PENDING",
+        key,
+        page,
+      })
+    );
+
+    if (!res.error) {
+      const { requests, ...paginationData } = res.payload.data;
+      setPendingEvacuationBodyData(requests);
+      setPendingEvacuationPaginationData({ ...paginationData, date: payload });
+      setTotalPages(paginationData.totalPages);
+    }
+  };
+
+  const searchApprovedEvacuationRequest = async (key, page = 1) => {
+    const res = await dispatch(
+      companySearchEvacuationRequest({
+        status: "APPROVED",
+        key,
+        page,
+      })
+    );
+
+    if (!res.error) {
+      const { requests, ...paginationData } = res.payload.data;
+      setApprovedEvacuationBodyData(requests);
+      setApprovedEvacuationPaginationData({ ...paginationData, date: payload });
+      setTotalPages(paginationData.totalPages);
+    }
+  };
+
+  const searchRejectedEvacuationRequest = async (key, page = 1) => {
+    const res = await dispatch(
+      companySearchEvacuationRequest({
+        status: "REJECTED",
+        key,
+        page,
+      })
+    );
+
+    if (!res.error) {
+      const { requests, ...paginationData } = res.payload.data;
+      setRejectedEvacuationBodyData(requests);
+      setRejectedEvacuationPaginationData({ ...paginationData, date: payload });
+      setTotalPages(paginationData.totalPages);
+    }
+  };
+
+  const filterAwaitingApprovalEvacuationRequest = async (date, page = 1) => {
+    const res = await dispatch(
+      companyFilterEvacuationRequest({
+        status: "Accepted",
+        currentMonth: date,
+        page,
+      })
+    );
+
+    if (!res.error) {
+      const { requests, ...paginationData } = res.payload.data;
+      setAwaitingApprovalEvacuationBodyData(requests);
+      setAwaitingApprovalEvacuationPaginationData({
+        ...paginationData,
+        date: payload,
+      });
+      setTotalPages(paginationData.totalPages);
+    }
+  };
+
+  const filterPendingEvacuationRequest = async (date, page = 1) => {
+    const res = await dispatch(
+      companyFilterEvacuationRequest({
+        status: "PENDING",
+        currentMonth: date,
+        page,
+      })
+    );
+
+    if (!res.error) {
+      const { requests, ...paginationData } = res.payload.data;
+      setPendingEvacuationBodyData(requests);
+      setPendingEvacuationPaginationData({ ...paginationData, date: payload });
+      setTotalPages(paginationData.totalPages);
+    }
+  };
+
+  const filterApprovedEvacuationRequest = async (date, page = 1) => {
+    const res = await dispatch(
+      companyFilterEvacuationRequest({
+        status: "APPROVED",
+        currentMonth: date,
+        page,
+      })
+    );
+
+    if (!res.error) {
+      const { requests, ...paginationData } = res.payload.data;
+      setApprovedEvacuationBodyData(requests);
+      setApprovedEvacuationPaginationData({ ...paginationData, date: payload });
+      setTotalPages(paginationData.totalPages);
+    }
+  };
+
+  const filterRejectedEvacuationRequest = async (date, page = 1) => {
+    const res = await dispatch(
+      companyFilterEvacuationRequest({
+        status: "REJECTED",
+        currentMonth: date,
+        page,
+      })
+    );
+
+    if (!res.error) {
+      const { requests, ...paginationData } = res.payload.data;
+      setRejectedEvacuationBodyData(requests);
+      setRejectedEvacuationPaginationData({ ...paginationData, date: payload });
+      setTotalPages(paginationData.totalPages);
+    }
+  };
+
+  const onRefresh = () => {
+    fetchPendingEvacuationRequest();
+    fetchAwaitingApprovalEvacuationRequest();
+    fetchApprovedEvacuationRequest();
+    fetchRejectedEvacuationRequest();
+  };
+
+  useEffect(() => {
+    onRefresh();
+  }, []);
+
   const data = [
     {
       title: "Incoming",
-      data: "",
-      totalPages: "",
-      paginationData: "",
-      filterHandler: "",
-      searchHandler: "",
-      fetch: "",
-
+      data: pendingEvacuationBodyData,
+      totalPages: pendingEvacuationPagintionData?.totalPages,
+      paginationData: pendingEvacuationPagintionData,
+      filterHandler: filterPendingEvacuationRequest,
+      searchHandler: searchPendingEvacuationRequest,
+      fetch: fetchPendingEvacuationRequest,
       columns: [
         {
           title: "Date",
-          dataIndex: "date",
-          key: "date",
+          dataIndex: "updatedAt",
+          key: "updatedAt",
+          render: (text) => <p>{moment(text).format("YYYY-MM-DD")}</p>,
         },
 
         {
           title: "Agent's Name",
-          dataIndex: "agent",
-          key: "agent",
+          dataIndex: "fullname",
+          key: "fullname",
+          render: (text, record) => <p>{record["collector"].fullname}</p>,
         },
 
         {
           title: "Phone Number",
           dataIndex: "phone",
           key: "phone",
+          render: (text, record) => <p>{record["collector"].phone}</p>,
         },
         {
           title: "Location",
-          dataIndex: "location",
-          key: "location",
+          dataIndex: "address",
+          key: "address",
+          render: (text, record) => <p>{record["collector"]?.address}</p>,
         },
 
         {
           title: "Waste Quantity",
-          dataIndex: "quantity",
-          key: "quantity",
+          dataIndex: "totalWeight",
+          key: "totalWeight",
         },
-
         {
           title: "Action",
           dataIndex: "action",
@@ -71,7 +312,13 @@ const EvacuationRequest = () => {
               <Space size="middle">
                 <Link
                   to={{
-                    pathname: `/user/evacuation_breakdown/${record.id}`,
+                    pathname: `/user/breakdown_request/${record?._id}`,
+                    state: {
+                      weight: record?.totalWeight,
+                      date: record?.createdAt,
+                      transactions: record?.transactions,
+                      collectors: record?.collector,
+                    },
                   }}
                 >
                   <StyledButton
@@ -93,40 +340,44 @@ const EvacuationRequest = () => {
     },
     {
       title: "Awaiting Approval",
-      data: "",
-      totalPages: "",
-      paginationData: "",
-      filterHandler: "",
-      searchHandler: "",
-      fetch: "",
+      data: awaitingApprovalEvacuationBodyData,
+      totalPages: awaitingApprovalEvacuationPagintionData?.totalPages,
+      paginationData: awaitingApprovalEvacuationPagintionData,
+      filterHandler: filterAwaitingApprovalEvacuationRequest,
+      searchHandler: searchAwatingApprovalEvacuationRequest,
+      fetch: fetchAwaitingApprovalEvacuationRequest,
       columns: [
         {
           title: "Date",
-          dataIndex: "date",
-          key: "date",
+          dataIndex: "updatedAt",
+          key: "updatedAt",
+          render: (text) => <p>{moment(text).format("YYYY-MM-DD")}</p>,
         },
 
         {
           title: "Agent's Name",
-          dataIndex: "agent",
-          key: "agent",
+          dataIndex: "fullname",
+          key: "fullname",
+          render: (text, record) => <p>{record["collector"].fullname}</p>,
         },
 
         {
           title: "Phone Number",
           dataIndex: "phone",
           key: "phone",
+          render: (text, record) => <p>{record["collector"].phone}</p>,
         },
         {
           title: "Location",
-          dataIndex: "location",
-          key: "location",
+          dataIndex: "address",
+          key: "address",
+          render: (text, record) => <p>{record["collector"]?.address}</p>,
         },
 
         {
           title: "Waste Quantity",
-          dataIndex: "quantity",
-          key: "quantity",
+          dataIndex: "totalWeight",
+          key: "totalWeight",
         },
 
         {
@@ -138,7 +389,13 @@ const EvacuationRequest = () => {
               <Space size="middle">
                 <Link
                   to={{
-                    pathname: ``,
+                    pathname: `/user/approval_breakdown_request/${record?._id}`,
+                    state: {
+                      weight: record?.totalWeight,
+                      date: record?.createdAt,
+                      transactions: record?.transactions,
+                      collectors: record?.collector,
+                    },
                   }}
                 >
                   <StyledButton
@@ -161,40 +418,44 @@ const EvacuationRequest = () => {
 
     {
       title: "Approved",
-      data: "",
-      totalPages: "",
-      paginationData: "",
-      filterHandler: "",
-      searchHandler: "",
-      fetch: "",
+      data: approvedEvacuationBodyData,
+      totalPages: approvedEvacuationPagintionData?.totalPages,
+      paginationData: approvedEvacuationPagintionData,
+      filterHandler: filterApprovedEvacuationRequest,
+      searchHandler: searchApprovedEvacuationRequest,
+      fetch: fetchApprovedEvacuationRequest,
       columns: [
         {
           title: "Date",
-          dataIndex: "date",
-          key: "date",
+          dataIndex: "updatedAt",
+          key: "updatedAt",
+          render: (text) => <p>{moment(text).format("YYYY-MM-DD")}</p>,
         },
 
         {
           title: "Agent's Name",
-          dataIndex: "agent",
-          key: "agent",
+          dataIndex: "fullname",
+          key: "fullname",
+          render: (text, record) => <p>{record["collector"].fullname}</p>,
         },
 
         {
           title: "Phone Number",
           dataIndex: "phone",
           key: "phone",
+          render: (text, record) => <p>{record["collector"].phone}</p>,
         },
         {
           title: "Location",
-          dataIndex: "location",
-          key: "location",
+          dataIndex: "address",
+          key: "address",
+          render: (text, record) => <p>{record["collector"]?.address}</p>,
         },
 
         {
           title: "Waste Quantity",
-          dataIndex: "quantity",
-          key: "quantity",
+          dataIndex: "totalWeight",
+          key: "totalWeight",
         },
 
         {
@@ -206,7 +467,13 @@ const EvacuationRequest = () => {
               <Space size="middle">
                 <Link
                   to={{
-                    pathname: ``,
+                    pathname: `/user/approved_breakdown_request/${record?._id}`,
+                    state: {
+                      weight: record?.totalWeight,
+                      date: record?.createdAt,
+                      transactions: record?.transactions,
+                      collectors: record?.collector,
+                    },
                   }}
                 >
                   <StyledButton
@@ -229,40 +496,44 @@ const EvacuationRequest = () => {
 
     {
       title: "Rejected",
-      data: "",
-      totalPages: "",
-      paginationData: "",
-      filterHandler: "",
-      searchHandler: "",
-      fetch: "",
+      data: rejectedEvacuationBodyData,
+      totalPages: rejectedEvacuationPagintionData?.totalPages,
+      paginationData: rejectedEvacuationPagintionData,
+      filterHandler: filterRejectedEvacuationRequest,
+      searchHandler: searchRejectedEvacuationRequest,
+      fetch: fetchRejectedEvacuationRequest,
       columns: [
         {
           title: "Date",
-          dataIndex: "date",
-          key: "date",
+          dataIndex: "updatedAt",
+          key: "updatedAt",
+          render: (text) => <p>{moment(text).format("YYYY-MM-DD")}</p>,
         },
 
         {
           title: "Agent's Name",
-          dataIndex: "agent",
-          key: "agent",
+          dataIndex: "fullname",
+          key: "fullname",
+          render: (text, record) => <p>{record["collector"].fullname}</p>,
         },
 
         {
           title: "Phone Number",
           dataIndex: "phone",
           key: "phone",
+          render: (text, record) => <p>{record["collector"].phone}</p>,
         },
         {
           title: "Location",
-          dataIndex: "location",
-          key: "location",
+          dataIndex: "address",
+          key: "address",
+          render: (text, record) => <p>{record["collector"]?.address}</p>,
         },
 
         {
           title: "Waste Quantity",
-          dataIndex: "quantity",
-          key: "quantity",
+          dataIndex: "totalWeight",
+          key: "totalWeight",
         },
 
         {
@@ -274,7 +545,13 @@ const EvacuationRequest = () => {
               <Space size="middle">
                 <Link
                   to={{
-                    pathname: ``,
+                    pathname: `/user/rejected_breakdown_request/${record?._id}`,
+                    state: {
+                      weight: record?.totalWeight,
+                      date: record?.createdAt,
+                      transactions: record?.transactions,
+                      collectors: record?.collector,
+                    },
                   }}
                 >
                   <StyledButton
@@ -295,12 +572,6 @@ const EvacuationRequest = () => {
       ],
     },
   ];
-
-  const onRefresh = () => {};
-
-  const onSwitch = (key) => {
-    setSelectedKey(key);
-  };
 
   return (
     <>
