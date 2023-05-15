@@ -1,14 +1,15 @@
 import moment from "moment";
-import React, { useEffect } from "react";
-import { useLocation } from "react-router";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useLocation } from "react-router";
 import styled from "styled-components";
 import tw from "twin.macro";
 import BreadCrumb from "../../../components/UI/breadCrumbs";
-
-import { useDispatch } from "react-redux";
 import { FlexContainer } from "../../../components/styledElements/index";
-import { approveRequest } from "../../../store/actions";
+import { requestActions } from "../../../store/actions";
+import { EvacuationModal } from "../evacuationModal";
 import BreakdownTable from "./BreakdownTable";
+
 export const UserContainer = styled.div`
   margin-bottom: 20px;
   display: grid;
@@ -34,9 +35,6 @@ const UserTitle = styled.div`
   ${tw`text-xl font-medium`}
 `;
 
-const InfoWrapper = styled.div`
-  ${tw`flex flex-wrap gap-10 gap-x-12 w-11/12`}
-`;
 const InfoItem = styled.div`
   ${tw`flex flex-col space-y-2`}
 `;
@@ -58,11 +56,7 @@ const ButtonContainer = styled.div`
     ${tw`text-sm px-6 py-2 rounded-md transition-all ease-in-out duration-500`}
   }
   > button:first-child {
-    ${tw`bg-secondary text-white hover:bg-transparent hover:text-secondary border-2 border-secondary `}
-  }
-
-  > button:last-child {
-    ${tw`bg-transparent text-red-400 border-[2px] border-red-400   hover:bg-secondary hover:text-white  hover:border-transparent`}
+    ${tw`bg-secondary text-white  border-2 border-secondary `}
   }
 `;
 const ApprovalBreakdown = ({ match }) => {
@@ -70,9 +64,10 @@ const ApprovalBreakdown = ({ match }) => {
     params: { id },
   } = match;
 
-  useEffect(() => {}, []);
-
   const { state } = useLocation();
+  const history = useHistory();
+  const [isModal, setIsModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const data = [
     {
@@ -104,18 +99,28 @@ const ApprovalBreakdown = ({ match }) => {
 
   const dispatch = useDispatch();
 
-  const approveReq = async (id = "64551af4e6b4df6121ea0614") => {
+  const reqActions = async (status, id) => {
     try {
-      const res = await dispatch(approveRequest());
+      const res = await dispatch(
+        requestActions({
+          status: status,
+          id: id,
+        })
+      );
+      if (!res.error) {
+        history.push("/user/evacuation");
+      } else {
+        setShowModal(true);
+        setIsModal(true);
+      }
     } catch (error) {}
   };
 
-  useEffect(() => {
-    approveReq();
-  }, []);
-
   return (
     <>
+      {isModal && (
+        <EvacuationModal showModal={showModal} setShowModal={setShowModal} />
+      )}
       <BreakDownContainer>
         <UserContainer>
           <NavBarLeft>
@@ -124,7 +129,7 @@ const ApprovalBreakdown = ({ match }) => {
         </UserContainer>
 
         <ButtonContainer className="flex gap-6 self-end">
-          <button>Approve</button>
+          <button onClick={() => reqActions("approve", id)}>Approve</button>
         </ButtonContainer>
         <ModalBackground>
           <UserTitle>

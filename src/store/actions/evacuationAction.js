@@ -59,13 +59,13 @@ export const companyFilterEvacuationRequest = createAsyncThunk(
   }
 );
 
-export const approveRequest = createAsyncThunk(
-  "approve/Evacuation",
+export const requestActions = createAsyncThunk(
+  "request-action/Evacuation",
   async (data, { dispatch }) => {
     dispatch(startLoad());
     try {
-      const { id } = data;
-      const res = await EvacuationService.approveRequests();
+      const { status, id } = data;
+      const res = await EvacuationService.requestAction(status, id);
       return res;
     } catch (err) {
       handleError(err, dispatch);

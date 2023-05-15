@@ -22,9 +22,9 @@ class EvacuationService {
     return res?.data || res;
   }
 
-  static async approveRequests(id) {
+  static async requestAction(status, id) {
     const res = await baseAxios.get(
-      `/company/apievacuation/status/approve/64551af4e6b4df6121ea0614`
+      `/company/evacuation/status/${status}/${id}`
     );
     return res?.data || res;
   }

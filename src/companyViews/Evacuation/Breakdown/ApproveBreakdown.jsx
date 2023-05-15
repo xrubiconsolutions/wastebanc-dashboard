@@ -1,12 +1,9 @@
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router";
 import styled from "styled-components";
 import tw from "twin.macro";
-import Tabcontent from "../../../components/UI/TabContent";
-import DataTable from "../../../components/UI/Table";
 import BreadCrumb from "../../../components/UI/breadCrumbs";
-import Button from "../../../components/UI/button";
 import { FlexContainer } from "../../../components/styledElements/index";
 import BreakdownTable from "./BreakdownTable";
 
@@ -35,9 +32,6 @@ const UserTitle = styled.div`
   ${tw`text-xl font-medium`}
 `;
 
-const InfoWrapper = styled.div`
-  ${tw`flex flex-wrap gap-10 gap-x-12 w-11/12`}
-`;
 const InfoItem = styled.div`
   ${tw`flex flex-col space-y-2`}
 `;
@@ -54,23 +48,7 @@ const BreakDownContainer = styled.div`
   ${tw`px-7 flex flex-col`}
 `;
 
-const ButtonContainer = styled.div`
-  > button {
-    ${tw`text-sm px-7 py-2 rounded-md transition-all ease-in-out duration-500`}
-  }
-  > button:first-child {
-    ${tw`bg-secondary text-white hover:bg-white hover:text-secondary border-2 border-secondary`}
-  }
-
-  > button:last-child {
-    ${tw`bg-white text-red-400 border-[2px] border-red-400   hover:bg-secondary hover:text-white`}
-  }
-`;
 const ApprovedBreakdown = ({ match }) => {
-  const {
-    params: { id },
-  } = match;
-
   const { state } = useLocation();
 
   useEffect(() => {}, []);

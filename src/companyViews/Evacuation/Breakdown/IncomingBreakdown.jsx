@@ -1,10 +1,13 @@
 import moment from "moment";
-import React, { useEffect } from "react";
-import { useLocation } from "react-router";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory, useLocation } from "react-router";
 import styled from "styled-components";
 import tw from "twin.macro";
 import BreadCrumb from "../../../components/UI/breadCrumbs";
 import { FlexContainer } from "../../../components/styledElements/index";
+import { requestActions } from "../../../store/actions";
+import { EvacuationModal } from "../evacuationModal";
 import BreakdownTable from "./BreakdownTable";
 
 export const UserContainer = styled.div`
@@ -53,19 +56,40 @@ const ButtonContainer = styled.div`
     ${tw`text-sm px-7 py-2 rounded-md transition-all ease-in-out duration-500`}
   }
   > button:first-child {
-    ${tw`bg-secondary text-white hover:bg-white hover:text-secondary border-2 border-secondary`}
+    ${tw`bg-secondary text-white  border-2 border-secondary`}
   }
 
   > button:last-child {
-    ${tw`bg-white text-secondary border-[2px] border-secondary   hover:bg-secondary hover:text-white`}
+    ${tw`bg-transparent border-[2px] border-red-500 text-red-500`}
   }
 `;
-const UserDetails = ({ match }) => {
+
+const IncomingBreakdown = ({ match }) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const [isModal, setIsModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  const reqActions = async (status, id) => {
+    try {
+      const res = await dispatch(
+        requestActions({
+          status: status,
+          id: id,
+        })
+      );
+      if (!res.error) {
+        history.push("/user/evacuation");
+      } else {
+        setShowModal(true);
+        setIsModal(true);
+      }
+    } catch (error) {}
+  };
+
   const {
     params: { id },
   } = match;
-
-  useEffect(() => {}, []);
 
   const { state } = useLocation();
 
@@ -99,6 +123,10 @@ const UserDetails = ({ match }) => {
 
   return (
     <>
+      {isModal && (
+        <EvacuationModal showModal={showModal} setShowModal={setShowModal} />
+      )}
+
       <BreakDownContainer>
         <UserContainer>
           <NavBarLeft>
@@ -107,8 +135,8 @@ const UserDetails = ({ match }) => {
         </UserContainer>
 
         <ButtonContainer className="flex gap-6 self-end">
-          <button>Accept</button>
-          <button>Cancel</button>
+          <button onClick={() => reqActions("accept", id)}>Accept</button>
+          <button onClick={() => reqActions("reject", id)}>Reject</button>
         </ButtonContainer>
         <ModalBackground>
           <UserTitle>
@@ -135,4 +163,4 @@ const UserDetails = ({ match }) => {
   );
 };
 
-export default UserDetails;
+export default IncomingBreakdown;
