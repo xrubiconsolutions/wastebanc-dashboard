@@ -69,7 +69,7 @@ const WastePickerAssign = () => {
 
     if (!organisations) fetchOrgs();
   }, [organisations]);
-  // console.log("The organisations: ", organisations);
+
   const pages = [{ name: "Total Waste Pickers", link: "/admin/waste_picker" }];
 
   return (

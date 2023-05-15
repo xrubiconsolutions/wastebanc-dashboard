@@ -68,7 +68,7 @@ const UpdateCategoryModal = ({
   return (
     <>
       <Modal
-        color={error ? "red" : "#005700"}
+        color={error ? "red" : "#295011"}
         type="postAction"
         show={showPostModal}
         close={() => setPostModal(false)}
@@ -88,7 +88,6 @@ const UpdateCategoryModal = ({
         <div className="flex flex-col">
           {Object.entries(values).map(([key, input], index) => (
             <>
-              {/* {console.log("key", key)} */}
               <FormInput
                 placeholder={input.placeholder}
                 type={input.type}

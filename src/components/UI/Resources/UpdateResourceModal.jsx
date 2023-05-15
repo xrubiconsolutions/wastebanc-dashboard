@@ -17,8 +17,13 @@ const UpdateResourceModal = ({
   url,
   message,
   id,
+  fetchAll = () => {},
 }) => {
   const [showPostModal, setPostModal] = useState(false);
+
+  // console.log("titleeeee", title);
+  // console.log("message", message);
+
   const [values, setValues] = useState({
     resource: {
       label: "Title",
@@ -38,40 +43,34 @@ const UpdateResourceModal = ({
       placeholder: "",
       rules: [(v) => !!v || "Message is required"],
     },
-
-    // resourceId: {
-    //   label: "ResourceID",
-    //   value: resourceId,
-    //   placeholder: "",
-    //   rules: [(v) => !!v || "Message is required"],
-    // },
   });
 
-  const entities = {
-    resource: {
-      label: "Title",
-      value: title,
-      placeholder: "",
-      rules: [(v) => !!v || "Title is required"],
-    },
-    youtubeId: {
-      label: "Youtube ID",
-      value: url,
-      placeholder: "",
-      rules: [(v) => !!v || "Youtube ID is required"],
-    },
-    message: {
-      label: "Message",
-      value: message,
-      placeholder: "",
-      rules: [(v) => !!v || "Message is required"],
-    },
-  };
+  // const entities = {
+  //   resource: {
+  //     label: "Title",
+  //     value: title,
+  //     placeholder: "",
+  //     rules: [(v) => !!v || "Title is required"],
+  //   },
+  //   youtubeId: {
+  //     label: "Youtube ID",
+  //     value: url,
+  //     placeholder: "",
+  //     rules: [(v) => !!v || "Youtube ID is required"],
+  //   },
+  //   message: {
+  //     label: "Message",
+  //     value: message,
+  //     placeholder: "",
+  //     rules: [(v) => !!v || "Message is required"],
+  //   },
+  // };
 
   const {
     app: { error },
   } = useSelector((state) => state);
   const { setValue, formValues, errorMsgs } = useForm(values);
+
   const dispatch = useDispatch();
 
   const updateResourceHandler = async () => {
@@ -87,18 +86,21 @@ const UpdateResourceModal = ({
       resourceData,
     };
     const res = await dispatch(updateResources(payload));
+
     if (!res.error) {
-      dispatch(getResources());
+      // dispatch(getResources());
       setPostModal(true);
+      fetchAll();
     }
   };
+  const [form, setFormValues] = useState(values);
 
   return (
     <>
       <Modal
-        color={error ? "red" : "#005700"}
+        color={error ? "red" : "#295011"}
         type="postAction"
-        // show={showPostModal}
+        show={showPostModal}
         close={() => setPostModal(false)}
       >
         {!error ? "Resource updated successfully" : error}
@@ -114,16 +116,17 @@ const UpdateResourceModal = ({
             close
           </StyledButton>
         </FlexContainer>
+
         <div className="flex flex-col">
           {Object.entries(values).map(([key, input], index) => (
             <>
-              {/* {console.log("key", key)} */}
               <FormInput
                 placeholder={input.placeholder}
                 type={input.type}
                 label={input.label}
                 key={key}
                 height="3.5rem"
+                s
                 changeHandler={(e) => setValue(key, e.target.value)}
                 errorMsg={errorMsgs[key]}
                 value={formValues[key]}

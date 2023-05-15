@@ -1,32 +1,52 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import SideBarData from "./routeData";
-import { NavLink } from "react-router-dom";
-import tw from "twin.macro";
-import DropdownNavLink from "./SubMenu";
 import { useDispatch, useSelector } from "react-redux";
-import { setPage } from "../../store/reducers/appSlice";
+import { NavLink } from "react-router-dom";
+import styled from "styled-components";
+import tw from "twin.macro";
 import { getClaims } from "../../store/actions";
+import { setPage } from "../../store/reducers/appSlice";
 import { claimPermissions } from "../../utils/constants";
+import DropdownNavLink from "./SubMenu";
+import SideBarData from "./routeData";
 // import { useLocation } from "react-router";
 
 const SidebarParent = styled.div`
-  position: absolute;
-  // top: 72px;
-  bottom: 0;
-  scroll-padding-bottom: 0;
-  // max-height: calc(100% - 70px);
-  // height: calc(100% - 70px);
-  height: 100%;
-  width: 253px;
-  left: 0px;
-  border-radius: 0px;
-  color: #ffff;
-  background: linear-gradient(178.54deg, #008300 -24.78%, #005700 98.76%);
-  box-shadow: 0px 30px 24px rgba(0, 0, 0, 0.06);
-  overflow-y: auto;
+  /* width: 0; */
+  display: none;
+  /* position: absolute;
+// top: 72px;
+bottom: 0;
+scroll-padding-bottom: 0;
+// max-height: calc(100% - 70px);
+// height: calc(100% - 70px);
+height: 100%;
+width: 253px;
+left: 0px;
+border-radius: 0px;
+color: #ffff;
+background: linear-gradient(178.54deg, #008300 -24.78%, #295011 98.76%);
+box-shadow: 0px 30px 24px rgba(0, 0, 0, 0.06);
+overflow-y: auto; */
+
+  @media (min-width: 920px) {
+    display: block;
+    position: absolute;
+    // top: 72px;
+    bottom: 0;
+    scroll-padding-bottom: 0;
+    // max-height: calc(100% - 70px);
+    // height: calc(100% - 70px);
+    height: 100%;
+    width: 253px;
+    left: 0px;
+    border-radius: 0px;
+    color: #ffff;
+    background: linear-gradient(178.54deg, #008300 -24.78%, #295011 98.76%);
+    box-shadow: 0px 30px 24px rgba(0, 0, 0, 0.06);
+    overflow-y: auto;
+  }
 `;
 
 const SidebarLogo = styled.img`
@@ -89,6 +109,7 @@ const SidebarFooter = styled.div`
 function Sidebar() {
   const dispatch = useDispatch();
   const [fetchedClaims, setFetchedClaims] = useState([]);
+
   const {
     role: { claims },
     auth: {
@@ -106,7 +127,6 @@ function Sidebar() {
 
   useEffect(() => {
     if (claims) setFetchedClaims(claims);
-    // console.log("The claims: ", claims);
   }, [claims]);
 
   useEffect(() => {
@@ -160,7 +180,7 @@ function Sidebar() {
         })}
         <hr />
         <p className="text-white text-center font-bold text-sm py-4">
-          Powered by Pakam Technologies
+          Powered by Pakam Technology
         </p>
         <SidebarFooter>
           {/* {locationPermissions?.read && (

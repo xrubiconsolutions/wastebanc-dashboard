@@ -366,8 +366,6 @@ const UserAgencies = () => {
     },
   ];
 
-  // console.log("Loging the role Data,", rolesData);
-
   return (
     <>
       <ModifyUser

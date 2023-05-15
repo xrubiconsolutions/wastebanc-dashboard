@@ -104,26 +104,40 @@ const GeoFencing = () => {
   };
 
   const columns = [
+    // {
+    //   title: "Full Name",
+    //   dataIndex: "name",
+    //   key: "name",
+    // },
     {
-      title: "Full Name",
-      dataIndex: "name",
-      key: "name",
-    },
-    {
-      title: "Organization",
-      dataIndex: "organisation",
-      key: "organisation",
+      title: "Wastebanc location",
+      dataIndex: "address",
+      key: "address",
     },
     {
       title: "Phone",
       dataIndex: "phone",
       key: "phone",
     },
+
     {
-      title: "Trips Completed",
-      dataIndex: "trips",
-      key: "trips",
+      title: "Agent's ID",
+      dataIndex: "aggregatorId",
+      key: "aggregatorId",
     },
+
+    // {
+    //   title: "Trips Completed",
+    //   dataIndex: "trips",
+    //   key: "trips",
+    // },
+
+    {
+      title: "Number of Waste (Kg)",
+      dataIndex: "totalcollected",
+      key: "totalcollected",
+    },
+
     // {
     //   title: "Action",
     //   dataIndex: "action",
@@ -156,12 +170,15 @@ const GeoFencing = () => {
     fetchedAggregators?.map((collect) => ({
       key: collect._id,
       name: collect.fullname,
+      aggregatorId: collect.aggregatorId,
+      address: collect.address,
       phone: collect.phone,
       gender: collect.gender,
       quantity: collect.totalCollected,
       organisation: collect.organisation,
       email: collect.email,
       trips: collect.numberOfTripsCompleted,
+      totalcollected: collect.totalCollected,
     }));
 
   const fetchAll = async (page = 1) => {
@@ -186,7 +203,7 @@ const GeoFencing = () => {
       ).then(
         (response) => {
           // console.log(response);
-          setFirstPath(response.results[0].geometry.location);
+          setFirstPath(response.results[0].geometry.location || []);
         },
         (error) => {
           console.error(error);
@@ -197,7 +214,7 @@ const GeoFencing = () => {
       Geocode.fromAddress(sLGA, "AIzaSyBGv53NEoMm3uPyA9U45ibSl3pOlqkHWN8").then(
         (response) => {
           // console.log(response);
-          setSecondPath(response.results[0].geometry.location);
+          setSecondPath(response.results[0].geometry.location || []);
         },
         (error) => {
           // console.error(error);
@@ -208,7 +225,7 @@ const GeoFencing = () => {
       Geocode.fromAddress(tLGA, "AIzaSyBGv53NEoMm3uPyA9U45ibSl3pOlqkHWN8").then(
         (response) => {
           // console.log(response);
-          setThirdPath(response.results[0].geometry.location);
+          setThirdPath(response.results[0].geometry.location || []);
         },
         (error) => {
           // console.error(error);
@@ -219,7 +236,7 @@ const GeoFencing = () => {
       Geocode.fromAddress(fLGA, "AIzaSyBGv53NEoMm3uPyA9U45ibSl3pOlqkHWN8").then(
         (response) => {
           // console.log(response);
-          setFourthPath(response.results[0].geometry.location);
+          setFourthPath(response.results[0].geometry.location || []);
         },
         (error) => {
           // console.error(error);
@@ -232,7 +249,7 @@ const GeoFencing = () => {
         "AIzaSyBGv53NEoMm3uPyA9U45ibSl3pOlqkHWN8"
       ).then(
         (response) => {
-          setFifthPath(response.results[0].geometry.location);
+          setFifthPath(response.results[0].geometry.location || []);
         },
         (error) => {
           // console.error(error);

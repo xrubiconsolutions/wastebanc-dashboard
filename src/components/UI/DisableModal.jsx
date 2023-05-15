@@ -4,7 +4,8 @@ import { Menu } from "antd";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toggleStatusAggregator, deleteAggregator } from "../../store/actions";
-import modal from "../UI/modal";
+import Modal from "./modal";
+import { useSelector } from "react-redux";
 
 const ModalBackground = styled.div`
   width: 90px;
@@ -21,7 +22,13 @@ const ModalBackground = styled.div`
   }
 `;
 
-function DisableModal({ setModalOpen, data, onRefresh }) {
+function DisableModal({
+  setModalOpen,
+  data,
+  onRefresh,
+  deletehandler = () => {},
+  enabled,
+}) {
   const [currentStatus, setCurrentStatus] = useState("Disable");
   const dispatch = useDispatch();
 
@@ -31,41 +38,56 @@ function DisableModal({ setModalOpen, data, onRefresh }) {
     if (data?.status === "disable") setCurrentStatus("Enable");
   }, [data?.status]);
 
-  const deleteHandler = async () => {
-    const payload = {
-      collectorId: data.key,
-    };
-    const res = await dispatch(deleteAggregator(payload));
-    if (!res.error) onRefresh();
-  };
+  // const handleDisable = (selStatus) => {
+  //   console.log("Trying to toggle disable....");
+  //   console.log("data: ", data);
 
-  const handleDisable = (selStatus) => {
-    const payload = {
-      id: data.key,
-      status: selStatus === "active" ? "disable" : "enable",
-    };
+  //   const payload = {
+  //     id: data?.id,
+  //     status: selStatus === "active" ? "disable" : "enable",
+  //   };
 
-    switch (selStatus) {
-      case "active":
-        dispatch(toggleStatusAggregator(payload))
-          .unwrap()
-          .then(() => {
-            onRefresh();
-          });
-        break;
-      case "disable":
-        dispatch(toggleStatusAggregator(payload))
-          .unwrap()
-          .then(() => {
-            onRefresh();
-          });
-        break;
-      default:
+  //   switch (selStatus) {
+  //     case "active":
+  //       dispatch(toggleStatusAggregator(payload))
+  //         .unwrap()
+  //         .then(() => {
+  //           onRefresh();
+  //         });
+  //       break;
+  //     case "disable":
+  //       dispatch(toggleStatusAggregator(payload))
+  //         .unwrap()
+  //         .then(() => {
+  //           onRefresh();
+  //         });
+  //       break;
+  //     default:
+  //   }
+  // };
+
+  const disableHandler = () => {
+    if (enabled) {
+      const payload = {
+        id: data?.id,
+        status: "enable",
+      };
+      dispatch(toggleStatusAggregator(payload))
+        .unwrap()
+        .then(() => {
+          onRefresh();
+        });
+    } else {
+      const payload = {
+        id: data?.id,
+        status: "disable",
+      };
+      dispatch(toggleStatusAggregator(payload))
+        .unwrap()
+        .then(() => {
+          onRefresh();
+        });
     }
-  };
-
-  const handleDelete = () => {
-    return;
   };
 
   return (
@@ -74,17 +96,14 @@ function DisableModal({ setModalOpen, data, onRefresh }) {
         <ModalBackground>
           <Menu>
             <Menu.Item key="0">
-              <Link
-                to="#"
-                className="menu"
-                onClick={() => handleDisable(data?.status)}
-              >
-                {currentStatus}
+              <Link to="#" className="menu" onClick={disableHandler}>
+                {/* {currentStatus} */}
+                {enabled ? "Enabled" : "Disabled"}
               </Link>
             </Menu.Item>
             <Menu.Divider />
             <Menu.Item key="1">
-              <Link to="#" className="menu" onClick={handleDelete}>
+              <Link to="#" className="menu" onClick={deletehandler}>
                 Delete
               </Link>
             </Menu.Item>

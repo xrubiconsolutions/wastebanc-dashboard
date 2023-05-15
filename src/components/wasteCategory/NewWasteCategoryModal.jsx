@@ -50,7 +50,6 @@ const NewWasteCategoryModal = ({
       name: formValues.name,
       wastepicker: formValues.wastepicker,
     };
-    // console.log(data, "dataaaa");
     const res = await dispatch(createCategory(data));
     if (!res.error) dispatch(getCategory());
     setPostModal(true);
@@ -59,7 +58,7 @@ const NewWasteCategoryModal = ({
   return (
     <>
       <Modal
-        color={error ? "red" : "#005700"}
+        color={error ? "red" : "#295011"}
         type="postAction"
         show={showPostModal}
         close={() => setPostModal(false)}

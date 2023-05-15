@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 // react-icons//
 import React from "react";
-import * as HiIcons from "react-icons/hi";
-import * as FiIcons from "react-icons/fi";
 import * as BiIcons from "react-icons/bi";
-import * as IoIcons from "react-icons/io5";
+import * as FiIcons from "react-icons/fi";
+import * as HiIcons from "react-icons/hi";
 import * as IoIcon from "react-icons/io";
+import * as IoIcons from "react-icons/io5";
 
 // Ui SidebarComponent data //
 const SidebarData = [
@@ -45,8 +45,8 @@ const SidebarData = [
     ],
   },
   {
-    title: "Total Aggregators",
-    path: "/total_aggregators",
+    title: "Total Agents",
+    path: "/total_agents",
     icon: "/assets/images/aggregators.svg",
   },
   {
@@ -76,6 +76,11 @@ const SidebarData = [
     title: "Billing",
     path: "/billing",
     icon: "/assets/images/invoice-bill.svg",
+  },
+  {
+    title: "Evacuation Request",
+    path: "/evacuation",
+    icon: "/assets/images/Folder.svg",
   },
 ];
 

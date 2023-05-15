@@ -311,3 +311,152 @@ export const searchCompanyOutstanding = createAsyncThunk(
     }
   }
 );
+
+export const getpendingPayoutRequest = createAsyncThunk(
+  "get/pending-payout-request",
+  async (data, { dispatch }) => {
+    dispatch(startLoad());
+    try {
+      const res = await PaymentService.getPendingPayoutRequest(data);
+      return res;
+    } catch (err) {
+      handleError(err, dispatch);
+    } finally {
+      dispatch(stopLoad());
+    }
+  }
+);
+
+export const searchpendingPayoutRequest = createAsyncThunk(
+  "search/pending-payout-request",
+  async (data, { dispatch }) => {
+    dispatch(startLoad());
+    try {
+      const { key, page } = data;
+      const res = await PaymentService.searchPendingPayoutRequest(key, page);
+      return res;
+    } catch (err) {
+      handleError(err, dispatch);
+    } finally {
+      dispatch(stopLoad());
+    }
+  }
+);
+export const filterpendingPayoutRequest = createAsyncThunk(
+  "filter/pending-payout-request",
+  async (data, { dispatch }) => {
+    dispatch(startLoad());
+    try {
+      const { page, currentMonth } = data;
+      const res = await PaymentService.filterPendingPayoutRequest(
+        page,
+        currentMonth
+      );
+      return res;
+    } catch (err) {
+      handleError(err, dispatch);
+    } finally {
+      dispatch(stopLoad());
+    }
+  }
+);
+
+export const getcompletedPayoutRequest = createAsyncThunk(
+  "get/completed-payout-request",
+  async (data, { dispatch }) => {
+    dispatch(startLoad());
+    try {
+      const res = await PaymentService.getCompletedPayoutRequest(data);
+      return res;
+    } catch (err) {
+      handleError(err, dispatch);
+    } finally {
+      dispatch(stopLoad());
+    }
+  }
+);
+
+export const searchcompletedPayoutRequest = createAsyncThunk(
+  "search/pending-payout-request",
+  async (data, { dispatch }) => {
+    dispatch(startLoad());
+    try {
+      const { key, page } = data;
+      const res = await PaymentService.searchCompletedPayoutRequest(key, page);
+      return res;
+    } catch (err) {
+      handleError(err, dispatch);
+    } finally {
+      dispatch(stopLoad());
+    }
+  }
+);
+
+export const filtercompletedPayoutRequest = createAsyncThunk(
+  "search/pending-payout-request",
+  async (data, { dispatch }) => {
+    dispatch(startLoad());
+    try {
+      const { page, currentMonth } = data;
+      const res = await PaymentService.filterCompletedPayoutRequest(
+        page,
+        currentMonth
+      );
+      return res;
+    } catch (err) {
+      handleError(err, dispatch);
+    } finally {
+      dispatch(stopLoad());
+    }
+  }
+);
+
+export const getfailedPayoutRequest = createAsyncThunk(
+  "get/failed-payout-request",
+  async (data, { dispatch }) => {
+    dispatch(startLoad());
+    try {
+      const res = await PaymentService.getFailedPayoutRequest(data);
+      return res;
+    } catch (err) {
+      handleError(err, dispatch);
+    } finally {
+      dispatch(stopLoad());
+    }
+  }
+);
+
+export const searchfailedPayoutRequest = createAsyncThunk(
+  "search/completed-payout-request",
+  async (data, { dispatch }) => {
+    dispatch(startLoad());
+    try {
+      const { key, page } = data;
+      const res = await PaymentService.searchFailedPayoutRequest(key, page);
+      return res;
+    } catch (err) {
+      handleError(err, dispatch);
+    } finally {
+      dispatch(stopLoad());
+    }
+  }
+);
+
+export const filterfailedPayoutRequest = createAsyncThunk(
+  "search/failed-payout-request",
+  async (data, { dispatch }) => {
+    dispatch(startLoad());
+    try {
+      const { page, currentMonth } = data;
+      const res = await PaymentService.filterFailedPayoutRequest(
+        page,
+        currentMonth
+      );
+      return res;
+    } catch (err) {
+      handleError(err, dispatch);
+    } finally {
+      dispatch(stopLoad());
+    }
+  }
+);

@@ -40,7 +40,12 @@ const OverlayBackground = styled.div`
   cursor: pointer;
 `;
 
-function Option({ selectedOrganisation }) {
+function Option({
+  selectedOrganisation,
+  user_organisation_id,
+  optiondata,
+  message,
+}) {
   const ref = useRef();
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -63,13 +68,15 @@ function Option({ selectedOrganisation }) {
           setModalOpen(true);
         }}
       >
-        Option
+        Options
       </button>
 
       {modalOpen && (
         <OptionModal
-          selectedOrganisation={selectedOrganisation}
+          selectedOrganisation={selectedOrganisation || user_organisation_id}
           setModalOpen={setModalOpen}
+          optiondata={optiondata}
+          message={message}
         />
       )}
     </FilterButton>

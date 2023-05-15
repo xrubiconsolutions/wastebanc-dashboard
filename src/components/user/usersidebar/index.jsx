@@ -1,12 +1,14 @@
 import React from "react";
-import styled from "styled-components";
-import Data from "./data";
 import { NavLink } from "react-router-dom";
+import styled from "styled-components";
 import tw from "twin.macro";
 import DropdownNavLink from "./SubMenu";
+import Data from "./data";
 
 const SidebarParent = styled.div`
-  position: absolute;
+  /* width: 0; */
+  display: none;
+  /* position: absolute;
   // top: 72px;
   bottom: 0;
   scroll-padding-bottom: 0;
@@ -17,9 +19,27 @@ const SidebarParent = styled.div`
   left: 0px;
   border-radius: 0px;
   color: #ffff;
-  background: linear-gradient(178.54deg, #008300 -24.78%, #005700 98.76%);
+  background: linear-gradient(178.54deg, #008300 -24.78%, #295011 98.76%);
   box-shadow: 0px 30px 24px rgba(0, 0, 0, 0.06);
-  overflow-y: auto;
+  overflow-y: auto; */
+
+  @media (min-width: 920px) {
+    display: block;
+    position: absolute;
+    // top: 72px;
+    bottom: 0;
+    scroll-padding-bottom: 0;
+    // max-height: calc(100% - 70px);
+    // height: calc(100% - 70px);
+    height: 100%;
+    width: 253px;
+    left: 0px;
+    border-radius: 0px;
+    color: #ffff;
+    background: #295011;
+    box-shadow: 0px 30px 24px rgba(0, 0, 0, 0.06);
+    overflow-y: auto;
+  }
 `;
 
 const SidebarLogo = styled.img`
@@ -73,7 +93,7 @@ const StyledNavLink = styled(NavLink)`
     // bg-label
     border-l-4
     border-white
-  `}// background: rgba(255, 255, 255, 0.1);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  `}// background: rgba(255, 255, 255, 0.1);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   }
 `;
 function sidebar() {
@@ -100,7 +120,7 @@ function sidebar() {
           );
         })}
         <p className="text-white text-center font-bold text-sm bottom-0 absolute px-4">
-          Powered by Pakam Technologies
+          Powered by Pakam Technology
         </p>
       </SidebarParent>
     </>

@@ -104,7 +104,6 @@ export const getBank = createAsyncThunk(
 export const validateAccount = createAsyncThunk(
   "waste-picker/validate account",
   async (data, { dispatch }) => {
-    console.log(data, "data");
     dispatch(startLoad());
     try {
       const res = await WastePickerService.validateAccount(data);

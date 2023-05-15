@@ -53,7 +53,6 @@ const IncidentDetails = () => {
     ),
   });
   const { incidentLog } = useSelector((state) => state?.report);
-  //  console.log(incidentLog, 'incident')
 
   useEffect(() => {
     if (!incidentLog) {
@@ -66,7 +65,6 @@ const IncidentDetails = () => {
   useEffect(() => {
     setBodyData(incidentLog);
   }, [incidentLog]);
-  // console.log(bodyData, "bodyLog");
 
   const data =
     bodyData &&

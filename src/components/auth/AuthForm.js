@@ -1,19 +1,19 @@
-import React, { useEffect, useState, memo } from "react";
+import React, { memo, useEffect, useState } from "react";
+import { BiArrowBack } from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import tw from "twin.macro";
-import useForm from "../../hooks/useForm";
-import FormInput from "./FormInput";
-import { CheckInput } from "./FormInput";
-import Checkbox from "../UI/Checkbox";
-import { useDispatch, useSelector } from "react-redux";
-import Loader from "../UI/loader";
-import { MessageContainer } from "../styledElements";
-import { clearError } from "../../store/reducers/appSlice";
 import PakamLogo from "../../assets/images/logo.png";
+import useForm from "../../hooks/useForm";
+import { clearError } from "../../store/reducers/appSlice";
 import { resetPassword } from "../../store/reducers/authSlice";
-import { BiArrowBack } from "react-icons/bi";
+import Checkbox from "../UI/Checkbox";
+import Loader from "../UI/loader";
+import Modal from "../UI/modal";
 import PromptModal from "../common/PromptModal";
+import { MessageContainer } from "../styledElements";
+import FormInput, { CheckInput } from "./FormInput";
 
 const FormContainer = styled.div`
   ${tw`py-4 shadow-2xl bg-white  lg:max-w-xl rounded-[20px] px-4 md:py-6 md:px-16`}
@@ -39,7 +39,7 @@ const HeaderBody = styled.div`
 `;
 
 const SubmitButton = styled.button`
-  ${tw`disabled:cursor-not-allowed disabled:opacity-50 hover:text-secondary hover:border-2 hover:bg-white hover:border-secondary outline-none text-white bg-secondary rounded-lg text-xl py-3 w-full`}
+  ${tw`disabled:cursor-not-allowed disabled:opacity-50 hover:text-secondary hover:border-2 hover:bg-white hover:border-secondary outline-none text-white bg-btnColor rounded-lg text-xl py-3 w-full`}
   // height: 70px
   transition: .2s ease-in-out;
 `;
@@ -47,7 +47,7 @@ const SubmitButton = styled.button`
 const RecoveryCodeText = styled.p`
   ${tw`text-sm text-label text-center mt-3`}
   > span {
-    color: #005700;
+    color: #295011;
   }
 `;
 
@@ -86,8 +86,9 @@ const AuthForm = ({
   submitHandler = () => null,
   email,
 }) => {
-  const login_mode = localStorage.getItem("login_mode") || "super_admin";
-  const [signRoute, setSignRoute] = useState(login_mode);
+  const login_mode = localStorage.getItem("login_mode") || "user_admin";
+  const [signRoute, setSignRoute] = useState("user_admin");
+
   const { setValue, errorMsgs, formValues, isValid } = useForm(formEntries);
   const { error, loading } = useSelector((state) => state.app);
   const dispatch = useDispatch();
@@ -97,27 +98,26 @@ const AuthForm = ({
   const [showPostAction, setPostAction] = useState(false);
 
   const data = { email: email, role: "COMPANY" };
+
   const handler = async () => {
     sessionStorage.setItem("data", JSON.stringify(data));
     const res = await dispatch(resetPassword(data));
     if (res.meta.requestStatus === "fulfilled") {
-      setTimeout(() => {
-        setAlert(res.payload.message);
-      }, 2000);
-      setPostAction(true);
+      setAlert(res.payload.message);
     } else {
-      console.log("rejected!!");
+      // console.log("rejected!!");
     }
   };
 
   const handleClick = () => {
     handler();
+    setPostAction(true);
   };
 
   const RecoveryCodeLink = () => (
     <RecoveryCodeText>
-      Didn 't get code?{" "}
-      <span onClick={handleClick} className="hover:cursor-pointer">
+      Didn 't get code?{""}
+      <span onClick={handleClick} className="hover:cursor-pointer pl-1">
         Resend
       </span>
     </RecoveryCodeText>
@@ -125,7 +125,7 @@ const AuthForm = ({
 
   useEffect(() => {
     dispatch(clearError());
-  }, [dispatch, pathname]);
+  }, [dispatch, pathname, signRoute]);
 
   const mainHandleSubmit = () => {
     submitHandler(formValues, signRoute);
@@ -139,19 +139,21 @@ const AuthForm = ({
     "change-password": "Save Changes",
   }[type];
 
-  console.log("pathname!!!!", pathname);
-
   return (
     <>
       <div>
-        {/* <div>
-          {alert && (
-            <div className=" text-center pt-3 pb-3 text-primary text-xs">
-              {alert}
-            </div>
-          )}
-        </div> */}
-        {showPostAction && PromptModal}
+        {showPostAction && (
+          <Modal
+            show={showPostAction}
+            close={() => {
+              setPostAction(false);
+            }}
+            type="postAction"
+            color={error && "#F5000F"}
+          >
+            <p>{alert}</p>
+          </Modal>
+        )}
 
         {pathname === "/auth/recovery-code" && (
           <div className="flex items-center justify-center pb-5 absolute left-20 top-20 ">
@@ -172,36 +174,64 @@ const AuthForm = ({
 
         <div>
           {loading && <Loader />}
+
           <FormContainer>
             <LogoWrapper>
-              <img src={PakamLogo} alt="pakam" />
-              <p>Pakam</p>
+              <img
+                src="/assets/images/wastebancLogo.svg"
+                alt="wastebanc"
+                className="h-full w-full"
+              />
+              {/* <p>Pakam</p> */}
             </LogoWrapper>
 
             <FormTitle> {title} </FormTitle>
-            {["/auth/login", "/auth/forgot-password"].includes(pathname) ? (
-              <HeaderBody className="h">
-                {/* <Checkbox
-              label="Pakam Admin"
-              checked={signRoute === "super_admin" ? true : false}
-              onClick={() => {
-                localStorage.setItem("login_mode", "super_admin");
-                setSignRoute("super_admin");
-              }}
-            /> */}
 
-                {/* <div className="hidden"> */}
+            {pathname === "/auth/adminlogin" && (
+              <div className="flex  items-center justify-between pt-5">
+                <Checkbox
+                  label="Pakam Admin"
+                  checked={signRoute === "super_admin" ? true : false}
+                  onClick={() => {
+                    localStorage.setItem("login_mode", "super_admin");
+                    setSignRoute("super_admin");
+                  }}
+                />
                 <Checkbox
                   label="Company"
-                  checked={signRoute !== "super_admin" ? true : false}
+                  checked={signRoute === "user_admin" ? true : false}
                   onClick={() => {
                     localStorage.setItem("login_mode", "user_admin");
                     setSignRoute("user_admin");
                   }}
                 />
-                {/* </div> */}
+              </div>
+            )}
+
+            {["/auth/login", "/auth/forgot-password"].includes(pathname) ? (
+              <HeaderBody className="h">
+                {/* <Checkbox
+                  label="Pakam Admin"
+                  checked={signRoute === "super_admin" ? true : false}
+                  onClick={() => {
+                    localStorage.setItem("login_mode", "super_admin");
+                    setSignRoute("super_admin");
+                  }}
+                /> */}
+
+                <div className="hidden">
+                  <Checkbox
+                    label="Company"
+                    checked={signRoute === "user_admin" ? true : false}
+                    onClick={() => {
+                      localStorage.setItem("login_mode", "user_admin");
+                      setSignRoute("user_admin");
+                    }}
+                  />
+                </div>
               </HeaderBody>
             ) : null}
+
             {error && (
               <MessageContainer>
                 <p> {error} </p>

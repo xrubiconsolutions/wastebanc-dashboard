@@ -21,12 +21,12 @@ const Text = styled.p`
 function Logo() {
   return (
     <Link to="/admin/dashboard">
-    <LogoContainer className="flex">
-      <LogoWrapper>
-        <img src={logo} alt={"logo"} className="" />
-      </LogoWrapper>
-      <Text className="w-1/2 ml-1">Pakam Responder</Text>
-    </LogoContainer>
+      <LogoContainer className="flex">
+        <LogoWrapper>
+          {/* <img src={logo} alt={"logo"} className="" /> */}
+        </LogoWrapper>
+        <Text className="w-1/2 ml-1">Pakam Responder</Text>
+      </LogoContainer>
     </Link>
   );
 }

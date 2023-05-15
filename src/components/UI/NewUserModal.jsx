@@ -86,7 +86,7 @@ const Pointer = styled.div`
   background-color: ${(props) => (props.color ? props.color : "red")};
 `;
 
-const  NewUserModal = ({
+const NewUserModal = ({
   data = initData,
   showNewModal = false,
   setNewModal = {},
@@ -113,7 +113,7 @@ const  NewUserModal = ({
               title.toLowerCase() === "status" &&
               value.toLowerCase() !== "pending"
             )
-              color = "#005700";
+              color = "#295011";
 
             return (
               <InfoItem key={title}>

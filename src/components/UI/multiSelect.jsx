@@ -13,7 +13,7 @@ const SelectInput = styled.div`
   width: ${(props) => props.width || "150px"};
   background-color: ${(props) => props.disabled && "rgba(229, 231, 235)"};
   min-height: ${(props) => props.height || "3.5rem"};
-  border-color: ${(props) => (props.plain ? "#bdbdbd" : "#005700")};
+  border-color: ${(props) => (props.plain ? "#bdbdbd" : "#295011")};
   + div {
     width: ${(props) => props.width || "150px"};
   }

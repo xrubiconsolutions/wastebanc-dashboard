@@ -8,6 +8,8 @@ import {
   filterDropoff,
   searchDropoff,
 } from "../../store/actions";
+import { truncate } from "../../utils/constants";
+import { Popover } from "antd";
 
 const DropOff = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -89,18 +91,38 @@ const DropOff = () => {
       key: "organisation",
       // render: (text) => <a>{text}</a>,
     },
+    // {
+    //   title: "Waste Category",
+    //   dataIndex: "categories",
+    //   key: "categories",
+    //   render: (wastes) => (
+    //     <span>
+    //       {wastes?.map((waste) => (
+    //         <Tag key={waste}>{waste?.name || waste}</Tag>
+    //       ))}
+    //     </span>
+    //   ),
+    // },
+
     {
       title: "Waste Category",
       dataIndex: "categories",
       key: "categories",
-      render: (wastes) => (
+      render: (categories) => (
         <span>
-          {wastes.map((waste) => (
-            <Tag key={waste}>{waste?.name || waste}</Tag>
-          ))}
+          {(categories?.slice(0, 3) || [])?.map((waste) => {
+            return (
+              <Tag key={waste}>
+                <Popover content={waste?.name || waste}>
+                  {truncate(waste?.name, 10)}
+                </Popover>
+              </Tag>
+            );
+          })}
         </span>
       ),
     },
+
     {
       title: "Customer Phone",
       dataIndex: "phone",

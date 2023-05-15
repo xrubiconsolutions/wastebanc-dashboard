@@ -81,8 +81,6 @@ const GeneratedInvoices = ({ match }) => {
     }
   };
 
-  console.log("outstanding....", outstanding);
-
   const fetchCompletedInvoices = async () => {
     const res = await dispatch(
       getCompletedInvoice({ id: id, currentMonth: payload, page: 1 })

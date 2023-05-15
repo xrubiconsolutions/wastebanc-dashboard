@@ -94,7 +94,6 @@ const ApprovedModal = ({
   userData,
   aggregator,
 }) => {
-  console.log("user data trips", userData);
   return (
     <Modal show={showPending} close={() => setShowPending(false)} width="48rem">
       <ModalTitle>
@@ -116,7 +115,7 @@ const ApprovedModal = ({
               title.toLowerCase() === "status" &&
               value.toLowerCase() !== "pending"
             )
-              color = "#005700";
+              color = "#295011";
 
             return (
               <InfoItem key={title}>
@@ -235,7 +234,7 @@ const ApprovedModal = ({
               <Pointer
                 color={
                   userData.status === "APPROVED"
-                    ? "#005700"
+                    ? "#295011"
                     : userData.status === "DECLINED"
                     ? "#4032a8"
                     : ""
@@ -245,7 +244,7 @@ const ApprovedModal = ({
                 userAgencies
                 color={
                   userData.status === "APPROVED"
-                    ? "#005700"
+                    ? "#295011"
                     : userData.status === "DECLINED"
                     ? "#3a32a8"
                     : "#FE0110"

@@ -212,7 +212,6 @@ const Financials = () => {
   const completePayment = async (invoiceNumber) => {
     const res = await dispatch(completeFinancialPayment(invoiceNumber));
     if (!res.payload.error) onRefresh();
-    // console.log("The result: ", res);
   };
 
   const data = [
@@ -392,7 +391,7 @@ const Financials = () => {
   const totalSummaryCards = FinancialsCards.map((el) => {
     return { ...el };
   });
-  // console.log("The summary: ", totalSummaryCards);
+
   totalSummaryCards[0].amount = summaryData?.totalPayment || 0;
   totalSummaryCards[1].amount = summaryData?.totalOutStanding || 0;
   totalSummaryCards[2].amount = summaryData?.totalCompleted || 0;
@@ -451,7 +450,7 @@ const Financials = () => {
       </Modal>
 
       <Modal
-        color={error ? "red" : "#005700"}
+        color={error ? "red" : "#295011"}
         type="postAction"
         show={showPostModal}
         close={() => setPostModal(false)}

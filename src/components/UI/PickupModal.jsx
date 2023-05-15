@@ -101,8 +101,11 @@ const PickupModal = ({
   completed,
   accepted,
   pending,
+  dashboard,
+  dropOff,
+  totalusercompleted,
+  userdropoff,
 }) => {
-  // console.log("userdata", userData);
   return (
     <Modal show={showModal} close={() => setShowModal(false)} width="48rem">
       <ModalTitle>
@@ -125,7 +128,7 @@ const PickupModal = ({
               title.toLowerCase() === "status" &&
               value.toLowerCase() !== "pending"
             )
-              color = "#005700";
+              color = "#295011";
 
             return (
               <InfoItem key={title}>
@@ -168,45 +171,55 @@ const PickupModal = ({
               ))}
             </FlexContainer>
           </InfoItem>
-          <InfoItem>
-            <InfoTitle>Waste Quantity:</InfoTitle>
-            <InfoValue>{userData.quantity} bags</InfoValue>
-          </InfoItem>
-          <InfoItem>
-            <InfoTitle>Pickup Location:</InfoTitle>
-            <InfoValue>{userData.address}</InfoValue>
-          </InfoItem>
+          {completed || dashboard ? (
+            <InfoItem>
+              <InfoTitle>Waste Quantity:</InfoTitle>
+              <InfoValue>{userData.quantity} Kg</InfoValue>
+            </InfoItem>
+          ) : (
+            <InfoItem>
+              <InfoTitle>Waste Quantity:</InfoTitle>
+              <InfoValue>{userData.quantity} bags</InfoValue>
+            </InfoItem>
+          )}
+          {!dropOff && (
+            <InfoItem>
+              <InfoTitle>Pickup Location:</InfoTitle>
+              <InfoValue>{userData.address}</InfoValue>
+            </InfoItem>
+          )}
+
           <InfoItem>
             <InfoTitle>Pickup Date:</InfoTitle>
             <InfoValue>
               {moment(userData.pickUpDate).format("YYYY-MM-DD")}
             </InfoValue>
           </InfoItem>
+          {!dropOff && (
+            <InfoItem>
+              <InfoTitle>Status:</InfoTitle>
 
-          <InfoItem>
-            <InfoTitle>Status:</InfoTitle>
+              {userData.completionStatus === "pending" &&
+                userData.collectorStatus === "accept" && (
+                  <FlexContainer
+                    // userAgencies
+                    // color={
+                    //   userData.completionStatus === "completed"
+                    //     ? "rgba(0, 154, 0, 0.1)"
+                    //     : userData.completionStatus === "accepted"
+                    //     ? "rgba(50, 68, 168, 0.4)"
+                    //     : "rgba(254, 1, 16, 0.1)"
+                    // }
 
-            {userData.completionStatus === "pending" &&
-              userData.collectorStatus === "accept" && (
-                <FlexContainer
-                  // userAgencies
-                  // color={
-                  //   userData.completionStatus === "completed"
-                  //     ? "rgba(0, 154, 0, 0.1)"
-                  //     : userData.completionStatus === "accepted"
-                  //     ? "rgba(50, 68, 168, 0.4)"
-                  //     : "rgba(254, 1, 16, 0.1)"
-                  // }
-
-                  userAgencies
-                  color="rgba(0, 154, 0, 1)"
-                >
-                  <Pointer color="#fff" />
-                  {/* <InfoValue
+                    userAgencies
+                    color="rgba(0, 154, 0, 1)"
+                  >
+                    <Pointer color="#fff" />
+                    {/* <InfoValue
                 userAgencies
                 color={
                   userData.completionStatus === "completed"
-                    ? "#005700"
+                    ? "#295011"
                     : userData.completionStatus === "accepted"
                     ? "#3a32a8"
                     : "#FE0110"
@@ -215,66 +228,66 @@ const PickupModal = ({
                 {userData.completionStatus}
               </InfoValue> */}
 
-                  <InfoValue userAgencies color="#fff">
-                    Accepted
-                  </InfoValue>
-                </FlexContainer>
-              )}
+                    <InfoValue userAgencies color="#fff">
+                      Accepted
+                    </InfoValue>
+                  </FlexContainer>
+                )}
 
-            {userData.completionStatus === "pending" &&
-              userData.collectorStatus === "decline" && (
-                <FlexContainer userAgencies color="rgba(254, 1, 16, 0.7)">
-                  <Pointer color="#fff" />
-                  <InfoValue userAgencies color="#fff">
-                    Pending
-                  </InfoValue>
-                </FlexContainer>
-              )}
+              {userData.completionStatus === "pending" &&
+                userData.collectorStatus === "decline" && (
+                  <FlexContainer userAgencies color="rgba(254, 1, 16, 0.7)">
+                    <Pointer color="#fff" />
+                    <InfoValue userAgencies color="#fff">
+                      Pending
+                    </InfoValue>
+                  </FlexContainer>
+                )}
 
-            {userData.completionStatus === "completed" &&
-              userData.collectorStatus === "accept" && (
-                <FlexContainer userAgencies color="rgba(50, 68, 168, 1)">
-                  <Pointer color="#fff" />
-                  <InfoValue userAgencies color="#fff">
-                    Completed
-                  </InfoValue>
-                </FlexContainer>
-              )}
+              {userData.completionStatus === "completed" &&
+                userData.collectorStatus === "accept" && (
+                  <FlexContainer userAgencies color="rgba(50, 68, 168, 1)">
+                    <Pointer color="#fff" />
+                    <InfoValue userAgencies color="#fff">
+                      Completed
+                    </InfoValue>
+                  </FlexContainer>
+                )}
 
-            {userData.completionStatus === "cancelled" &&
-              userData.collectorStatus === "accept" && (
-                <FlexContainer userAgencies color="rgba(254, 1, 16, 0.7)">
-                  <Pointer color="#fff" />
+              {userData.completionStatus === "cancelled" &&
+                userData.collectorStatus === "accept" && (
+                  <FlexContainer userAgencies color="rgba(254, 1, 16, 0.7)">
+                    <Pointer color="#fff" />
 
-                  <InfoValue userAgencies color="#fff">
-                    Cancelled
-                  </InfoValue>
-                </FlexContainer>
-              )}
+                    <InfoValue userAgencies color="#fff">
+                      Cancelled
+                    </InfoValue>
+                  </FlexContainer>
+                )}
 
-            {userData.completionStatus === "cancelled" &&
-              userData.collectorStatus === "decline" && (
-                <FlexContainer userAgencies color="rgba(254, 1, 16, 0.7)">
-                  <Pointer color="#fff" />
+              {userData.completionStatus === "cancelled" &&
+                userData.collectorStatus === "decline" && (
+                  <FlexContainer userAgencies color="rgba(254, 1, 16, 0.7)">
+                    <Pointer color="#fff" />
 
-                  <InfoValue userAgencies color="#fff">
-                    Cancelled
-                  </InfoValue>
-                </FlexContainer>
-              )}
+                    <InfoValue userAgencies color="#fff">
+                      Cancelled
+                    </InfoValue>
+                  </FlexContainer>
+                )}
 
-            {userData.completionStatus === "missed" &&
-              userData.collectorStatus === "accept" && (
-                <FlexContainer userAgencies color="rgba(254, 1, 16, 0.7)">
-                  <Pointer color="#fff" />
+              {userData.completionStatus === "missed" &&
+                userData.collectorStatus === "accept" && (
+                  <FlexContainer userAgencies color="rgba(254, 1, 16, 0.7)">
+                    <Pointer color="#fff" />
 
-                  <InfoValue userAgencies color="#fff">
-                    Missed
-                  </InfoValue>
-                </FlexContainer>
-              )}
-          </InfoItem>
-
+                    <InfoValue userAgencies color="#fff">
+                      Missed
+                    </InfoValue>
+                  </FlexContainer>
+                )}
+            </InfoItem>
+          )}
           {missed && !cancelled && (
             <InfoItem>
               <InfoTitle>Scheduled Date:</InfoTitle>
@@ -283,28 +296,55 @@ const PickupModal = ({
               </InfoValue>
             </InfoItem>
           )}
+          {/* {accepted && (
+            <InfoItem>
+              <InfoTitle>Accepted Date:</InfoTitle>
+              <InfoValue>
+                {moment(userData.acceptedDate).format("YYYY-MM-DD")}
+              </InfoValue>
+            </InfoItem>
+          )} */}
 
-          {!cancelled && !missed && !pending && (
+          {/* {!cancelled && !missed && !pending && (
+            <InfoItem>
+              <InfoTitle>Accepted By:</InfoTitle>
+              <InfoValue>{userData.recycler}</InfoValue>
+            </InfoItem>
+          )} */}
+
+          {!completed || !dropOff || (
             <InfoItem>
               <InfoTitle>Accepted By:</InfoTitle>
               <InfoValue>{userData.recycler}</InfoValue>
             </InfoItem>
           )}
 
+          {accepted ||
+            (totalusercompleted && (
+              <InfoItem>
+                <InfoTitle>Accepted By:</InfoTitle>
+                <InfoValue>{userData.recycler}</InfoValue>
+              </InfoItem>
+            ))}
+
+          {completed && (
+            <InfoItem>
+              <InfoTitle>Completed By:</InfoTitle>
+              <InfoValue>{userData.recycler}</InfoValue>
+            </InfoItem>
+          )}
           {missed && (
             <InfoItem>
               <InfoTitle>Missed By:</InfoTitle>
               <InfoValue>{userData.recycler}</InfoValue>
             </InfoItem>
           )}
-
           {!missed && !cancelled && !pending && (
             <InfoItem>
               <InfoTitle>Recycler No:</InfoTitle>
               <InfoValue>{userData.collectedPhone}</InfoValue>
             </InfoItem>
           )}
-
           {userData.acceptedDate ? (
             <InfoItem>
               <InfoTitle>Accepted Date:</InfoTitle>
@@ -315,7 +355,6 @@ const PickupModal = ({
           ) : (
             ""
           )}
-
           {/* {userData.completionDate ? (
             <InfoItem>
               <InfoTitle>Completed Date:</InfoTitle>
@@ -326,16 +365,19 @@ const PickupModal = ({
           ) : (
             ""
           )} */}
-
-          {!completed && !pending && !accepted && !cancelled && !missed && (
-            <InfoItem>
-              <InfoTitle>Completed Date:</InfoTitle>
-              <InfoValue>
-                {moment(userData.completionDate).format("YYYY-MM-DD")}
-              </InfoValue>
-            </InfoItem>
-          )}
-
+          {!completed &&
+            !pending &&
+            !accepted &&
+            !cancelled &&
+            !missed &&
+            !dropOff && (
+              <InfoItem>
+                <InfoTitle>Completed Date:</InfoTitle>
+                <InfoValue>
+                  {moment(userData.completionDate).format("YYYY-MM-DD")}
+                </InfoValue>
+              </InfoItem>
+            )}
           {!missed ||
             (!cancelled && (
               <InfoItem>
@@ -343,18 +385,114 @@ const PickupModal = ({
                 <InfoValue>{userData.recycler}</InfoValue>
               </InfoItem>
             ))}
-
-          {!missed && !completed && !accepted && !pending && (
+          {/* {!missed && !completed && !accepted && !pending && (
             <InfoItem>
               <InfoTitle>Cancelled By:</InfoTitle>
               <InfoValue>{userData.scheduleCreator}</InfoValue>
             </InfoItem>
+          )} */}
+          {!completed &&
+            !accepted &&
+            !pending &&
+            !dashboard &&
+            !missed &&
+            !dropOff &&
+            !totalusercompleted && (
+              <InfoItem>
+                <InfoTitle>Cancelled By:</InfoTitle>
+                <InfoValue>{userData.scheduleCreator}</InfoValue>
+              </InfoItem>
+            )}
+          {!completed &&
+            !accepted &&
+            !pending &&
+            !dashboard &&
+            !missed &&
+            !dropOff &&
+            !totalusercompleted && (
+              <InfoItem>
+                <InfoTitle>Cancelled Reason:</InfoTitle>
+                <InfoValue>
+                  {!userData.cancelReason ? "N/A" : userData.cancelReason}
+                </InfoValue>
+              </InfoItem>
+            )}
+
+          {cancelled && (
+            <InfoItem>
+              <InfoTitle>Cancelled Date:</InfoTitle>
+              <InfoValue>
+                {moment(userData.createdAt).format("YYYY-MM-DD")}
+              </InfoValue>
+            </InfoItem>
           )}
 
-          {!completed && !accepted && !pending && (
+          {/* {missed && (accepted
             <InfoItem>
-              <InfoTitle>Cancelled Reason:</InfoTitle>
-              <InfoValue>{userData.cancelReason}</InfoValue>
+              <InfoTitle>Missed Date:</InfoTitle>
+              <InfoValue>
+                {moment(userData.createdAt).format("YYYY-MM-DD")}
+              </InfoValue>
+            </InfoItem>
+          )} */}
+
+          {/* {pending ||
+            accepted ||
+            missed ||
+            (cancelled && (
+              <InfoItem>
+                <InfoTitle>Channel:</InfoTitle>
+                {userData.channel}
+              </InfoItem>
+            ))}
+             */}
+
+          {pending || accepted || missed || cancelled || totalusercompleted ? (
+            <InfoItem>
+              <InfoTitle>Channel:</InfoTitle>
+              {userData.channel}
+            </InfoItem>
+          ) : (
+            ""
+          )}
+
+          {pending && (
+            <InfoItem>
+              <InfoTitle>Schedule Date:</InfoTitle>
+              {moment(userData.completionDate).format("YYYY-MM-DD")}
+            </InfoItem>
+          )}
+
+          {missed && (
+            <InfoItem>
+              <InfoTitle>Reason:</InfoTitle>
+              <InfoValue>
+                {!userData.cancelReason ? "N/A" : userData.cancelReason}
+              </InfoValue>
+            </InfoItem>
+          )}
+
+          {totalusercompleted && (
+            <InfoItem>
+              <InfoTitle>Previous Balance:</InfoTitle>
+            </InfoItem>
+          )}
+
+          {totalusercompleted && (
+            <InfoItem>
+              <InfoTitle>New Balance:</InfoTitle>
+            </InfoItem>
+          )}
+
+          {totalusercompleted && (
+            <InfoItem>
+              <InfoTitle>Amount Paid:</InfoTitle>
+            </InfoItem>
+          )}
+
+          {totalusercompleted && (
+            <InfoItem>
+              <InfoTitle>Payment Date:</InfoTitle>
             </InfoItem>
           )}
         </InfoUserWrapper>

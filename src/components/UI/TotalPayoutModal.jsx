@@ -65,7 +65,6 @@ const TotalPayoutModal = ({
   setShowPayout = {},
   userData,
 }) => {
-  // console.log(userData, 'data')
   return (
     <Modal show={showPayout} close={() => setShowPayout(false)} width="48rem">
       <ModalTitle>
@@ -87,7 +86,7 @@ const TotalPayoutModal = ({
               title.toLowerCase() === "status" &&
               value.toLowerCase() !== "pending"
             )
-              color = "#005700";
+              color = "#295011";
 
             return (
               <InfoItem key={title}>
