@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react";
-import tw from "twin.macro";
+import moment from "moment";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory, useLocation } from "react-router";
 import styled from "styled-components";
-import { FlexContainer } from "../../../components/styledElements/index";
+import tw from "twin.macro";
 import BreadCrumb from "../../../components/UI/breadCrumbs";
-import Button from "../../../components/UI/button";
-import DataTable from "../../../components/UI/Table";
+import { FlexContainer } from "../../../components/styledElements/index";
+import { adminRequestActions } from "../../../store/actions";
+import { EvacuationModal } from "../evacuationModal";
+import BreakdownTable from "./BreakdownTable";
 
 export const UserContainer = styled.div`
   margin-bottom: 20px;
@@ -31,9 +35,6 @@ const UserTitle = styled.div`
   ${tw`text-xl font-medium`}
 `;
 
-const InfoWrapper = styled.div`
-  ${tw`flex flex-wrap gap-10 gap-x-12 w-11/12`}
-`;
 const InfoItem = styled.div`
   ${tw`flex flex-col space-y-2`}
 `;
@@ -55,96 +56,77 @@ const ButtonContainer = styled.div`
     ${tw`text-sm px-7 py-2 rounded-md transition-all ease-in-out duration-500`}
   }
   > button:first-child {
-    ${tw`bg-secondary text-white hover:bg-white hover:text-secondary border-2 border-secondary`}
+    ${tw`bg-secondary text-white  border-2 border-secondary`}
   }
 
   > button:last-child {
-    ${tw`bg-white text-secondary border-[2px] border-secondary   hover:bg-secondary hover:text-white`}
+    ${tw`bg-transparent border-[2px] border-red-500 text-red-500`}
   }
 `;
-const UserDetails = ({ match }) => {
+
+const AdminIncomingBreakdown = ({ match }) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const [isModal, setIsModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  const reqActions = async (status, id) => {
+    try {
+      const res = await dispatch(
+        adminRequestActions({
+          status: status,
+          id: id,
+        })
+      );
+      if (!res.error) {
+        history.push("/admin/evacuation");
+      } else {
+        setShowModal(true);
+        setIsModal(true);
+      }
+    } catch (error) {}
+  };
+
   const {
     params: { id },
   } = match;
 
-  useEffect(() => {}, []);
+  const { state } = useLocation();
 
   const data = [
     {
-      title: "Agent's Name",
-      value: "",
-    },
-    {
-      title: "Phone Number",
-      value: "",
-    },
-
-    {
       title: "Waste Quantity",
-      value: "",
+      value: state?.weight,
     },
 
     {
       title: "Collector's Phone Number",
-      value: "",
+      value: state["collectors"].phone,
     },
 
     {
       title: "Location",
-      value: "",
+      value: state["collectors"].address,
     },
 
     {
       title: "Date of Request",
-      value: "",
+      value: moment(state?.date).format("YYYY-MM-DD"),
     },
 
     {
       title: "Collector's Name",
-      value: "",
+      value: state["collectors"].fullname,
     },
   ];
-  const pages = [{ name: "Incoming", link: "/user/evacuation" }];
-
-  const columns = [
-    {
-      title: "Date",
-      dataIndex: "date",
-      key: "date",
-    },
-
-    {
-      title: "Agent's Name",
-      dataIndex: "agent",
-      key: "agent",
-    },
-
-    {
-      title: "Phone Number",
-      dataIndex: "phone",
-      key: "phone",
-    },
-    {
-      title: "Location",
-      dataIndex: "location",
-      key: "location",
-      render: (text) => (
-        <p className="space-x-2 ">
-          {text}
-          <span>Kg</span>
-        </p>
-      ),
-    },
-
-    {
-      title: "Waste Quanity",
-      dataIndex: "waste",
-      key: "waste",
-    },
-  ];
+  const pages = [{ name: "Incoming", link: "/admin/evacuation" }];
 
   return (
     <>
+      {isModal && (
+        <EvacuationModal showModal={showModal} setShowModal={setShowModal} />
+      )}
+
       <BreakDownContainer>
         <UserContainer>
           <NavBarLeft>
@@ -153,8 +135,8 @@ const UserDetails = ({ match }) => {
         </UserContainer>
 
         <ButtonContainer className="flex gap-6 self-end">
-          <button>Accept</button>
-          <button>Cancel</button>
+          <button onClick={() => reqActions("accept", id)}>Accept</button>
+          <button onClick={() => reqActions("reject", id)}>Reject</button>
         </ButtonContainer>
         <ModalBackground>
           <UserTitle>
@@ -176,20 +158,9 @@ const UserDetails = ({ match }) => {
         </ModalBackground>
       </BreakDownContainer>
 
-      <DataTable
-        data=""
-        columns={columns}
-        header
-        onSearch=""
-        onFilter=""
-        onRefresh=""
-        setCurrentPage=""
-        paginationData=""
-        totalPages=""
-        onFetch=""
-      />
+      <BreakdownTable state={state} />
     </>
   );
 };
 
-export default UserDetails;
+export default AdminIncomingBreakdown;

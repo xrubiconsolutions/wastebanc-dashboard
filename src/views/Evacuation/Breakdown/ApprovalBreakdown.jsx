@@ -1,11 +1,16 @@
+import moment from "moment";
 import React, { useEffect, useState } from "react";
-import tw from "twin.macro";
+import { useLocation } from "react-router";
 import styled from "styled-components";
-import { FlexContainer } from "../../../components/styledElements/index";
+import tw from "twin.macro";
 import BreadCrumb from "../../../components/UI/breadCrumbs";
-import Button from "../../../components/UI/button";
-import DataTable from "../../../components/UI/Table";
-import Tabcontent from "../../../components/UI/TabContent";
+
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
+import { FlexContainer } from "../../../components/styledElements/index";
+import { adminRequestActions } from "../../../store/actions";
+import { EvacuationModal } from "../evacuationModal";
+import BreakdownTable from "./BreakdownTable";
 
 export const UserContainer = styled.div`
   margin-bottom: 20px;
@@ -32,9 +37,6 @@ const UserTitle = styled.div`
   ${tw`text-xl font-medium`}
 `;
 
-const InfoWrapper = styled.div`
-  ${tw`flex flex-wrap gap-10 gap-x-12 w-11/12`}
-`;
 const InfoItem = styled.div`
   ${tw`flex flex-col space-y-2`}
 `;
@@ -47,105 +49,86 @@ const InfoValue = styled.p`
   color: ${(props) => (props.color ? props.color : "#464F54")};
 `;
 
-const BreakDownContainer = styled.div`
+const BreakDownContainer = styled.div`s
   ${tw`px-7 flex flex-col`}
 `;
 
 const ButtonContainer = styled.div`
   > button {
-    ${tw`text-sm px-7 py-2 rounded-md transition-all ease-in-out duration-500`}
+    ${tw`text-sm px-6 py-2 rounded-md transition-all ease-in-out duration-500`}
   }
   > button:first-child {
-    ${tw`bg-secondary text-white hover:bg-white hover:text-secondary border-2 border-secondary`}
+    ${tw`bg-secondary text-white  border-2 border-secondary `}
   }
 
   > button:last-child {
-    ${tw`bg-white text-red-400 border-[2px] border-red-400   hover:bg-secondary hover:text-white`}
+    ${tw`bg-transparent text-red-400 border-[2px] border-red-400`}
   }
 `;
-const ApprovalBreakdown = ({ match }) => {
+const AdminApprovalBreakdown = ({ match }) => {
   const {
     params: { id },
   } = match;
 
   useEffect(() => {}, []);
 
+  const { state } = useLocation();
+  const [isModal, setIsModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  const history = useHistory();
   const data = [
     {
-      title: "Agent's Name",
-      value: "",
-    },
-    {
-      title: "Phone Number",
-      value: "",
-    },
-
-    {
       title: "Waste Quantity",
-      value: "",
+      value: state?.weight,
     },
 
     {
       title: "Collector's Phone Number",
-      value: "",
+      value: state["collectors"].phone,
     },
 
     {
       title: "Location",
-      value: "",
+      value: state["collectors"].address,
     },
 
     {
       title: "Date of Request",
-      value: "",
+      value: moment(state?.date).format("YYYY-MM-DD"),
     },
 
     {
       title: "Collector's Name",
-      value: "",
+      value: state["collectors"].fullname,
     },
   ];
-  const pages = [{ name: "Awaiting Approval", link: "/user/evacuation" }];
+  const pages = [{ name: "Awaiting Approval", link: "/admin/evacuation" }];
+  const dispatch = useDispatch();
 
-  const columns = [
-    {
-      title: "Date",
-      dataIndex: "date",
-      key: "date",
-    },
-
-    {
-      title: "Agent's Name",
-      dataIndex: "agent",
-      key: "agent",
-    },
-
-    {
-      title: "Phone Number",
-      dataIndex: "phone",
-      key: "phone",
-    },
-    {
-      title: "Location",
-      dataIndex: "location",
-      key: "location",
-      render: (text) => (
-        <p className="space-x-2 ">
-          {text}
-          <span>Kg</span>
-        </p>
-      ),
-    },
-
-    {
-      title: "Waste Quanity",
-      dataIndex: "waste",
-      key: "waste",
-    },
-  ];
+  const reqActions = async (status, id) => {
+    try {
+      const res = await dispatch(
+        adminRequestActions({
+          status: status,
+          id: id,
+        })
+      );
+      if (!res.error) {
+        history.push("/admin/evacuation");
+      } else {
+        setShowModal(true);
+        setIsModal(true);
+      }
+    } catch (error) {}
+  };
 
   return (
     <>
+      {isModal && (
+        <EvacuationModal showModal={showModal} setShowModal={setShowModal} />
+      )}
+
       <BreakDownContainer>
         <UserContainer>
           <NavBarLeft>
@@ -154,8 +137,8 @@ const ApprovalBreakdown = ({ match }) => {
         </UserContainer>
 
         <ButtonContainer className="flex gap-6 self-end">
-          <button>Approve</button>
-          <button>Reject</button>
+          <button onClick={() => reqActions("approve", id)}>Approve</button>
+          <button onClick={() => reqActions("reject", id)}>Reject</button>
         </ButtonContainer>
         <ModalBackground>
           <UserTitle>
@@ -175,22 +158,11 @@ const ApprovalBreakdown = ({ match }) => {
             })}
           </GridContainer>
         </ModalBackground>
-      </BreakDownContainer>
 
-      <DataTable
-        data=""
-        columns={columns}
-        header
-        onSearch=""
-        onFilter=""
-        onRefresh=""
-        setCurrentPage=""
-        paginationData=""
-        totalPages=""
-        onFetch=""
-      />
+        <BreakdownTable state={state} />
+      </BreakDownContainer>
     </>
   );
 };
 
-export default ApprovalBreakdown;
+export default AdminApprovalBreakdown;
