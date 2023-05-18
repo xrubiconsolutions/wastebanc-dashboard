@@ -12,12 +12,12 @@ const SidebarData = [
   {
     title: "Dashboard",
     path: "/dashboard",
-    icon: "/assets/images/dashboardicon.svg",
+    icon: "/assets/images/dashIcon.svg",
   },
   {
     title: "Total Schedule",
     path: "/total_schedule",
-    icon: "/assets/images/Calendar.svg",
+    icon: "/assets/images/payoutIcon.svg",
     iconClosed: <IoIcon.IoIosArrowDown />,
     iconOpened: <IoIcon.IoIosArrowUp />,
     // setting subnav Component data //
@@ -47,40 +47,42 @@ const SidebarData = [
   {
     title: "Total Agents",
     path: "/total_agents",
-    icon: "/assets/images/aggregators.svg",
+    icon: "/assets/images/totalAgent.svg",
   },
   {
     title: "All Drop-Off",
     path: "/total_dropoff",
-    icon: "/assets/images/Location-check.svg",
+    icon: "/assets/images/dropoffIcon.svg",
     // icon: <FiIcons.FiPhoneCall />,
   },
   {
     title: "Manage Drop-off",
     path: "/manage_drop_off",
-    icon: "/assets/images/dropoff.svg",
+    icon: "/assets/images/Manage.svg",
     // icon: <FiIcons.FiPhoneOff />,
   },
   {
     title: "Geo-Fencing",
     path: "/geo_fencing",
-    icon: "/assets/images/Map.svg",
+    icon: "/assets/images/MapIcon.svg",
     // icon: <BiIcons.BiMessageRoundedDetail />,
   },
-  {
-    title: "Waste Picker",
-    path: "/waste_picker",
-    icon: "/assets/images/waste_picker.svg",
-  },
+  // {
+  //   title: "Waste Picker",
+  //   path: "/waste_picker",
+  //   icon: "/assets/images/waste_picker.svg",
+  // },
   {
     title: "Billing",
     path: "/billing",
-    icon: "/assets/images/invoice-bill.svg",
+    icon: "/assets/images/billing.svg",
   },
+
+  // { title: "Payout", path: "/payout", icon: "/assets/images/payoutIcon.svg" },
   {
     title: "Evacuation Request",
     path: "/evacuation",
-    icon: "/assets/images/Folder.svg",
+    icon: "/assets/images/EvacuationIcon.svg",
   },
 ];
 

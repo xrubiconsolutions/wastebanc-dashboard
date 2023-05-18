@@ -232,7 +232,7 @@ const Navbar = () => {
           })}
           <hr />
           <p className="text-white text-center font-bold text-sm py-4">
-            Powered by Pakam Technology
+            Powered by Pakam Technologyxxx
           </p>
         </SidebarParent>
       </SidebarDrawer>

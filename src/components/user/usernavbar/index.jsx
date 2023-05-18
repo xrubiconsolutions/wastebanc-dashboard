@@ -29,8 +29,8 @@ const NavContainer = styled.div`
     top: 0;
     z-index: 2;
     left: 253px;
-
     background: #f7f7f4;
+
     border-radius: 0px;
   }
 `;
@@ -65,6 +65,7 @@ const SidebarDrawer = styled(Drawer)`
   @media screen and (min-width: 960px) {
     display: none;
   }
+  background: rgba(34, 34, 34, 0.2);
 `;
 
 const NavBarRight = styled.div`
@@ -72,6 +73,8 @@ const NavBarRight = styled.div`
 `;
 const SidebarParent = styled.div`
   color: #ffff;
+  background: #7af033;
+  box-shadow: 0px 30px 24px rgba(0, 0, 0, 0.06);
 `;
 
 const SidebarLogo = styled.img`
@@ -92,25 +95,21 @@ const StyledNavLink = styled(NavLink)`
   transition: all 0.25s ease-in-out;
   background: transparent;
   margin: 4px 10px 4px 1px;
-  // border-radius: 4px;
+
   p {
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
     line-height: 18px;
     letter-spacing: 0.1px;
-    ${tw`
-      text-white
-    `}
+    color: #295011;
   }
   &:hover {
     ${tw`
-    // bg-label
     border-l-4
-    border-white
+    border-green-800
   `}
-    background: rgba(255, 255, 255, 0.1);
-
+    background: rgba(34, 34, 34, 0.1);
     cursor: pointer;
     tranistion: 0.2s ease-in-out;
   }
@@ -122,10 +121,11 @@ const StyledNavLink = styled(NavLink)`
   }
   &.selected {
     ${tw`
-    // bg-label
+
     border-l-4
     border-white
-  `}// background: rgba(255, 255, 255, 0.1);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  `}
+    background: rgba(34, 34, 34, 0.2);
   }
 `;
 
@@ -178,6 +178,7 @@ const Navbar = () => {
           </NavBarRight>
         </NavWrapper>
       </NavContainer>
+
       <SidebarDrawer
         // title="Basic SidebarDrawer"
         placement="right"
@@ -189,7 +190,18 @@ const Navbar = () => {
         // open={open}
       >
         <SidebarParent>
-          <SidebarLogo src="/assets/images/logo.svg" alt="pakam-logo" />
+          {/* <SidebarLogo src="/assets/images/logo.svg" alt="pakam-logo" /> */}
+
+          <SidebarLogo
+            src="/assets/images/wastebancLogo.svg"
+            alt="wastebanc-logo"
+          />
+          <img
+            src="/assets/images/pakamTech.svg"
+            alt="pakam-logo"
+            className="mt-1 mb-6  mx-8"
+          />
+
           {Data.map((item) => {
             if (item.subNav && item.subNav.length) {
               return <DropdownNavLink item={item} key={item.title} />;
@@ -208,9 +220,9 @@ const Navbar = () => {
               </div>
             );
           })}
-          <p className="text-white text-center font-bold text-sm bottom-0 absolute px-4">
+          {/* <p className="text-white text-center font-bold text-sm bottom-0 absolute px-4">
             Powered by Pakam Technology
-          </p>
+          </p> */}
         </SidebarParent>
       </SidebarDrawer>
     </>

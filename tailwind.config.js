@@ -11,7 +11,8 @@ module.exports = {
         line: "#D9DBE9",
         input: "#EFF0F6",
         primary: "#008300",
-        secondary: "#295011",
+        // secondary: "#295011",
+        secondary: "#7af033",
         error: "#FE0110",
         success: "#00BA88",
         "bd-color": "#BDBDBD",
@@ -30,3 +31,5 @@ module.exports = {
   },
   plugins: [],
 };
+
+// #2A5012
