@@ -50,7 +50,7 @@ const InfoValue = styled.p`
 `;
 
 const BreakDownContainer = styled.div`s
-  ${tw`px-7 flex flex-col`}
+  ${tw`flex flex-col`}
 `;
 
 const ButtonContainer = styled.div`
