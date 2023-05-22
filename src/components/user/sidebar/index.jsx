@@ -180,7 +180,7 @@ function Sidebar() {
         })}
         <hr />
         <p className="text-white text-center font-bold text-sm py-4">
-          Powered by Pakam Technologysss
+          Powered by Pakam Technology
         </p>
         <SidebarFooter>
           {/* {locationPermissions?.read && (

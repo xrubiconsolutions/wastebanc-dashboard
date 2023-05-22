@@ -50,11 +50,11 @@ p {
   margin-bottom: 0 !important;
 }
 .ant-tabs-tab {
-  color: #357c08 !important;
+  color: #295011 !important;
 }
 
 .ant-tabs-tab-active {
-  color: #7af033 !important;
+  color: #295011 !important;
 }
 .ant-tabs-tab:hover {
   color: #295011 !important;
@@ -64,7 +64,7 @@ p {
   z-index: 2;
 }
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: #7af033 !important;
+  color: #295011 !important;
 }
 .ant-tabs-nav-list {
   transform: translate(50px, 0px) !important;

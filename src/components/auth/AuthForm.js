@@ -27,8 +27,7 @@ const FormTitle = styled.p`
 `;
 
 const PasswordLinktext = styled(Link)`
-  ${tw`text-secondary text-sm font-medium ml-2`};
-  color: #7af033;
+  ${tw`text-secondary text-sm font-bold ml-2`}
 `;
 
 const InstructionText = styled.p`
@@ -41,8 +40,8 @@ const HeaderBody = styled.div`
 
 const SubmitButton = styled.button`
   ${tw`disabled:cursor-not-allowed disabled:opacity-50 hover:text-secondary hover:border-2 hover:bg-white hover:border-secondary outline-none text-white bg-btnColor rounded-lg text-xl py-3 w-full`}
+  // height: 70px
   transition: .2s ease-in-out;
-  background: #7af033;
 `;
 
 const RecoveryCodeText = styled.p`
@@ -61,7 +60,7 @@ const FadedText = styled.span`
 `;
 
 const LogoWrapper = styled.div`
-  ${tw`flex items-center justify-around w-[150px] mx-auto my-2`}
+  ${tw`flex items-center justify-around w-[120px] mx-auto my-4`}
 
   p {
     ${tw`font-medium text-[20px] text-secondary`}
@@ -180,8 +179,8 @@ const AuthForm = ({
             <LogoWrapper>
               <img
                 src="/assets/images/wastebancLogo.svg"
-                alt="wastebanc-logo"
-                className="h-full w-[350px]"
+                alt="wastebanc"
+                className="h-full w-full"
               />
               {/* <p>Pakam</p> */}
             </LogoWrapper>

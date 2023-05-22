@@ -6,9 +6,9 @@
 }
 
 .btn--primary--outline:hover {
-  background-color: #7af033;
+  background-color: #2a5012;
   transform: translateY(-2px);
-  color: black;
+  color: white;
   transition: ease-in-out 0.2s;
 }
 .btn--danger--outline:hover {
@@ -26,16 +26,10 @@
   /* width: 90%; */
 }
 
-.btn--primary--solid:hover {
-  background-color: #7af033;
-  color: black;
-  transition: ease-in-out 0.2s;
-}
-
 .btn--primary--outline {
   background-color: transparent;
   color: #2a5012;
-  border: 1px solid #7af033;
+  border: 1px solid #2a5012;
   /* width: 95%; */
 }
 .btn--danger--outline {
