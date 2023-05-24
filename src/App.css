@@ -190,3 +190,7 @@ thead[class*="ant-table-thead"] th {
   color: green;
   transition: all ease-in-out 500ms;
 }
+.ant-table-sticky-holder,
+.ant-table-sticky-scroll {
+  z-index: 0 !important;
+}
