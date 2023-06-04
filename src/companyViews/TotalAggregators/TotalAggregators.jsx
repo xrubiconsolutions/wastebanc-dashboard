@@ -1,28 +1,29 @@
-import React, { useEffect, useState } from "react";
 import { Space } from "antd";
-import ContentCard from "../../components/UI/ContentCard";
-import { colors, TotalCardAggregators } from "../../utils/data";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import tw from "twin.macro";
-import StyledButton from "../../components/UI/btn";
-import Tabcontent from "../../components/UI/TabContent";
-import Modal from "../../components/UI/modal";
-import { useDispatch, useSelector } from "react-redux";
 import ApprovedModal from "../../components/UI/ApprovedModal";
-import moment from "moment";
+import ContentCard from "../../components/UI/ContentCard";
+import { DisplayModal } from "../../components/UI/DisplayModal";
+import Tabcontent from "../../components/UI/TabContent";
+import StyledButton from "../../components/UI/btn";
+import Modal from "../../components/UI/modal";
 import DeleteModal from "../../components/common/DeleteModal";
-import { chunk } from "../../utils";
 import {
-  getCompanyAggregator,
-  getCompanyPending,
   approveCompanyCollector,
+  companySearchAggregator,
   declineCompanyCollector,
   filterCompanyAggregator,
   filterCompanyPending,
-  companySearchAggregator,
+  getCompanyAggregator,
+  getCompanyPending,
 } from "../../store/actions";
-import { MapWrapper } from "./AggregatorMap";
+import { chunk } from "../../utils";
 import { truncate } from "../../utils/constants";
+import { TotalCardAggregators, colors } from "../../utils/data";
+import { MapWrapper } from "./AggregatorMap";
 
 const AggregatorsContainer = styled.div`
   ${tw`space-y-4`}
@@ -55,6 +56,7 @@ const TotalAggregators = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [approvedPagination, setApprovedPagination] = useState();
   const [unapprovedPagination, setUnapprovedPagination] = useState();
+  const [message, setMessage] = useState();
 
   const [selectedKey, setSelectedKey] = useState("0");
 
@@ -94,12 +96,13 @@ const TotalAggregators = () => {
     const res = await dispatch(
       approveCompanyCollector({ collectorId: collectorId })
     );
-
     if (!res.error) {
       await dispatch(getCompanyAggregator(currentMonth));
       await dispatch(getCompanyPending(currentMonth));
       fetchUnapproved();
       fetchApproved();
+      setMessage(res?.payload.message);
+      setShowModal(true);
     }
     // setPostAction(true);
   };
@@ -115,6 +118,8 @@ const TotalAggregators = () => {
       await dispatch(getCompanyPending(currentMonth));
       fetchUnapproved();
       fetchApproved();
+      setMessage(res?.payload.message);
+      setShowModal(true);
     }
     // setPostAction(true);
   };
@@ -195,15 +200,6 @@ const TotalAggregators = () => {
     }
   };
 
-  // const searchPendingCollector = async (key) => {
-  //   const res = await dispatch(filterCompanyPending({ key }));
-  //   if (!res.error) setFetchedPending(res.payload.data);
-  // };
-
-  // const onRefresh = async () => {
-  //   await dispatch(getCompanyAggregator(currentMonth));
-  //   await dispatch(getCompanyPending(currentMonth));
-  // };
   const onRefresh = () => {
     dispatch(getCompanyAggregator(payload));
     fetchApproved();
@@ -303,21 +299,6 @@ const TotalAggregators = () => {
           dataIndex: "phone",
           key: "phone",
         },
-        // {
-        //   title: "localGovernment",
-        //   dataIndex: "localGovernment",
-        //   key: "localGovernment",
-        // },
-        // {
-        //   title: "Verified",
-        //   dataIndex: "verified",
-        //   key: "verified",
-        //   render: (text) => (
-        //     <p className="text-secondary font-bold">
-        //       {text === false ? "not verified" : "verified"}
-        //     </p>
-        //   ),
-        // },
         {
           title: "Status",
           dataIndex: "status",
@@ -435,6 +416,11 @@ const TotalAggregators = () => {
         data={rowInfo}
         userData={rowInfo}
         aggregator
+      />
+      <DisplayModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        message={message}
       />
       <AggregatorsContainer>
         <div className="grid lg:grid-cols-4 grid-cols-2 gap-4 container ">

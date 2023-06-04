@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import Modal from "../../components/UI/modal";
+import Modal from "./modal";
 
-export const EvacuationModal = ({ showModal, setShowModal }) => {
+export const DisplayModal = ({ showModal, setShowModal, message }) => {
   const {
     app: { error },
   } = useSelector((state) => state);
@@ -17,7 +17,7 @@ export const EvacuationModal = ({ showModal, setShowModal }) => {
         type="postAction"
         color={error && "#F5000F"}
       >
-        <p>{`${error}`}</p>
+        <p>{`${error ? error : message}`}</p>
       </Modal>
     </>
   );

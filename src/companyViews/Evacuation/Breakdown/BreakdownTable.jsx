@@ -24,7 +24,7 @@ const BreakdownTable = ({ state }) => {
     },
 
     {
-      title: "Waste Quantity",
+      title: "Waste Quantity (kg)",
       dataIndex: "weight",
       key: "weight",
     },
@@ -33,17 +33,15 @@ const BreakdownTable = ({ state }) => {
   const [top, setTop] = useState("topRight");
 
   return (
-    <div>
-      <Table
-        columns={columns}
-        dataSource={state?.transactions}
-        pagination={{
-          position: [top],
-          defaultCurrent: 1,
-          defaultPageSize: 20,
-        }}
-      />
-    </div>
+    <Table
+      columns={columns}
+      dataSource={state?.transactions}
+      pagination={{
+        position: [top],
+        defaultCurrent: 1,
+        defaultPageSize: 20,
+      }}
+    />
   );
 };
 export default BreakdownTable;

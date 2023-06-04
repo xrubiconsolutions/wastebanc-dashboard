@@ -4,10 +4,10 @@ import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router";
 import styled from "styled-components";
 import tw from "twin.macro";
+import { DisplayModal } from "../../../components/UI/DisplayModal";
 import BreadCrumb from "../../../components/UI/breadCrumbs";
 import { FlexContainer } from "../../../components/styledElements/index";
 import { requestActions } from "../../../store/actions";
-import { EvacuationModal } from "../evacuationModal";
 import BreakdownTable from "./BreakdownTable";
 import {
   BreakDownContainer,
@@ -53,18 +53,18 @@ const IncomingBreakdown = ({ match }) => {
 
   const data = [
     {
-      title: "Waste Quantity",
+      title: "Waste Quantity (kg)",
       value: state?.weight,
     },
 
     {
       title: "Collector's Phone Number",
-      value: state["collectors"].phone,
+      value: state["collectors"]?.phone,
     },
 
     {
       title: "Location",
-      value: state["collectors"].address,
+      value: state["collectors"]?.address,
     },
 
     {
@@ -74,7 +74,7 @@ const IncomingBreakdown = ({ match }) => {
 
     {
       title: "Collector's Name",
-      value: state["collectors"].fullname,
+      value: state["collectors"]?.fullname,
     },
   ];
   const pages = [{ name: "Incoming", link: "/user/evacuation" }];
@@ -82,7 +82,7 @@ const IncomingBreakdown = ({ match }) => {
   return (
     <>
       {isModal && (
-        <EvacuationModal showModal={showModal} setShowModal={setShowModal} />
+        <DisplayModal showModal={showModal} setShowModal={setShowModal} />
       )}
 
       <BreakDownContainer>

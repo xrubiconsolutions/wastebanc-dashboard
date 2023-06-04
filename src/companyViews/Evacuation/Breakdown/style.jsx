@@ -2,7 +2,7 @@ import styled from "styled-components";
 import tw from "twin.macro";
 
 export const UserContainer = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   display: grid;
 `;
 
@@ -19,7 +19,7 @@ export const NavBarLeft = styled.div`
   }
 `;
 export const ModalBackground = styled.div`
-  ${tw`pt-5`}
+  ${tw`pt-3`}
 `;
 
 export const UserTitle = styled.div`

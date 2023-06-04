@@ -1,15 +1,15 @@
+import { Space, Tag } from "antd";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { Tag, Space } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import PickupModal from "../../components/UI/PickupModal";
 import DataTable from "../../components/UI/Table";
 import Button from "../../components/UI/button";
 import {
   filterCompanyCompleted,
-  searchCompanyCompleted,
   getCompanyCompletedSchedule,
+  searchCompanyCompleted,
 } from "../../store/actions";
-import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
-import PickupModal from "../../components/UI/PickupModal";
 import { truncate } from "../../utils/constants";
 
 const CompletedSchedule = () => {
@@ -76,11 +76,6 @@ const CompletedSchedule = () => {
       key: "recycler",
     },
 
-    // {
-    //   title: "Completed By",
-    //   dataIndex: "completed",
-    //   key: "completed",
-    // },
     {
       title: "Action",
       dataIndex: "action",

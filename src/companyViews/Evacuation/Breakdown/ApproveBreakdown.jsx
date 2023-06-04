@@ -1,8 +1,6 @@
 import moment from "moment";
 import React, { useEffect } from "react";
 import { useLocation } from "react-router";
-import styled from "styled-components";
-import tw from "twin.macro";
 import BreadCrumb from "../../../components/UI/breadCrumbs";
 import { FlexContainer } from "../../../components/styledElements/index";
 import BreakdownTable from "./BreakdownTable";
@@ -25,18 +23,18 @@ const ApprovedBreakdown = ({ match }) => {
 
   const data = [
     {
-      title: "Waste Quantity",
+      title: "Waste Quantity (kg)",
       value: state?.weight,
     },
 
     {
       title: "Collector's Phone Number",
-      value: state["collectors"].phone,
+      value: state["collectors"]?.phone,
     },
 
     {
       title: "Location",
-      value: state["collectors"].address,
+      value: state["collectors"]?.address,
     },
 
     {
@@ -46,7 +44,7 @@ const ApprovedBreakdown = ({ match }) => {
 
     {
       title: "Collector's Name",
-      value: state["collectors"].fullname,
+      value: state["collectors"]?.fullname,
     },
   ];
   const pages = [{ name: "Approved", link: "/user/evacuation" }];
