@@ -282,14 +282,14 @@ const EvacuationRequest = () => {
           title: "Agent's Name",
           dataIndex: "fullname",
           key: "fullname",
-          render: (text, record) => <p>{record["collector"].fullname}</p>,
+          render: (text, record) => <p>{record["collector"]?.fullname}</p>,
         },
 
         {
           title: "Phone Number",
           dataIndex: "phone",
           key: "phone",
-          render: (text, record) => <p>{record["collector"].phone}</p>,
+          render: (text, record) => <p>{record["collector"]?.phone}</p>,
         },
         {
           title: "Location",
@@ -299,7 +299,7 @@ const EvacuationRequest = () => {
         },
 
         {
-          title: "Waste Quantity",
+          title: "Waste Quantity (kg)",
           dataIndex: "totalWeight",
           key: "totalWeight",
         },
@@ -358,14 +358,14 @@ const EvacuationRequest = () => {
           title: "Agent's Name",
           dataIndex: "fullname",
           key: "fullname",
-          render: (text, record) => <p>{record["collector"].fullname}</p>,
+          render: (text, record) => <p>{record["collector"]?.fullname}</p>,
         },
 
         {
           title: "Phone Number",
           dataIndex: "phone",
           key: "phone",
-          render: (text, record) => <p>{record["collector"].phone}</p>,
+          render: (text, record) => <p>{record["collector"]?.phone}</p>,
         },
         {
           title: "Location",
@@ -375,7 +375,7 @@ const EvacuationRequest = () => {
         },
 
         {
-          title: "Waste Quantity",
+          title: "Waste Quantity (kg)",
           dataIndex: "totalWeight",
           key: "totalWeight",
         },
@@ -436,14 +436,14 @@ const EvacuationRequest = () => {
           title: "Agent's Name",
           dataIndex: "fullname",
           key: "fullname",
-          render: (text, record) => <p>{record["collector"].fullname}</p>,
+          render: (text, record) => <p>{record["collector"]?.fullname}</p>,
         },
 
         {
           title: "Phone Number",
           dataIndex: "phone",
           key: "phone",
-          render: (text, record) => <p>{record["collector"].phone}</p>,
+          render: (text, record) => <p>{record["collector"]?.phone}</p>,
         },
         {
           title: "Location",
@@ -453,7 +453,7 @@ const EvacuationRequest = () => {
         },
 
         {
-          title: "Waste Quantity",
+          title: "Waste Quantity (kg)",
           dataIndex: "totalWeight",
           key: "totalWeight",
         },
@@ -514,14 +514,14 @@ const EvacuationRequest = () => {
           title: "Agent's Name",
           dataIndex: "fullname",
           key: "fullname",
-          render: (text, record) => <p>{record["collector"].fullname}</p>,
+          render: (text, record) => <p>{record["collector"]?.fullname}</p>,
         },
 
         {
           title: "Phone Number",
           dataIndex: "phone",
           key: "phone",
-          render: (text, record) => <p>{record["collector"].phone}</p>,
+          render: (text, record) => <p>{record["collector"]?.phone}</p>,
         },
         {
           title: "Location",
@@ -531,7 +531,7 @@ const EvacuationRequest = () => {
         },
 
         {
-          title: "Waste Quantity",
+          title: "Waste Quantity (kg)",
           dataIndex: "totalWeight",
           key: "totalWeight",
         },
