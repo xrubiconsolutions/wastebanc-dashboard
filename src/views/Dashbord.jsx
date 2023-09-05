@@ -1,39 +1,40 @@
-import React, { useState, useEffect } from "react";
+import { Popover, Space, Tag } from "antd";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import tw from "twin.macro";
-import Filter from "../components/UI/Filter";
 import ContentCard from "../components/UI/ContentCard";
-import Tabcontent from "../components/UI/TabContent";
-import { chunk, formatValue } from "../utils";
-import { CardDashbordDetails } from "../utils/data";
-import { Tag, Space } from "antd";
-import StyledButton from "../components/UI/btn";
-import { claimPermissions, infoData, truncate } from "../utils/constants";
-import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
 import Disable from "../components/UI/Disable";
+import Filter from "../components/UI/Filter";
+import Tabcontent from "../components/UI/TabContent";
+import StyledButton from "../components/UI/btn";
+import { chunk, formatValue } from "../utils";
+import { claimPermissions, infoData, truncate } from "../utils/constants";
+import { CardDashbordDetails } from "../utils/data";
+
+import { MapWrapper } from "../components/GoogleMaps/Map";
+import Location from "../components/UI/Location";
+import NewAggregators from "../components/UI/NewAggregators";
+import NewUserModal from "../components/UI/NewUserModal";
+import PickupModal from "../components/UI/PickupModal";
+import Modal from "../components/UI/modal";
 import {
-  filterMatrix,
   FilterNewAggregators,
-  SearchNewAggregators,
   FilterNewUsers,
-  getcurrentMonthMatrix,
+  FilterNewWastePickers,
+  SearchNewAggregators,
+  SearchNewUsers,
+  SearchNewWastePickers,
+  filterMatrix,
+  getFilteredRecentPickups,
   getNewAggregators,
   getNewUsers,
   getRecentPickups,
-  SearchNewUsers,
-  getFilteredRecentPickups,
-  searchRecentPickups,
   getWastePickers,
-  FilterNewWastePickers,
-  SearchNewWastePickers,
+  getcurrentMonthMatrix,
+  searchRecentPickups,
 } from "../store/actions";
-import { MapWrapper } from "../components/GoogleMaps/Map";
-import PickupModal from "../components/UI/PickupModal";
-import NewUserModal from "../components/UI/NewUserModal";
-import NewAggregators from "../components/UI/NewAggregators";
-import Location from "../components/UI/Location";
-import Modal from "../components/UI/modal";
 
 const colors = [
   "#00966D",
@@ -42,8 +43,7 @@ const colors = [
   "#EF5DA8",
   "#009A00",
   "#F5000F",
-  // "#006700",
-  "#295011",
+  "#006700",
   "#FE0110",
 ];
 const DashbordContainer = styled.div`
@@ -101,9 +101,10 @@ const Dashbord = () => {
       getFilteredRecentPickups({ currentMonth: date, page })
     );
     const { schedules, ...paginationData } = res.payload.data;
+    console.log(res.payload.data, "res.payload.data");
     setTableBody(schedules);
     setPickupPagination({ ...paginationData, date });
-    // setTotalPages(paginationData.totalPages);
+    setTotalPages(paginationData.totalPages);
   };
 
   const handlePickupSearch = async (key, page = 1) => {
@@ -198,10 +199,11 @@ const Dashbord = () => {
         page,
       })
     );
+
     if (!res.error) {
       const { schedules, ...paginationData } = res.payload.data;
       setTableBody(schedules);
-      setPickupPagination(paginationData);
+      setPickupPagination({ ...paginationData, date: payload });
     }
   };
 
@@ -218,6 +220,7 @@ const Dashbord = () => {
       setNewUserPagination({ ...paginationData, date: payload });
     }
   };
+
   const fetchNewCollector = async (page = 1) => {
     const res = await dispatch(
       getNewAggregators({
@@ -277,7 +280,13 @@ const Dashbord = () => {
           render: (categories) => (
             <span>
               {(categories.slice(0, 3) || []).map((waste) => {
-                return <Tag key={waste}>{waste?.name || waste}</Tag>;
+                return (
+                  <Tag key={waste}>
+                    <Popover content={waste?.name || waste}>
+                      {truncate(waste?.name, 10)}
+                    </Popover>
+                  </Tag>
+                );
               })}
             </span>
           ),
@@ -358,7 +367,6 @@ const Dashbord = () => {
                 buttonStyle="btn--primary--outline"
                 buttonSize="btn--small"
                 onClick={() => {
-                  // console.log(record, "record");
                   setRowInfo(record);
                   setNewModal(true);
                 }}
@@ -524,8 +532,8 @@ const Dashbord = () => {
     // then return the modified copy
     newData[0].amount = data && formatValue(data?.totalDropOff);
     newData[1].amount = data && `${formatValue(data?.totalWastes)} Kg`;
-    newData[2].amount = data && formatValue(data?.totalWasterPickers);
-    newData[3].amount = data && formatValue(data?.totalOrganisation);
+    newData[2].amount = data && formatValue(data?.totalOrganisation);
+    newData[3].amount = data && formatValue(data?.totalInsuranceUsers);
     newData[4].amount = data && formatValue(data?.totalSchedules);
     // newData[4].amount = data && formatValue(0);
     newData[5].amount = data && formatValue(data?.totalPending);
@@ -579,6 +587,7 @@ const Dashbord = () => {
         setShowModal={setShowModal}
         data={rowInfo}
         userData={rowInfo}
+        dashboard
       />
       <NewUserModal
         showNewModal={showNewModal}
@@ -611,7 +620,7 @@ const Dashbord = () => {
                   // amount={formatValue(el.amount)}
                   amount={el.amount}
                   link={el.link}
-                  progress={el.progress}
+                  // progress={el.progress}
                   style={{ color: colors[i] }}
                   key={i}
                 />

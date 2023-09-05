@@ -54,7 +54,7 @@ const ContentCard = (props) => {
               props.title === "Pending Pickup" ||
               props.title === "Missed Pickup"
                 ? "#FE0110"
-                : "#295011"
+                : "#006700"
             }
           />
         )}

@@ -312,12 +312,6 @@ export const searchCompanyOutstanding = createAsyncThunk(
   }
 );
 
-/****************************
- *
- * Payout Actions Commpany
- *
- ****************************/
-
 export const getpendingPayoutRequest = createAsyncThunk(
   "get/pending-payout-request",
   async (data, { dispatch }) => {

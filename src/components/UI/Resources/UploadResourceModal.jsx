@@ -42,9 +42,17 @@ const UploadResourceModal = ({
   data = initData,
   showModal = false,
   setShowModal = {},
+  fetchAll = () => {},
 }) => {
-  const { setValue, formValues, errorMsgs } = useForm(initData);
+  const { setValue, formValues, errorMsgs, clearForm } = useForm(initData);
+  const [showPostModal, setPostModal] = useState(false);
+
+  const {
+    app: { error },
+  } = useSelector((state) => state);
+
   const dispatch = useDispatch();
+
   const createResourceHandler = async () => {
     setShowModal(false);
     const data = {
@@ -52,53 +60,68 @@ const UploadResourceModal = ({
       youtubeId: formValues.youtubeId,
       message: formValues.message,
     };
-    // console.log(data, "dataaaa");
     const res = await dispatch(createResources(data));
-    if (!res.error) dispatch(getResources());
+    if (!res.error) {
+      // dispatch(getResources());
+      clearForm();
+      setPostModal(true);
+      fetchAll();
+    }
   };
 
   return (
-    <Modal show={showModal} close={() => setShowModal(false)} width="30rem">
-      <FlexContainer className="justify-between mb-4">
-        <TitleText>Create Resources</TitleText>
-        <StyledButton
-          buttonSize="btn--medium"
-          onClick={() => setShowModal(false)}
-        >
-          close
-        </StyledButton>
-      </FlexContainer>
-      <div className="flex flex-col">
-        {Object.entries(data).map(([key, input]) => (
-          <FormInput
-            placeholder={input.placeholder}
-            type={input.type}
-            label={input.label}
-            key={input.label}
-            height="3.5rem"
-            changeHandler={(e) => setValue(key, e.target.value)}
-            errorMsg={errorMsgs[key]}
-            value={formValues[key]}
-            disabled={input.disabled}
-          />
-        ))}
-        <div className="max-w-content">
+    <>
+      <Modal
+        color={error ? "red" : "#295011"}
+        type="postAction"
+        show={showPostModal}
+        close={() => setPostModal(false)}
+      >
+        {!error ? "Resource Added successfully" : error}
+      </Modal>
+
+      <Modal show={showModal} close={() => setShowModal(false)} width="30rem">
+        <FlexContainer className="justify-between mb-4">
+          <TitleText>Create Resources</TitleText>
           <StyledButton
             buttonSize="btn--medium"
-            buttonStyle="btn--primary--outline"
-            onClick={createResourceHandler}
-            disabled={
-              formValues.resource.length === 0 ||
-              formValues.message.length === 0 ||
-              formValues.youtubeId.length === 0
-            }
+            onClick={() => setShowModal(false)}
           >
-            <FiPlusCircle size={"20"} />
-            Upload
+            close
           </StyledButton>
+        </FlexContainer>
+        <div className="flex flex-col">
+          {Object.entries(data).map(([key, input]) => (
+            <FormInput
+              placeholder={input.placeholder}
+              type={input.type}
+              label={input.label}
+              key={input.label}
+              height="3.5rem"
+              changeHandler={(e) => setValue(key, e.target.value)}
+              errorMsg={errorMsgs[key]}
+              value={formValues[key]}
+              disabled={input.disabled}
+            />
+          ))}
+          <div className="max-w-content">
+            <StyledButton
+              buttonSize="btn--medium"
+              buttonStyle="btn--primary--outline"
+              onClick={createResourceHandler}
+              disabled={
+                formValues.resource.length === 0 ||
+                formValues.message.length === 0 ||
+                formValues.youtubeId.length === 0
+              }
+            >
+              <FiPlusCircle size={"20"} />
+              Upload
+            </StyledButton>
+          </div>
         </div>
-      </div>
-    </Modal>
+      </Modal>
+    </>
   );
 };
 

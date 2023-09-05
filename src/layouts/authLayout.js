@@ -14,6 +14,8 @@ const LayoutContainer = styled.div`
   flex
   items-center
   justify-center
+  overflow-hidden
+
 `}
 `;
 
@@ -26,7 +28,6 @@ const AuthLayout = () => {
   useEffect(() => {
     dispatch(clearError());
   }, [dispatch]);
-
   return (
     <LayoutContainer>
       <Switch>

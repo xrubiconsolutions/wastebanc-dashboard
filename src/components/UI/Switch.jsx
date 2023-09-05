@@ -25,11 +25,9 @@ const options = [
 
 const Switch = ({ res, setValue3, value3 }) => {
   const onChange3 = ({ target: { value } }) => {
-    console.log("radio3 checked", value);
     setValue3(value);
   };
 
-  console.log(value3, "value333");
   return (
     <div className="flex item-center flex-col justify-between space-y-6 w-full">
       <div className="flex items-center justify-start space-x-5 ">

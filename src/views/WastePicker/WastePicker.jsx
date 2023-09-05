@@ -612,13 +612,14 @@ const WastePicker = () => {
   return (
     <>
       <Modal
-        color={error ? "red" : "#005700"}
+        color={error ? "red" : "#295011"}
         type="postAction"
         show={showPostModal}
         close={() => setPostModal(false)}
       >
         {!error ? "Waste Picker assigned successfully" : error}
       </Modal>
+
       <WastePickerModal
         mode={modalMode}
         showModal={showModal}
@@ -630,6 +631,7 @@ const WastePicker = () => {
         formState={formState}
         actionHandler={submitHandler}
       />
+
       <div className="flex flex-col gap-3">
         <div className="grid lg:grid-cols-4 grid-cols-2 gap-4 container ">
           {tableList?.map((el, i) => {

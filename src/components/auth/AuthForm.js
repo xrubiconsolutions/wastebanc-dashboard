@@ -48,7 +48,7 @@ const SubmitButton = styled.button`
 const RecoveryCodeText = styled.p`
   ${tw`text-sm text-label text-center mt-3`}
   > span {
-    color: #005700;
+    color: #295011;
   }
 `;
 
@@ -88,7 +88,8 @@ const AuthForm = ({
   email,
 }) => {
   const login_mode = localStorage.getItem("login_mode") || "user_admin";
-  const [signRoute, setSignRoute] = useState(login_mode);
+  const [signRoute, setSignRoute] = useState("user_admin");
+
   const { setValue, errorMsgs, formValues, isValid } = useForm(formEntries);
   const { error, loading } = useSelector((state) => state.app);
   const dispatch = useDispatch();
@@ -98,6 +99,7 @@ const AuthForm = ({
   const [showPostAction, setPostAction] = useState(false);
 
   const data = { email: email, role: "COMPANY" };
+
   const handler = async () => {
     sessionStorage.setItem("data", JSON.stringify(data));
     const res = await dispatch(resetPassword(data));
@@ -230,6 +232,7 @@ const AuthForm = ({
                 </div>
               </HeaderBody>
             ) : null}
+
             {error && (
               <MessageContainer>
                 <p> {error} </p>

@@ -6,9 +6,6 @@ import {
   companyOutstanding,
   companyCharity,
   companyDirect,
-  getpendingPayoutRequest,
-  getcompletedPayoutRequest,
-  getfailedPayoutRequest,
 } from "../actions";
 
 const initialState = {
@@ -18,15 +15,10 @@ const initialState = {
   companydirectPayment: null,
   companycharityPayment: null,
   companyoutstandingPayment: null,
-  totalWithdrawalAmount: 0,
-  pendingRequest: null,
-  completedRequest: null,
-  failedRequest: null,
-  // pay: "",
 };
 
-const paymentSlice = createSlice({
-  name: "paymentSlice",
+const dashboardSlice = createSlice({
+  name: "dashboardSlice",
   initialState,
   reducers: {},
   extraReducers: {
@@ -48,18 +40,9 @@ const paymentSlice = createSlice({
     [companyOutstanding.fulfilled]: (state, { payload }) => {
       state.companyoutstandingPayment = payload.data;
     },
-    [getpendingPayoutRequest.fulfilled]: (state, { payload }) => {
-      state.pendingRequest = payload.data;
-    },
-    [getcompletedPayoutRequest.fulfilled]: (state, { payload }) => {
-      state.completedRequest = payload.data;
-    },
-    [getfailedPayoutRequest.fulfilled]: (state, { payload }) => {
-      state.failedRequest = payload.data;
-    },
   },
 });
 
-const { reducer } = paymentSlice;
+const { reducer } = dashboardSlice;
 
 export default reducer;

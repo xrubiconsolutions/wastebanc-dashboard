@@ -19,6 +19,7 @@ export const baseURL =
   // :
   // "https://packamserver.herokuapp.com/api",
   // "https://pakam-staging.herokuapp.com/api";
+  //"https://wastebanc-staging.herokuapp.com/api";
   "https://wastebancapi.pakam.ng/api";
 
 const axiosInstance = axios.create({

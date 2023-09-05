@@ -175,3 +175,18 @@ export const deleteCompanyDropoff = createAsyncThunk(
     }
   }
 );
+
+export const approvedDropoff = createAsyncThunk(
+  "approve/completed",
+  async (data, { dispatch }) => {
+    dispatch(startLoad());
+    try {
+      const res = await DropOffService.approveDropOff(data);
+      return res;
+    } catch (err) {
+      handleError(err, dispatch);
+    } finally {
+      dispatch(stopLoad());
+    }
+  }
+);

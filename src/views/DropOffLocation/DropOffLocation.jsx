@@ -54,7 +54,7 @@ const DropOffLocation = () => {
     );
     if (!res.error) {
       const { drops, ...paginationData } = res.payload.data;
-      // console.log(res.payload.data, "dataaaaaaa");
+
       setFetchedDrops(drops);
       setPaginationData({ ...paginationData, date });
       setTotalPages(paginationData.totalPages);
@@ -109,9 +109,7 @@ const DropOffLocation = () => {
     if (!res.error) {
       const { drops, ...paginationData } = res.payload.data;
       setFetchedDrops(drops);
-      // console.log("PaginationData", paginationData);
       setPaginationData({ ...paginationData, currentMonth: payload });
-      // setTotalPages(paginationData.totalPages);
     }
   };
 
@@ -123,7 +121,6 @@ const DropOffLocation = () => {
     onRefresh();
   }, []);
 
-  // console.log(paginationData?.totalPages);
   return (
     <>
       {/* <InfoModal

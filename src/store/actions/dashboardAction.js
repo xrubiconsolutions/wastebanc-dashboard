@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { startLoad, stopLoad } from "../reducers/appSlice";
 import { handleError } from ".";
 import DashboardService from "../../services/dashboardService";
+import { startLoad, stopLoad } from "../reducers/appSlice";
 
 /****************************
  *
@@ -101,7 +101,7 @@ export const getRecentPickups = createAsyncThunk(
 // purpose of this duplicate is the prevent caching in the redux store
 // while the other recent pickup is cached
 export const getFilteredRecentPickups = createAsyncThunk(
-  "recent filtered/pickup",
+  "recent pickup",
   async (data, { dispatch }) => {
     dispatch(startLoad());
     try {

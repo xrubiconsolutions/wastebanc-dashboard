@@ -16,7 +16,7 @@ const SelectInput = styled.div`
   ${tw`overflow-ellipsis border border-secondary w-auto flex justify-between items-center rounded-md cursor-pointer  pl-4 pr-2 bg-transparent text-base text-body`}
   height: ${(props) => props.height || "40px"};
   width: ${(props) => props.width || "180px"};
-  border-color: ${(props) => (props.plain ? "#bdbdbd" : "#005700")};
+  border-color: ${(props) => (props.plain ? "#bdbdbd" : "#295011")};
   + div {
     width: ${(props) => props.width || "180px"};
   }

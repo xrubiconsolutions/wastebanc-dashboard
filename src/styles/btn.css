@@ -6,7 +6,7 @@
 }
 
 .btn--primary--outline:hover {
-  background-color: #295011;
+  background-color: #2a5012;
   transform: translateY(-2px);
   color: white;
   transition: ease-in-out 0.2s;
@@ -19,8 +19,8 @@
 }
 
 .btn--primary--solid {
-  /* background-color: #295011; */
-  background-color: #295011;
+  /* background-color: #2A5012; */
+  background-color: #2a5012;
   color: white;
   border: none;
   /* width: 90%; */
@@ -28,8 +28,8 @@
 
 .btn--primary--outline {
   background-color: transparent;
-  color: #295011;
-  border: 1px solid #295011;
+  color: #2a5012;
+  border: 1px solid #2a5012;
   /* width: 95%; */
 }
 .btn--danger--outline {

@@ -12,10 +12,16 @@ import {
   filterUser,
   searchUser,
   totalUser,
+  searchUssdUser,
+  totalUssdUsers,
+  filterUssdUser,
 } from "../../store/actions";
 import moment from "moment";
 import { useHistory, useLocation } from "react-router";
 import StyledButton from "../../components/UI/btn";
+import Tabcontent from "../../components/UI/TabContent";
+import { Link } from "react-router-dom";
+import { current } from "@reduxjs/toolkit";
 
 const TotalUser = () => {
   /****************************
@@ -30,61 +36,62 @@ const TotalUser = () => {
   const [bodyData, setBodyData] = useState();
   const [paginationData, setPaginationData] = useState();
   const dispatch = useDispatch();
+  const [ussdPaginationData, setUssdPaginationData] = useState([]);
+  const [ussdBodyData, setUssdBodyData] = useState([]);
+  const [selectedKey, setSelectedKey] = useState("0");
+
   const d = new Date();
+
   d.setDate(d.getDate());
   const payload = {
-    start: "2010-01-01",
+    start: "2020-01-01",
     end: d,
   };
 
-  const columns = [
-    {
-      title: "Full Name",
-      dataIndex: "fullname",
-      key: "fullname",
-      // render: (text) => <a>{text}</a>,
-    },
-    {
-      title: "LGA/LCDA",
-      dataIndex: "lcd",
-    },
-    {
-      title: "Customer Phone",
-      dataIndex: "phone",
-      key: "phone",
-    },
-    {
-      title: "Gender",
-      dataIndex: "gender",
-      key: "gender",
-    },
+  // const columns = [
+  //   {
+  //     title: "Full Name",
+  //     dataIndex: "fullname",
+  //     key: "fullname",
+  //     // render: (text) => <a>{text}</a>,
+  //   },
+  //   {
+  //     title: "LGA/LCDA",
+  //     dataIndex: "lcd",
+  //   },
+  //   {
+  //     title: "Customer Phone",
+  //     dataIndex: "phone",
+  //     key: "phone",
+  //   },
+  //   {
+  //     title: "Gender",
+  //     dataIndex: "gender",
+  //     key: "gender",
+  //   },
 
-    {
-      title: "Action",
-      dataIndex: "action",
-      key: "action",
-      render: (text, record) => (
-        <Space size="middle">
-          <StyledButton
-            type=""
-            buttonStyle="btn--primary--outline"
-            buttonSize="btn--small"
-            onClick={() => {
-              setRowInfo(record);
-              setShowModal(true);
-
-              // console.log(record, "record");
-            }}
-          >
-            See More
-          </StyledButton>
-          {/* <a>See More</a> */}
-        </Space>
-      ),
-    },
-  ];
-
-  // console.log(rowInfo, "info")
+  //   {
+  //     title: "Action",
+  //     dataIndex: "action",
+  //     key: "action",
+  //     render: (text, record) => (
+  //       <Space size="middle">
+  //         <StyledButton
+  //           type=""
+  //           buttonStyle="btn--primary--outline"
+  //           buttonSize="btn--small"
+  //           onClick={() => {
+  //             setRowInfo(record);
+  //             setShowModal(true);
+  //           }}
+  //         >
+  //           See More
+  //         </StyledButton>
+  //         {/* <a>See More</a> */}
+  //       </Space>
+  //     ),
+  //   },
+  // ];
 
   const onSearch = async (key, page = 1) => {
     const res = await dispatch(
@@ -120,27 +127,6 @@ const TotalUser = () => {
   const thisMonth = useSelector((state) => state?.user);
   const { currentMonthClient, allUser } = thisMonth;
 
-  // useEffect(() => {
-  //   if (!currentMonthClient) {
-  //     const payload = {
-  //       page: currentPage,
-  //       currentMonth,
-  //     };
-  //     dispatch(currentMonthUser(payload));
-  //   } else {
-  //     setBodyData(currentMonthClient?.users);
-  //   }
-  // }, []);
-  // useEffect(() => {
-  //   if (!allUser) dispatch(totalUser());
-  // }, []);
-
-  // useEffect(() => {
-  //   setBodyData(currentMonthClient?.users);
-  //   setTotalPages(currentMonthClient?.totalResult);
-  // }, [currentMonthClient]);
-  // console.log(currentMonthClient, 'currentMonthClient')
-
   useEffect(() => {
     if (!allUser) dispatch(totalUser());
   }, []);
@@ -152,15 +138,6 @@ const TotalUser = () => {
   totalUserCopy[0].user = allUser?.male;
   totalUserCopy[1].user = allUser?.female;
   totalUserCopy[2].user = allUser && allUser?.female + allUser?.male;
-  // console.log(totalUserCopy);
-
-  // useEffect(() => {
-  //   const payload = {
-  //     page: currentPage,
-  //     currentMonth,
-  //   };
-  //   dispatch(currentMonthUser(payload));
-  // }, [currentPage]);
 
   const fetchAll = async (page = 1) => {
     const res = await dispatch(
@@ -176,14 +153,214 @@ const TotalUser = () => {
     }
   };
 
+  const fetchAllUssdUsers = async (page = 1) => {
+    const res = await dispatch(totalUssdUsers({ currentMonth: payload, page }));
+    if (!res.error) {
+      const { users, ...paginationData } = res.payload.data;
+      setUssdBodyData(users);
+      setUssdPaginationData({ ...paginationData, date: payload });
+    }
+  };
+
+  const searchUssdUsers = async (key, page = 1) => {
+    const res = await dispatch(
+      searchUssdUser({
+        key,
+        page,
+      })
+    );
+
+    if (!res.error) {
+      const { users, ...paginationData } = res.payload.data;
+      setUssdBodyData(users);
+      setUssdPaginationData({ ...paginationData, key });
+      setTotalPages(paginationData.totalPages);
+    }
+  };
+
+  const filterUssdUsers = async (date, page = 1) => {
+    const res = await dispatch(
+      filterUssdUser({
+        page,
+        currentMonth: payload,
+      })
+    );
+
+    if (!res.error) {
+      const { users, ...paginationData } = res.payload.data;
+      setUssdBodyData(users);
+      setUssdPaginationData({ ...paginationData, date });
+      setTotalPages(paginationData.totalPages);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllUssdUsers();
+  }, []);
+
   const onRefresh = () => {
     fetchAll();
+    fetchAllUssdUsers();
+  };
+
+  const onSwitch = (key) => {
+    setSelectedKey(key);
   };
 
   useEffect(() => {
     onRefresh();
   }, []);
+  const data = [
+    {
+      title: "USSD Users",
+      data: ussdBodyData,
+      totalPages: ussdPaginationData?.totalPages,
+      paginationData: ussdPaginationData,
+      filterHandler: filterUssdUsers,
+      searchHandler: searchUssdUsers,
+      fetch: fetchAllUssdUsers,
 
+      columns: [
+        {
+          title: "Full Name",
+          dataIndex: "fullname",
+          key: "fullname",
+          // render: (text) => <a>{text}</a>,
+        },
+        {
+          title: "LGA/LCDA",
+          dataIndex: "lcd",
+        },
+        {
+          title: "Customer Phone",
+          dataIndex: "phone",
+          key: "phone",
+        },
+        {
+          title: "Gender",
+          dataIndex: "gender",
+          key: "gender",
+        },
+
+        // {
+        //   title: "Action",
+        //   dataIndex: "action",
+        //   key: "action",
+        //   render: (text, record) => (
+        //     <Space size="middle">
+        //       <StyledButton
+        //         type=""
+        //         buttonStyle="btn--primary--outline"
+        //         buttonSize="btn--small"
+        //         onClick={() => {
+        //           setRowInfo(record);
+        //           setShowModal(true);
+        //         }}
+        //       >
+        //         See More
+        //       </StyledButton>
+        //       {/* <a>See More</a> */}
+        //     </Space>
+        //   ),
+        // },
+
+        {
+          title: "Action",
+          dataIndex: "action",
+          key: "action",
+          render: (text, record) => {
+            return (
+              <Space size="middle">
+                <Link
+                  to={{
+                    pathname: `/admin/user_details/${record._id}`,
+                    state: { renewal: false },
+                    // id: record.key
+                  }}
+                >
+                  <StyledButton
+                    type=""
+                    buttonStyle="btn--primary--outline"
+                    buttonSize="btn--small"
+                    onClick={() => {
+                      setRowInfo(record);
+                      // setShowModal(true);
+                    }}
+                  >
+                    See More
+                  </StyledButton>
+                  {/* <a>See More</a> */}
+                </Link>
+              </Space>
+            );
+          },
+        },
+      ],
+    },
+    {
+      title: "Mobile Users",
+      data: bodyData,
+      totalPages: paginationData?.totalPages,
+      paginationData: paginationData,
+      filterHandler: onFilter,
+      searchHandler: onSearch,
+      fetch: fetchAll,
+      columns: [
+        {
+          title: "Full Name",
+          dataIndex: "fullname",
+          key: "fullname",
+          // render: (text) => <a>{text}</a>,
+        },
+        {
+          title: "LGA/LCDA",
+          dataIndex: "lcd",
+        },
+        {
+          title: "Customer Phone",
+          dataIndex: "phone",
+          key: "phone",
+        },
+        {
+          title: "Gender",
+          dataIndex: "gender",
+          key: "gender",
+        },
+
+        {
+          title: "Action",
+          dataIndex: "action",
+          key: "action",
+          render: (text, record) => {
+            return (
+              <Space size="middle">
+                <Link
+                  to={{
+                    pathname: `/admin/user_details/${record._id}`,
+                    state: { renewal: false },
+                    // id: record.key
+                  }}
+                >
+                  <StyledButton
+                    type=""
+                    buttonStyle="btn--primary--outline"
+                    buttonSize="btn--small"
+                    onClick={() => {
+                      setRowInfo(record);
+                      // setShowModal(true);
+                    }}
+                  >
+                    See More
+                  </StyledButton>
+                  {/* <a>See More</a> */}
+                </Link>
+              </Space>
+            );
+          },
+        },
+      ],
+    },
+  ];
   return (
     <>
       <InfoModal
@@ -193,7 +370,7 @@ const TotalUser = () => {
         userData={rowInfo}
       />
       <div className="flex flex-col gap-3">
-        <div className="grid lg:grid-cols-4 grid-cols-2 gap-4 container ">
+        <div className="grid lg:grid-cols-4 grid-cols-2 gap-4 container">
           {totalUserCopy?.map((el, i) => {
             return (
               <ContentCard
@@ -202,12 +379,20 @@ const TotalUser = () => {
                 // amount={Result[el.key]}
                 amount={el.user}
                 style={{ color: colors[i] }}
+                link={el.link}
                 key={i}
               />
             );
           })}
         </div>
-        <DataTable
+        <Tabcontent
+          data={data}
+          totalPages={totalPages}
+          onRefresh={onRefresh}
+          setCurrentPage={setCurrentPage}
+          onSwitch={onSwitch}
+        />
+        {/* <DataTable
           data={bodyData || []}
           columns={columns}
           header
@@ -218,7 +403,7 @@ const TotalUser = () => {
           totalPages={paginationData?.totalPages}
           paginationData={paginationData}
           onFetch={fetchAll}
-        />
+        /> */}
       </div>
     </>
   );

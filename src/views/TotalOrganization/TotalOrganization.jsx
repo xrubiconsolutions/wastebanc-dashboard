@@ -151,8 +151,8 @@ const TotalOrganization = () => {
       key: "areas",
       render: (areas) => (
         <span>
-          {(areas.slice(0, 3) || []).map((area) => {
-            return <Tag key={area}>{area.toUpperCase()}</Tag>;
+          {(areas?.slice(0, 3) || []).map((area) => {
+            return <Tag key={area}>{area && area?.toUpperCase()}</Tag>;
           })}
         </span>
       ),
@@ -223,6 +223,7 @@ const TotalOrganization = () => {
         </Link>
         {/* )} */}
       </OrganizationHeader>
+
       <DataTable
         data={data}
         onSearch={onSearch}

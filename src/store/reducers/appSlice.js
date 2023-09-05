@@ -7,12 +7,15 @@ const initialState = {
   loading: false,
   admins: null,
   pageTitle: "Dashboard",
+
+  // for payout screen
+  payout: [],
+  modal: false,
 };
 
 const appReducer = createSlice({
   name: "app",
   initialState,
-
   reducers: {
     startLoad(state) {
       state.loading = true;
@@ -23,7 +26,6 @@ const appReducer = createSlice({
     },
 
     setError(state, { payload }) {
-      // console.log("The error is: ", payload);
       state.error = payload;
     },
 
@@ -33,7 +35,12 @@ const appReducer = createSlice({
 
     setPage(state, { payload }) {
       state.pageTitle = payload;
-      // console.log("The title is: ", payload);
+    },
+    setPayout(state, action) {
+      state.payout = action.payload;
+    },
+    setModalOpening(state, action) {
+      state.modal = action.payload;
     },
   },
   extraReducers: {
@@ -45,5 +52,13 @@ const appReducer = createSlice({
 
 const { reducer, actions } = appReducer;
 
-export const { startLoad, stopLoad, setError, clearError, setPage } = actions;
+export const {
+  startLoad,
+  stopLoad,
+  setError,
+  clearError,
+  setPage,
+  setPayout,
+  setModalOpening,
+} = actions;
 export default reducer;

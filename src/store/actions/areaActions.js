@@ -24,7 +24,6 @@ export const createManagedArea = createAsyncThunk(
   async (data, { dispatch }) => {
     dispatch(startLoad());
     try {
-      // console.log("data", data);
       const res = await AreaService.createManagedArea(data);
       return res;
     } catch (err) {

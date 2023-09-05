@@ -40,7 +40,7 @@ const WasteCategory = () => {
   useEffect(() => {
     if (!category) dispatch(getCategory());
   }, []);
-  // console.log(category, "category")
+
   return (
     <>
       <NewWasteCategoryModal

@@ -99,11 +99,8 @@ const OptionModal = ({ pickerId, isAssigned = true, status: _status }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // console.log("Prev status: ", _status);
   const status =
     _status === "enable" || _status === "active" ? "disable" : "enable";
-  // console.log("the new status is: ", status);
-  // console.log("The id: ", pickerId);
 
   const unassignHandler = async () => {
     setPrompt(false);
@@ -123,7 +120,7 @@ const OptionModal = ({ pickerId, isAssigned = true, status: _status }) => {
       status,
       collectorId: pickerId,
     };
-    // console.log("The payload: ", payload);
+
     const res = await dispatch(toggleStatusAggregator(payload));
     if (!res.error) {
       setTimeout(() => {
@@ -137,7 +134,6 @@ const OptionModal = ({ pickerId, isAssigned = true, status: _status }) => {
     {
       title: "Unssign",
       handler: () => {
-        // console.log("unassign clicked");
         setPromptDetails({
           successMessage: `Unassigned waste picker successfully`,
           promptMessage: `Are you sure you want to unassign this waste picker?`,
@@ -218,7 +214,7 @@ function WastePickerOptions({ pickerData, isAssigned = true }) {
           setModalOpen(!modalOpen);
         }}
       >
-        Option
+        Options
       </button>
 
       {modalOpen && (

@@ -235,6 +235,16 @@ export default class OrganisationService {
     const res = await baseAxios.get(`invoice/send/${data}`);
     return res?.data || res;
   }
+
+  static async disableOrganisation(id) {
+    const res = await baseAxios.put(`/v2/organisation/disable/${id}`);
+    return res?.data || res;
+  }
+
+  static async enableOrganisation(id) {
+    const res = await baseAxios.put(`/v2/organisation/enable/${id}`);
+    return res?.data || res;
+  }
 }
 
 // send invoice - {{localURL}}invoice/send/530208216

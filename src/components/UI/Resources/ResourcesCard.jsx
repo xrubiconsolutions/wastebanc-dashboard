@@ -42,14 +42,30 @@ const ResourcesCard = ({
   id = "",
   message = "",
   showDelete = true,
+  fetchAll = () => null,
+  resource = "",
 }) => {
+  // console.log(
+  //   "update info",
+  //   "title",
+  //   title,
+  //   "url",
+  //   url,
+  //   "id",
+  //   id,
+  //   "message",
+  //   message
+  // );
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setDeleteModal] = useState(false);
   const dispatch = useDispatch();
 
   const deleteHandler = async () => {
     const res = await dispatch(deleteResources(id));
-    if (!res.error) dispatch(getResources());
+    if (!res.error) {
+      // dispatch(getResources());
+      fetchAll();
+    }
   };
 
   return (
@@ -59,6 +75,7 @@ const ResourcesCard = ({
         setShowModal={setDeleteModal}
         handleDelete={deleteHandler}
         type="resource"
+        title={title}
       />
       <UpdateResourceModal
         showModal={showModal}
@@ -67,6 +84,7 @@ const ResourcesCard = ({
         url={url}
         id={id}
         message={message}
+        fetchAll={fetchAll}
       />
 
       <ResourcesItem>

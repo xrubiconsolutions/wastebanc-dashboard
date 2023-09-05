@@ -12,6 +12,7 @@ import {
 import moment from "moment";
 import { truncate } from "../../utils/constants";
 import PickupModal from "../../components/UI/PickupModal";
+import { Popover } from "antd";
 
 const AcceptedSchedule = () => {
   /****************************
@@ -23,7 +24,6 @@ const AcceptedSchedule = () => {
   const [rowInfo, setRowInfo] = useState([]);
   const dispatch = useDispatch();
   const [bodyData, setBodyData] = useState();
-  const date = new Date();
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
@@ -37,15 +37,6 @@ const AcceptedSchedule = () => {
     end: d,
   };
 
-  const [currentMonth, setcurrentMonth] = useState({
-    start: moment(new Date(date.getFullYear(), date.getMonth(), 1)).format(
-      "YYYY-MM-DD"
-    ),
-    end: moment(new Date(date.getFullYear(), date.getMonth() + 1, 1)).format(
-      "YYYY-MM-DD"
-    ),
-  });
-
   const onSearch = async (key, page = 1) => {
     const res = await dispatch(
       searchAccepted({
@@ -54,7 +45,6 @@ const AcceptedSchedule = () => {
       })
     );
 
-    console.log("Responses", res);
     if (!res.error) {
       const { schedules, ...paginationData } = res.payload.data;
       setBodyData(schedules);
@@ -73,7 +63,7 @@ const AcceptedSchedule = () => {
     if (!res.error) {
       const { schedules, ...paginationData } = res.payload.data;
       setBodyData(schedules);
-      // console.log(paginationData);
+
       setPaginationData({ ...paginationData, date });
       setTotalPages(paginationData.totalPages);
     }
@@ -101,63 +91,30 @@ const AcceptedSchedule = () => {
     onRefresh();
   }, []);
 
-  const thisMonth = useSelector((state) => state?.schedules);
-  const { currentMonthAcceptedSchedule } = thisMonth;
-
-  // useEffect(() => {
-  //   if (!currentMonthAcceptedSchedule) {
-  //     const payload = {
-  //       page: currentPage,
-  //       currentMonth,
-  //     };
-  //     dispatch(currentMonthAccepted(payload));
-  //   } else {
-  //     setBodyData(currentMonthAcceptedSchedule?.schedules);
-  //   }
-  // }, []);
-
-  // console.log(currentMonthAcceptedSchedule, "currentMonthAcceptedSchedule");
-
-  // useEffect(() => {
-  //   setBodyData(currentMonthAcceptedSchedule?.schedules);
-  //   setTotalPages(currentMonthAcceptedSchedule?.totalResult);
-  // }, [currentMonthAcceptedSchedule]);
-
   const columns = [
     {
       title: "Schedule Creator",
       dataIndex: "scheduleCreator",
       key: "scheduleCreator",
-      // render: (text) => <a>{text}</a>,
     },
     {
       title: "Waste Category",
       dataIndex: "categories",
       key: "categories",
-      // render: (text) => <a>{text}</a>,
-
-      // dataIndex: "wastes",
-      // key: "wastes",
-      render: (wastes) => (
+      render: (categories) => (
         <span>
-          {wastes?.map((waste) => {
-            return <Tag key={waste}>{waste?.name || waste}</Tag>;
+          {(categories.slice(0, 3) || []).map((waste) => {
+            return (
+              <Tag key={waste}>
+                <Popover content={waste?.name || waste}>
+                  {truncate(waste?.name, 10)}
+                </Popover>
+              </Tag>
+            );
           })}
         </span>
       ),
     },
-    // {
-    //   title: "Waste Category",
-    //   dataIndex: "wastes",
-    //   key: "wastes",
-    //   render: (wastes) => (
-    //     <span>
-    //       {wastes?.map((waste) => {
-    //         return <Tag key={waste}>{waste.toUpperCase()}</Tag>;
-    //       })}
-    //     </span>
-    //   ),
-    // },
     {
       title: "Pickup Location",
       dataIndex: "address",
@@ -188,7 +145,6 @@ const AcceptedSchedule = () => {
             onClick={() => {
               setRowInfo(record);
               setShowModal(true);
-              // console.log(record.info);
             }}
           >
             See More

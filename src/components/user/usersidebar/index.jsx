@@ -1,15 +1,14 @@
 import React from "react";
-import styled from "styled-components";
-import Data from "./data";
 import { NavLink } from "react-router-dom";
+import styled from "styled-components";
 import tw from "twin.macro";
 import DropdownNavLink from "./SubMenu";
-import { logout } from "../../../store/reducers/authSlice";
-import { useDispatch } from "react-redux";
-import { LogoutData } from "./data";
+import Data from "./data";
 
 const SidebarParent = styled.div`
-  position: absolute;
+  /* width: 0; */
+  display: none;
+  /* position: absolute;
   // top: 72px;
   bottom: 0;
   scroll-padding-bottom: 0;
@@ -20,17 +19,33 @@ const SidebarParent = styled.div`
   left: 0px;
   border-radius: 0px;
   color: #ffff;
-  // background: linear-gradient(178.54deg, #008300 -24.78%, #005700 98.76%);
-  background: #295011;
+  background: linear-gradient(178.54deg, #008300 -24.78%, #295011 98.76%);
   box-shadow: 0px 30px 24px rgba(0, 0, 0, 0.06);
-  overflow-y: auto;
+  overflow-y: auto; */
+
+  @media (min-width: 920px) {
+    display: block;
+    position: absolute;
+    // top: 72px;
+    bottom: 0;
+    scroll-padding-bottom: 0;
+    // max-height: calc(100% - 70px);
+    // height: calc(100% - 70px);
+    height: 100%;
+    width: 253px;
+    left: 0px;
+    border-radius: 0px;
+    color: #ffff;
+    background: #295011;
+    box-shadow: 0px 30px 24px rgba(0, 0, 0, 0.06);
+    overflow-y: auto;
+  }
 `;
 
 const SidebarLogo = styled.img`
   ${tw`
   my-4 mx-8
-`};
-  width: 190px;
+`}
 `;
 const SubNavContainer = styled.div``;
 
@@ -78,75 +93,38 @@ const StyledNavLink = styled(NavLink)`
     // bg-label
     border-l-4
     border-white
-  `};
-    // background: rgba(255, 255, 255, 0.1);
+  `}// background: rgba(255, 255, 255, 0.1);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   }
 `;
-function Sidebar() {
-  const dispatch = useDispatch();
+function sidebar() {
   return (
     <>
       <SidebarParent>
-        {/* <SidebarLogo src="/assets/images/wasteebanc.svg" alt="wastebac-logo" /> */}
-        <SidebarLogo src="/assets/images/wastelogo.png" alt="wastebanc-logo" />
-        <div className="flex items-center justify-center pl-3 pb-5">
-          <img
-            src="/assets/images/pakam.svg"
-            alt="wastebanc-logo"
-            width="12px"
-          />
-          <p className="text-white text-center font-bold text-[8px] px-2 tracking-wide  ">
-            Powered by Pakam Technology
-          </p>
-        </div>
-        <div className="border-b-2 border-white border-solid pb-8 ">
-          {Data.map((item) => {
-            if (item.subNav && item.subNav.length) {
-              return <DropdownNavLink item={item} key={item.title} />;
-            }
-            return (
-              <div key={item.title}>
-                <StyledNavLink
-                  exact
-                  to={`/user${item.path}`}
-                  activeClassName="selected"
-                  className="flex space-x-4 justify-start items-center"
-                >
-                  <img src={item.icon} alt={item.title} />
-                  <p>{item.title}</p>
-                </StyledNavLink>
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="" onClick={() => dispatch(logout())}>
-          {LogoutData.map((item) => {
-            if (item.subNav && item.subNav.length) {
-              return <DropdownNavLink item={item} key={item.title} />;
-            }
-            return (
-              <div key={item.title}>
-                <StyledNavLink
-                  exact
-                  to={`/user${item.path}`}
-                  activeClassName="selected"
-                  className="flex space-x-4 justify-start items-center"
-                >
-                  <img src={item.icon} alt={item.title} />
-                  <p>{item.title}</p>
-                </StyledNavLink>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* <p className="text-white text-center font-bold text-sm bottom-0 absolute px-4">
+        <SidebarLogo src="/assets/images/logo.svg" alt="pakam-logo" />
+        {Data.map((item) => {
+          if (item.subNav && item.subNav.length) {
+            return <DropdownNavLink item={item} key={item.title} />;
+          }
+          return (
+            <div key={item.title}>
+              <StyledNavLink
+                exact
+                to={`/user${item.path}`}
+                activeClassName="selected"
+                className="flex space-x-4 justify-start items-center"
+              >
+                <img src={item.icon} alt={item.title} />
+                <p>{item.title}</p>
+              </StyledNavLink>
+            </div>
+          );
+        })}
+        <p className="text-white text-center font-bold text-sm bottom-0 absolute px-4">
           Powered by Pakam Technology
-        </p> */}
+        </p>
       </SidebarParent>
     </>
   );
 }
 
-export default Sidebar;
+export default sidebar;

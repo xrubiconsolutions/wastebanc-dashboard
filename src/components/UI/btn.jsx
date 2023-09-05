@@ -17,6 +17,7 @@ const StyledButton = ({
   onClick,
   buttonStyle,
   buttonSize,
+  className,
   buttonWidth,
   disabled,
 }) => {

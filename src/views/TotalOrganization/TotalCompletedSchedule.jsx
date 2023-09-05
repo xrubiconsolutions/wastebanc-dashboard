@@ -51,6 +51,7 @@ const TotalCompletedSchedule = ({ match }) => {
   const [bodyData, setBodyData] = useState([]);
   const [dropoffData, setDropoffData] = useState([]);
   const [paginationData1, setPaginationData1] = useState();
+  const [totalPages, setTotalPages] = useState();
 
   const d = new Date();
   d.setDate(d.getDate());
@@ -67,7 +68,7 @@ const TotalCompletedSchedule = ({ match }) => {
     if (!res.error) {
       const { data, ...paginationData } = res.payload;
       setDropoffData(data);
-      setPaginationData({ ...paginationData });
+      setPaginationData({ ...paginationData, date: payload });
     }
   };
 
@@ -78,7 +79,7 @@ const TotalCompletedSchedule = ({ match }) => {
     if (!res.error) {
       const { data, ...paginationData } = res.payload;
       setBodyData(data);
-      setPaginationData1({ ...paginationData });
+      setPaginationData1({ ...paginationData, date: payload });
     }
   };
 
@@ -93,7 +94,8 @@ const TotalCompletedSchedule = ({ match }) => {
     if (!res.error) {
       const { data, ...paginationData } = res.payload;
       setDropoffData(data);
-      setPaginationData({ ...paginationData });
+      setPaginationData({ ...paginationData, key });
+      setTotalPages(paginationData.totalPages);
     }
   };
 
@@ -109,7 +111,8 @@ const TotalCompletedSchedule = ({ match }) => {
     if (!res.error) {
       const { data, ...paginationData } = res.payload;
       setDropoffData(data);
-      setPaginationData({ ...paginationData });
+      setPaginationData({ ...paginationData, date });
+      setTotalPages(paginationData.totalPages);
     }
   };
 
@@ -125,7 +128,8 @@ const TotalCompletedSchedule = ({ match }) => {
     if (!res.error) {
       const { data, ...paginationData } = res.payload;
       setBodyData(data);
-      setPaginationData1({ ...paginationData });
+      setPaginationData1({ ...paginationData, date });
+      setTotalPages(paginationData.totalPages);
     }
   };
 
@@ -141,7 +145,8 @@ const TotalCompletedSchedule = ({ match }) => {
     if (!res.error) {
       const { data, ...paginationData } = res.payload;
       setBodyData(data);
-      setPaginationData1({ ...paginationData });
+      setPaginationData1({ ...paginationData, key });
+      setTotalPages(paginationData.totalPages);
     }
   };
 
@@ -216,13 +221,14 @@ const TotalCompletedSchedule = ({ match }) => {
         },
 
         {
-          title: "Amount(N)",
+          // title: "Amount (&#8358;)",
+          title: <span> Amount (&#8358;) </span>,
           dataIndex: "coin",
           key: "coin",
         },
 
         {
-          title: <span>Weight</span>,
+          title: <span>Weight (Kg)</span>,
           dataIndex: "weight",
           key: "weight",
         },
@@ -289,13 +295,13 @@ const TotalCompletedSchedule = ({ match }) => {
         },
 
         {
-          title: "Amount(N)",
+          title: <span> Amount (&#8358;)</span>,
           dataIndex: "coin",
           key: "coin",
         },
 
         {
-          title: <span>Weight</span>,
+          title: <span>Weight (Kg)</span>,
           dataIndex: "weight",
           key: "weight",
         },
@@ -319,7 +325,7 @@ const TotalCompletedSchedule = ({ match }) => {
       )}
       <TotalCompleted>
         <FlexContainer>
-          <BreadCrumb pages={pages} current="Generated-Invoices" />
+          <BreadCrumb pages={pages} current="completed-schedules" />
           {/* <Breadcrumb separator="<">
             <Breadcrumb.Item>
               <StyledLink>
@@ -344,7 +350,7 @@ const TotalCompletedSchedule = ({ match }) => {
             </StyledButton>
           </GenerateInvoice>
         </FlexContainer>
-        <Tabcontent data={data} onRefresh={onRefresh} />
+        <Tabcontent data={data} onRefresh={onRefresh} totalPages={totalPages} />
       </TotalCompleted>
     </>
   );

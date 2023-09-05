@@ -22,7 +22,7 @@ const RaffleModalContainer = styled.div`
 
 const ListItemModal = styled.div`
   ${tw`absolute bg-white border border-gray-100 p-3 rounded-md flex flex-col w-40 z-30`}
-  display: ${(props) => (props.show ? "bloc k" : "none")};
+  display: ${(props) => (props.show ? "block" : "none")};
   left: ${(props) => props.left || "-5rem"};
   width: ${(props) => props.width || "10rem"};
   padding: ${(props) => props.noPad && "0"};
@@ -107,7 +107,6 @@ const Modal = ({
           </animated.div>
         </>
       );
-
     default:
       return (
         <>

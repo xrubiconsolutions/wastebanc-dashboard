@@ -37,9 +37,7 @@ const RadioButton = ({ onFilter }) => {
     // });
   }, [value]);
 
-  useEffect(() => {
-    // console.log("On mount: ", value);
-  }, []);
+  useEffect(() => {}, []);
 
   function filterByDate(filterRequest) {
     if (filterRequest === "all") {
@@ -48,6 +46,7 @@ const RadioButton = ({ onFilter }) => {
       // upperbound should be tomorrow
       newdate.setDate(newdate.getDate());
       const end = moment(newdate).format("YYYY-MM-DD");
+
       setRequestDate({
         start,
         end,
@@ -89,11 +88,12 @@ const RadioButton = ({ onFilter }) => {
       //   new Date(date.getFullYear(), date.getMonth() + 1, 1)
       // ).format("YYYY-MM-DD"); // "2019-03-28",
       let thisMoment = moment();
+      // console.log("ThisMoment...", thisMoment);
       // let newdate = new Date();
       // newdate.setDate(newdate.getDate() - 30);
       let start = moment(thisMoment).startOf("month");
       let end = moment(thisMoment).endOf("month");
-      // console.log(end, "enddddddddd");
+
       setRequestDate({
         start,
         end,
@@ -107,14 +107,12 @@ const RadioButton = ({ onFilter }) => {
       let thisMoment = moment();
       let start = new moment().subtract(1, "months").date(1);
       let end = new moment().subtract(1, "months").date(1).endOf("month");
-      // console.log(end, "enddddddddd");
       setRequestDate({
         start,
         end,
       });
     }
     if (filterRequest === "dateRange") {
-      // console.log("B and A: ", before, after);
       if (!before && !after) return;
       const start = moment(before).format("YYYY-MM-DD"); // "2019-03-26",
       const end = moment(after).format("YYYY-MM-DD"); // "2019-03-28",

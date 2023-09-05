@@ -94,7 +94,6 @@ const ApprovedModal = ({
   userData,
   aggregator,
 }) => {
-  // console.log("user data trips", userData);
   return (
     <Modal show={showPending} close={() => setShowPending(false)} width="48rem">
       <ModalTitle>
@@ -116,7 +115,7 @@ const ApprovedModal = ({
               title.toLowerCase() === "status" &&
               value.toLowerCase() !== "pending"
             )
-              color = "#005700";
+              color = "#295011";
 
             return (
               <InfoItem key={title}>
@@ -152,7 +151,7 @@ const ApprovedModal = ({
 
           {aggregator && (
             <InfoItem>
-              <InfoTitle>Agent's ID:</InfoTitle>
+              <InfoTitle>Aggregator’s ID:</InfoTitle>
               <InfoValue>{userData.aggregatorId}</InfoValue>
             </InfoItem>
           )}
@@ -181,6 +180,7 @@ const ApprovedModal = ({
           <InfoItem>
             <InfoTitle>Date Created:</InfoTitle>
             <InfoValue>
+              {" "}
               {moment(userData.createAt).format("DD-MM-YYYY")}
             </InfoValue>
           </InfoItem>
@@ -197,8 +197,8 @@ const ApprovedModal = ({
 
           {aggregator && (
             <InfoItem>
-              <InfoTitle>No Of Waste (kg):</InfoTitle>
-              <InfoValue>{userData.totalCollected}</InfoValue>
+              <InfoTitle>No Of Trips Completed:</InfoTitle>
+              <InfoValue>{userData.numberOfTripsCompleted}</InfoValue>
             </InfoItem>
           )}
           {/* {userData?.schedules > 0 ? (
@@ -213,15 +213,10 @@ const ApprovedModal = ({
               </InfoItem>
             </>
           ) : null} */}
-          {/* 
+
           <InfoItem>
             <InfoTitle>Organisation:</InfoTitle>
             <InfoValue>{userData.organisation}</InfoValue>
-          </InfoItem> */}
-
-          <InfoItem>
-            <InfoTitle>Wastebanc location:</InfoTitle>
-            <InfoValue>{userData.address}</InfoValue>
           </InfoItem>
 
           <InfoItem>
@@ -233,31 +228,26 @@ const ApprovedModal = ({
                   ? "rgba(0, 154, 0, 0.1)"
                   : userData.status === "accepted"
                   ? "rgba(50, 68, 168, 0.4)"
-                  : userData.status === "active"
-                  ? "#005700"
                   : "rgba(254, 1, 16, 0.1)"
               }
             >
-              {/* see james */}
               <Pointer
                 color={
                   userData.status === "APPROVED"
-                    ? "#005700"
+                    ? "#295011"
                     : userData.status === "DECLINED"
                     ? "#4032a8"
-                    : "#fff"
+                    : ""
                 }
               />
-
-              {/* look later */}
               <InfoValue
                 userAgencies
                 color={
                   userData.status === "APPROVED"
-                    ? "#005700"
+                    ? "#295011"
                     : userData.status === "DECLINED"
                     ? "#3a32a8"
-                    : "#fff"
+                    : "#FE0110"
                 }
               >
                 {userData.status}

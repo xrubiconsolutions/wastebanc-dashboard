@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
+import { Space, Tag } from "antd";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import tw from "twin.macro";
-import { Tag, Space } from "antd";
-import { truncate } from "../utils/constants";
-import StyledButton from "../components/UI/btn";
-import Filter from "../components/UI/Filter";
 import { CardDashbordDetails } from "../companyViews/utils/data";
-import { chunk, formatValue } from "../utils";
+import { MapWrapper } from "../components/GoogleMaps/Map";
 import ContentCard from "../components/UI/ContentCard";
+import Filter from "../components/UI/Filter";
+import Location from "../components/UI/Location";
+import PickupModal from "../components/UI/PickupModal";
 import Tabcontent from "../components/UI/TabContent";
-import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
+import StyledButton from "../components/UI/btn";
 import {
   getCompanyMatrix,
   getCompanyPendingSchedules,
@@ -19,9 +20,8 @@ import {
   getFilteredCompanyRecentPickups,
   searchCompanyPickups,
 } from "../store/actions";
-import { MapWrapper } from "../components/GoogleMaps/Map";
-import PickupModal from "../components/UI/PickupModal";
-import Location from "../components/UI/Location";
+import { chunk, formatValue } from "../utils";
+import { truncate } from "../utils/constants";
 
 const colors = [
   "#00966D",
@@ -31,7 +31,7 @@ const colors = [
   "#009A00",
   "#F5000F",
   // "#006700",
-  "#295011",
+  "#2A5012",
   "#FE0110",
 ];
 const DashbordContainer = styled.div`
@@ -290,7 +290,6 @@ const Dashboard = () => {
       />
       <DashbordContainer>
         <Filter onFilter={handleMetricsFilter} />
-
         <div className="grid lg:grid-cols-3 grid-cols-2 gap-4 container -order-1">
           {bodyData &&
             chunk(bodyData?.slice(0, 6), 6)?.map((items) => {
