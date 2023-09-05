@@ -19,7 +19,7 @@ function PaginationBars({
       <PaginationTab
         onClick={() => {
           if (lowBound <= 1) return;
-          pullData(page - 1);
+          pullData(Number(page) - 1);
         }}
         fade={lowBound <= 1}
       >
@@ -29,7 +29,7 @@ function PaginationBars({
       <PaginationTab
         onClick={() => {
           if (upBound === totalResult) return;
-          pullData(page + 1);
+          pullData(Number(page) + 1);
         }}
         fade={upBound === totalResult}
       >

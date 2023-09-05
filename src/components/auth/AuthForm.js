@@ -1,20 +1,19 @@
-import React, { useEffect, useState, memo } from "react";
+import React, { memo, useEffect, useState } from "react";
+import { BiArrowBack } from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import tw from "twin.macro";
-import useForm from "../../hooks/useForm";
-import FormInput from "./FormInput";
-import { CheckInput } from "./FormInput";
-import Checkbox from "../UI/Checkbox";
-import { useDispatch, useSelector } from "react-redux";
-import Loader from "../UI/loader";
-import { MessageContainer } from "../styledElements";
-import { clearError } from "../../store/reducers/appSlice";
 import PakamLogo from "../../assets/images/logo.png";
+import useForm from "../../hooks/useForm";
+import { clearError } from "../../store/reducers/appSlice";
 import { resetPassword } from "../../store/reducers/authSlice";
-import { BiArrowBack } from "react-icons/bi";
-import PromptModal from "../common/PromptModal";
+import Checkbox from "../UI/Checkbox";
+import Loader from "../UI/loader";
 import Modal from "../UI/modal";
+import PromptModal from "../common/PromptModal";
+import { MessageContainer } from "../styledElements";
+import FormInput, { CheckInput } from "./FormInput";
 
 const FormContainer = styled.div`
   ${tw`py-4 shadow-2xl bg-white  lg:max-w-xl rounded-[20px] px-4 md:py-6 md:px-16`}
@@ -188,7 +187,7 @@ const AuthForm = ({
 
             <FormTitle> {title} </FormTitle>
 
-            {pathname === "/auth/pakamlogin" && (
+            {pathname === "/auth/adminlogin" && (
               <div className="flex  items-center justify-between pt-5">
                 <Checkbox
                   label="Pakam Admin"

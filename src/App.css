@@ -50,7 +50,7 @@ p {
   margin-bottom: 0 !important;
 }
 .ant-tabs-tab {
-  color: #464f54 !important;
+  color: #295011 !important;
 }
 
 .ant-tabs-tab-active {
@@ -168,20 +168,29 @@ thead[class*="ant-table-thead"] th {
 }
 
 .ant-drawer-content {
-  background: linear-gradient(
-    178.54deg,
-    #008300 -24.78%,
-    #295011 98.76%
-  ) !important;
-  box-shadow: 0px 30px 24px rgba(0, 0, 0, 0.06) !important;
+  background: #7af033;
+  box-shadow: 0px 30px 24px rgba(0, 0, 0, 0.2) !important;
 }
+
 .ant-drawer-header {
-  background: #008300 !important;
-  /* box-shadow: 0px 30px 24px rgba(0, 0, 0, 0.06) !important; */
+  height: 50px;
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 30px 24px rgba(0, 0, 0, 0.06) !important;
 }
 .ant-drawer-body {
   padding: 0px !important;
 }
 .ant-drawer-close {
   color: white;
+  font-weight: extrabold !important;
+  font-size: 20px;
+}
+
+.ant-drawer-close:hover {
+  color: green;
+  transition: all ease-in-out 500ms;
+}
+.ant-table-sticky-holder,
+.ant-table-sticky-scroll {
+  z-index: 0 !important;
 }

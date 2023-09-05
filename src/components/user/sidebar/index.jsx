@@ -1,15 +1,15 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import SideBarData from "./routeData";
-import { NavLink } from "react-router-dom";
-import tw from "twin.macro";
-import DropdownNavLink from "./SubMenu";
 import { useDispatch, useSelector } from "react-redux";
-import { setPage } from "../../store/reducers/appSlice";
+import { NavLink } from "react-router-dom";
+import styled from "styled-components";
+import tw from "twin.macro";
 import { getClaims } from "../../store/actions";
+import { setPage } from "../../store/reducers/appSlice";
 import { claimPermissions } from "../../utils/constants";
+import DropdownNavLink from "./SubMenu";
+import SideBarData from "./routeData";
 // import { useLocation } from "react-router";
 
 const SidebarParent = styled.div`

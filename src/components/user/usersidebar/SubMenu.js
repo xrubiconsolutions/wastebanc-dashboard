@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import tw from "twin.macro";
@@ -16,8 +16,8 @@ const StyledNavLink = styled(NavLink)`
     font-size: 14px;
     line-height: 18px;
     letter-spacing: 0.1px;
+    color: #295011;
     ${tw`
-      text-white
       items-center
     `}
   }
@@ -26,10 +26,10 @@ const StyledNavLink = styled(NavLink)`
     ${tw`
     // bg-label
     border-l-4
-    border-white
+    border-green-800
   `}
     cursor: pointer;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(34, 34, 34, 0.1);
     tranistion: 0.2s ease-in-out;
   }
 
@@ -41,19 +41,19 @@ const StyledNavLink = styled(NavLink)`
     ${tw`
     bg-label
   `}
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(34, 34, 34, 0.1);
   }
   &.selected {
     ${tw`
     // bg-label
     border-l-4
     border-white
-  `}// background: rgba(255, 255, 255, 0.1);;;;;;;;;;;;
+  `}// background: rgba(255, 255, 255, 0.1);;;;;;;;;;;;;;;;;;;;;;;;;;
   }
 `;
 
 const Arrow = styled.div`
-  color: white;
+  color: #295011;
 `;
 
 const SubMenu = ({ item }) => {
@@ -98,7 +98,7 @@ const SubMenu = ({ item }) => {
               className="flex space-x-4 justify-start items-center"
             >
               {item.icon}
-              <p>{item.title}</p>
+              <p className="pl-5">{item.title}</p>
             </StyledNavLink>
           );
         })}

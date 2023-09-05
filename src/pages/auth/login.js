@@ -31,7 +31,6 @@ const Login = () => {
   };
 
   const handler = async (data, signRoute) => {
-    console.log("data", data);
     try {
       const res =
         signRoute === "user_admin"
