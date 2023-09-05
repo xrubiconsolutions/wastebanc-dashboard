@@ -1,20 +1,20 @@
+import { Space } from "antd";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import Geocode from "react-geocode";
-import tw from "twin.macro";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import tw from "twin.macro";
+import ApprovedModal from "../../components/UI/ApprovedModal";
 import DataTable from "../../components/UI/Table";
 import StyledButton from "../../components/UI/btn";
-import { Space } from "antd";
-import { MapWrapper } from "./GeoMap";
-import { useDispatch, useSelector } from "react-redux";
+import baseAxios from "../../core/api/axios/baseAxios";
 import {
   filterCompanyAggregator,
   getCompanyAggregator,
   getMapGeoFence,
 } from "../../store/actions";
-import baseAxios from "../../core/api/axios/baseAxios";
-import moment from "moment";
-import ApprovedModal from "../../components/UI/ApprovedModal";
+import { MapWrapper } from "./GeoMap";
 
 const GeoFencingContainer = styled.div`
   display: grid;
@@ -104,11 +104,6 @@ const GeoFencing = () => {
   };
 
   const columns = [
-    // {
-    //   title: "Full Name",
-    //   dataIndex: "name",
-    //   key: "name",
-    // },
     {
       title: "Wastebanc location",
       dataIndex: "address",
@@ -126,60 +121,16 @@ const GeoFencing = () => {
       key: "aggregatorId",
     },
 
-    // {
-    //   title: "Trips Completed",
-    //   dataIndex: "trips",
-    //   key: "trips",
-    // },
-
     {
       title: "Number of Waste (Kg)",
       dataIndex: "totalcollected",
       key: "totalcollected",
     },
-
-    // {
-    //   title: "Action",
-    //   dataIndex: "action",
-    //   key: "action",
-    //   render: (text, record) => (
-    //     <Space size="middle">
-    //       <StyledButton
-    //         type=""
-    //         buttonStyle="btn--primary--outline"
-    //         buttonSize="btn--small"
-    //         onClick={() => {
-    //           setRowInfo(record);
-    //           setShowPending(true);
-    //         }}
-    //       >
-    //         See More
-    //       </StyledButton>
-    //     </Space>
-    //   ),
-    // },
   ];
 
   // const filteredData =
   //   fetchedAggregators?.collectors?.length > 0 &&
   //   fetchedAggregators?.collectors?.filter((collector) => collector.verified);
-
-  const data =
-    // filteredData &&
-    // filteredData.length > 0 &&
-    fetchedAggregators?.map((collect) => ({
-      key: collect._id,
-      name: collect.fullname,
-      aggregatorId: collect.aggregatorId,
-      address: collect.address,
-      phone: collect.phone,
-      gender: collect.gender,
-      quantity: collect.totalCollected,
-      organisation: collect.organisation,
-      email: collect.email,
-      trips: collect.numberOfTripsCompleted,
-      totalcollected: collect.totalCollected,
-    }));
 
   const fetchAll = async (page = 1) => {
     const res = await dispatch(
@@ -197,7 +148,7 @@ const GeoFencing = () => {
 
   useEffect(() => {
     const getFirstPath = () => {
-      Geocode.fromAddress(
+      Geocode?.fromAddress(
         firstLGA,
         "AIzaSyBGv53NEoMm3uPyA9U45ibSl3pOlqkHWN8"
       ).then(
@@ -211,7 +162,10 @@ const GeoFencing = () => {
       );
     };
     const secondPath = () => {
-      Geocode.fromAddress(sLGA, "AIzaSyBGv53NEoMm3uPyA9U45ibSl3pOlqkHWN8").then(
+      Geocode?.fromAddress(
+        sLGA,
+        "AIzaSyBGv53NEoMm3uPyA9U45ibSl3pOlqkHWN8"
+      ).then(
         (response) => {
           // console.log(response);
           setSecondPath(response.results[0].geometry.location || []);
@@ -222,7 +176,10 @@ const GeoFencing = () => {
       );
     };
     const thirdPath = () => {
-      Geocode.fromAddress(tLGA, "AIzaSyBGv53NEoMm3uPyA9U45ibSl3pOlqkHWN8").then(
+      Geocode?.fromAddress(
+        tLGA,
+        "AIzaSyBGv53NEoMm3uPyA9U45ibSl3pOlqkHWN8"
+      ).then(
         (response) => {
           // console.log(response);
           setThirdPath(response.results[0].geometry.location || []);
@@ -233,7 +190,10 @@ const GeoFencing = () => {
       );
     };
     const fourthPath = () => {
-      Geocode.fromAddress(fLGA, "AIzaSyBGv53NEoMm3uPyA9U45ibSl3pOlqkHWN8").then(
+      Geocode?.fromAddress(
+        fLGA,
+        "AIzaSyBGv53NEoMm3uPyA9U45ibSl3pOlqkHWN8"
+      ).then(
         (response) => {
           // console.log(response);
           setFourthPath(response.results[0].geometry.location || []);
@@ -244,7 +204,7 @@ const GeoFencing = () => {
       );
     };
     const fifthPath = () => {
-      Geocode.fromAddress(
+      Geocode?.fromAddress(
         ffLGA,
         "AIzaSyBGv53NEoMm3uPyA9U45ibSl3pOlqkHWN8"
       ).then(
@@ -296,6 +256,23 @@ const GeoFencing = () => {
   useEffect(() => {
     onRefresh();
   }, []);
+
+  const data =
+    // filteredData &&
+    fetchedAggregators.length > 0 &&
+    fetchedAggregators?.map((collect) => ({
+      key: collect._id,
+      name: collect.fullname,
+      aggregatorId: collect.aggregatorId,
+      address: collect.address,
+      phone: collect.phone,
+      gender: collect.gender,
+      quantity: collect.totalCollected,
+      organisation: collect.organisation,
+      email: collect.email,
+      trips: collect.numberOfTripsCompleted,
+      totalcollected: collect.totalCollected,
+    }));
 
   return (
     <>

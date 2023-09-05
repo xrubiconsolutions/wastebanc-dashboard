@@ -25,6 +25,7 @@ export const baseURL =
 const axiosInstance = axios.create({
   baseURL,
 });
+
 axiosInstance.interceptors.request.use(reqInterceptor, (err) =>
   console.log(err)
 );

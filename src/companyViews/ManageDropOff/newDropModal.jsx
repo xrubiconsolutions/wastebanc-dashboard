@@ -1,13 +1,13 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import tw from "twin.macro";
-import FormInput from "../../components/auth/FormInput";
-import { FlexContainer, TitleText } from "../../components/styledElements";
 import StyledButton from "../../components/UI/btn";
 import modal from "../../components/UI/modal";
 import MultiSelect from "../../components/UI/multiSelect";
 import Select from "../../components/UI/select";
+import FormInput from "../../components/auth/FormInput";
+import { FlexContainer, TitleText } from "../../components/styledElements";
 import useForm from "../../hooks/useForm";
 import { createDropOffLocation } from "../../store/actions";
 // import fetchAll from "../../companyViews/ManageDropOff/ManageDropOff";

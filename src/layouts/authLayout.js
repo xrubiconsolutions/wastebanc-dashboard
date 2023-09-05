@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { Redirect, Route, Switch } from "react-router";
-import authRoutes from "../core/routes/auth.routes";
-import ProtectedRoute from "../core/routes/ProtectedRoute";
-import tw from "twin.macro";
-import styled from "styled-components";
 import { useDispatch } from "react-redux";
+import { Redirect, Route, Switch } from "react-router";
+import styled from "styled-components";
+import tw from "twin.macro";
+import ProtectedRoute from "../core/routes/ProtectedRoute";
+import authRoutes from "../core/routes/auth.routes";
 import { clearError } from "../store/reducers/appSlice";
 
 const LayoutContainer = styled.div`
@@ -28,6 +28,7 @@ const AuthLayout = () => {
   useEffect(() => {
     dispatch(clearError());
   }, [dispatch]);
+
   return (
     <LayoutContainer>
       <Switch>

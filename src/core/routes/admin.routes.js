@@ -2,6 +2,11 @@ import ChangePassword from "../../views/ChangePassword/ChangePassword";
 import Dashbord from "../../views/Dashbord";
 import DropOff from "../../views/DropOff/DropOff";
 import DropOffLocation from "../../views/DropOffLocation/DropOffLocation";
+import AdminApprovalBreakdown from "../../views/Evacuation/Breakdown/ApprovalBreakdown";
+import AdminApprovedBreakdown from "../../views/Evacuation/Breakdown/ApproveBreakdown";
+import AdminIncomingBreakdown from "../../views/Evacuation/Breakdown/IncomingBreakdown";
+import AdminRejectBreakdown from "../../views/Evacuation/Breakdown/RejectedBreakdown";
+import AdminEvacuationRequest from "../../views/Evacuation/EvacuationRequest";
 import Financials from "../../views/Financials";
 import IncidentDetails from "../../views/IncidentDetails/IncidentDetails";
 import IncidentLog from "../../views/IncidentLog/IncidentLog";
@@ -52,8 +57,8 @@ import CancelledSchedule from "../../views/schedule/CancelledSchedule";
 import CompletedSchedule from "../../views/schedule/CompletedSchedule";
 import MissedSchedule from "../../views/schedule/MissedSchedule";
 import PendingSchedule from "../../views/schedule/PendingSchedule";
-
 const userInfo = JSON.parse(localStorage.getItem("current_user"));
+
 const whiteList = [
   "user_agency",
   "total-schedule/pending_schedule",
@@ -346,6 +351,35 @@ const routes = [
     name: "payout_breakdown",
     path: "payout_breakdown/:id",
     component: PayoutBreakdown,
+  },
+
+  {
+    name: "evacuation",
+    path: "evacuation",
+    component: AdminEvacuationRequest,
+  },
+
+  {
+    name: "breakdown_request",
+    path: "breakdown_request/:id",
+    component: AdminIncomingBreakdown,
+  },
+  {
+    name: "approval_breakdown_request",
+    path: "approval_breakdown_request/:id",
+    component: AdminApprovalBreakdown,
+  },
+
+  {
+    name: "approved_breakdown_request",
+    path: "approved_breakdown_request/:id",
+    component: AdminApprovedBreakdown,
+  },
+
+  {
+    name: "rejected_breakdown_request",
+    path: "rejected_breakdown_request/:id",
+    component: AdminRejectBreakdown,
   },
 ];
 

@@ -1,18 +1,18 @@
-import { Table, Tag, Radio, Space, Pagination } from "antd";
-import { useState, useEffect } from "react";
-import { IoMdRefresh } from "react-icons/io";
-import tw from "twin.macro";
-import styled from "styled-components";
+import { Pagination, Radio, Space, Table, Tag } from "antd";
+import { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
-import { useLocation } from "react-router";
-import SearchBar from "./SearchBar";
-import { PageTitle } from "../../utils/data";
-import StyledButton from "./btn";
-import Filter from "./Filter";
-import { FlexContainer } from "../styledElements";
 import { FaAngleLeft } from "react-icons/fa";
-import PaginationBars from "./Paginationbars";
+import { IoMdRefresh } from "react-icons/io";
+import { useLocation } from "react-router";
+import styled from "styled-components";
+import tw from "twin.macro";
 import { convertToCSV } from "../../utils";
+import { PageTitle } from "../../utils/data";
+import { FlexContainer } from "../styledElements";
+import Filter from "./Filter";
+import PaginationBars from "./Paginationbars";
+import SearchBar from "./SearchBar";
+import StyledButton from "./btn";
 // import Pagination from '../../views/Pagination/Pagination';
 
 const topOptions = [
