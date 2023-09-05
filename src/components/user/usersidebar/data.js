@@ -52,7 +52,7 @@ const SidebarData = [
   {
     title: "All Drop-Off",
     path: "/total_dropoff",
-    icon: "/assets/images/dropoffIcon.svg",
+    icon: "/assets/images/dropOffIcon.svg",
     // icon: <FiIcons.FiPhoneCall />,
   },
   {
