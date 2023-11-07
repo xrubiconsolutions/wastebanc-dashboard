@@ -163,14 +163,18 @@ const PickupModal = ({
             <InfoTitle>Phone Number:</InfoTitle>
             <InfoValue>{userData.phone}</InfoValue>
           </InfoItem>
+
           <InfoItem>
             <InfoTitle>Waste Category:</InfoTitle>
             <FlexContainer>
-              {userData?.categories?.map((v) => (
-                <Tag>{v?.name || v}</Tag>
+              {userData?.categoriesQuantity?.map((v) => (
+                <Tag>
+                  {v?.name || v} {v?.quantity || ""}
+                </Tag>
               ))}
             </FlexContainer>
           </InfoItem>
+
           {completed || dashboard ? (
             <InfoItem>
               <InfoTitle>Waste Quantity:</InfoTitle>
