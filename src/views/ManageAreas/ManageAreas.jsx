@@ -90,8 +90,6 @@ const ManageAreas = () => {
     }
   }, [getAllLocation]);
 
-  console.log("Current State Location", value);
-
   useEffect(() => {
     if (!allAreas) {
       dispatch(getAllAreas({ page: 1 }));
@@ -103,8 +101,6 @@ const ManageAreas = () => {
       setAll(allAreas);
     }
   }, []);
-
-  // console.log("Getting  Current  State Value", value);
 
   const fetchState = async (page = 1) => {
     if (value === "All") {
@@ -123,7 +119,7 @@ const ManageAreas = () => {
 
   // const fetchCurrentUserLocation = async () => {
   //   const res = await dispatch(getUserLocations());
-  //   console.log("Getting current Location", res);
+
   //   if (!res.error) {
   //     const { data } = res.payload;
   //     setCurrentLocation(data.map((d) => d.name));
@@ -251,8 +247,6 @@ const ManageAreas = () => {
 
   // }, [searchedArea]);
 
-  // console.log("allAreas", allAreas);
-  // console.log("state areas", stateLga);
   const lgaCoverage = {
     lga: {
       label: "LCDA/LGA",

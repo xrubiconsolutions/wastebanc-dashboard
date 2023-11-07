@@ -420,3 +420,26 @@ export const removeEmptyFields = (obj) => {
   });
   return result;
 };
+
+export const convertToCSV = (data) => {
+  if (!Array.isArray(data) || data.length === 0) {
+    return "";
+  }
+  const headers = Object.keys(data[0]);
+  let csv = headers.join(",") + "\n";
+
+  data.forEach((item) => {
+    let row = headers.map((header) => {
+      if (Array.isArray(item[header])) {
+        return item[header].map((arrItem) => arrItem?.name).join(" ");
+      } else if (typeof item[header] === "object" && item[header] !== null) {
+        return Object.values(item[header]).join(" ");
+      } else {
+        return JSON.stringify(item[header]);
+      }
+    });
+    csv += row.join(",") + "\n";
+  });
+
+  return csv;
+};

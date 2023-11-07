@@ -9,20 +9,20 @@ const CustomButton = styled.button`
   height: ${(props) => (props.submit ? "60px" : "40px")};
   width: ${(props) => props.width || "initial"};
   background-color: ${(props) =>
-    props.type === "filled" ? props.color || "#005700" : "transparent"};
-  color: ${(props) => (props.type === "filled" ? "white" : "#005700")};
+    props.type === "filled" ? props.color || "#295011" : "transparent"};
+  color: ${(props) => (props.type === "filled" ? "white" : "#295011")};
 
   :hover {
     background-color: ${(props) =>
-      props.type === "filled" ? "white" : "#005700"};
-    color: ${(props) => (props.type === "filled" ? "#005700" : "white")};
+      props.type === "filled" ? "white" : "#295011"};
+    color: ${(props) => (props.type === "filled" ? "#295011" : "white")};
   }
 `;
 
 const Button = ({
   type = "filled",
   text = "",
-  color = "#005700",
+  color = "#295011",
   children,
   ...props
 }) => {

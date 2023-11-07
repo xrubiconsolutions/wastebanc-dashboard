@@ -8,6 +8,7 @@ import { validateAdminReset } from "../../store/reducers/authSlice";
 const RecoveryCode = () => {
   const history = useHistory();
   const location = useLocation();
+
   useEffect(() => {
     if (!location.state.email) history.push("/auth/forgot-password");
   }, [location]);

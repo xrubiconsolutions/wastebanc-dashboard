@@ -1,13 +1,13 @@
+import { animated, config, useSpring } from "@react-spring/web";
 import React, { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa/";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import tw from "twin.macro";
-import { animated, useSpring, config } from "@react-spring/web";
-import { FaEye, FaEyeSlash } from "react-icons/fa/";
-import Modal from "../UI/modal";
-import CustomButton from "../UI/button";
-import { ModalText, PageTitle } from "../styledElements";
 import Checkbox from "../UI/Checkbox";
-import { Link } from "react-router-dom";
+import CustomButton from "../UI/button";
+import Modal from "../UI/modal";
+import { ModalText, PageTitle } from "../styledElements";
 
 const TextInput = styled.input`
   ${tw`h-14 w-full px-3 border outline-none rounded-lg text-lg text-body focus:border-secondary`}
@@ -139,6 +139,7 @@ export const CheckInput = ({ type, clickHandler, checked, changeHandler }) => {
             href="https://paka m.ng/terms-and-conditions"
             target="_blank"
             className="ml-2"
+            rel="noreferrer"
           >
             the terms and conditions ?
           </a>

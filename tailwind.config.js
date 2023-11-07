@@ -11,14 +11,16 @@ module.exports = {
         line: "#D9DBE9",
         input: "#EFF0F6",
         primary: "#008300",
-        secondary: "#005700",
+        secondary: "#295011",
         error: "#FE0110",
         success: "#00BA88",
         "bd-color": "#BDBDBD",
+        btnColor: "#295011",
+        amount: "#00966D",
       },
 
       outline: {
-        input: ["2px solid #005700", "1px"],
+        input: ["2px solid #295011", "1px"],
       },
       borderWidth: {
         5: "5px",

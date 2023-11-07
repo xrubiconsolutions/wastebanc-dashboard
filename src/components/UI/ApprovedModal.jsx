@@ -1,11 +1,11 @@
+import { Tag } from "antd";
+import moment from "moment";
 import React from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
+import { FlexContainer, ModalTitle, TitleText } from "../styledElements";
 import StyledButton from "./btn";
 import Modal from "./modal";
-import { FlexContainer, ModalTitle, TitleText } from "../styledElements";
-import { Tag } from "antd";
-import moment from "moment";
 
 const InfoWrapper = styled.div`
   ${tw`flex flex-wrap gap-10 gap-x-12 w-11/12`}
@@ -94,7 +94,6 @@ const ApprovedModal = ({
   userData,
   aggregator,
 }) => {
-  // console.log("user data trips", userData);
   return (
     <Modal show={showPending} close={() => setShowPending(false)} width="48rem">
       <ModalTitle>
@@ -116,7 +115,7 @@ const ApprovedModal = ({
               title.toLowerCase() === "status" &&
               value.toLowerCase() !== "pending"
             )
-              color = "#005700";
+              color = "#295011";
 
             return (
               <InfoItem key={title}>
@@ -152,7 +151,7 @@ const ApprovedModal = ({
 
           {aggregator && (
             <InfoItem>
-              <InfoTitle>Agent's ID:</InfoTitle>
+              <InfoTitle>Aggregator’s ID:</InfoTitle>
               <InfoValue>{userData.aggregatorId}</InfoValue>
             </InfoItem>
           )}
@@ -181,13 +180,11 @@ const ApprovedModal = ({
           <InfoItem>
             <InfoTitle>Date Created:</InfoTitle>
             <InfoValue>
+              {" "}
               {moment(userData.createAt).format("DD-MM-YYYY")}
             </InfoValue>
           </InfoItem>
-          {/* <InfoItem>
-            <InfoTitle>Email Address:</InfoTitle>
-            <InfoValue>{userData.email}</InfoValue>
-          </InfoItem> */}
+
           {!aggregator && (
             <InfoItem>
               <InfoTitle>No Of Trips Completed:</InfoTitle>
@@ -201,18 +198,6 @@ const ApprovedModal = ({
               <InfoValue>{userData.numberOfTripsCompleted}</InfoValue>
             </InfoItem>
           )}
-          {/* {userData?.schedules > 0 ? (
-            <>
-              <InfoItem>
-                <InfoTitle>Accepted Pickup:</InfoTitle>
-                <InfoValue>{userData?.schedules[1].totalCount}</InfoValue>
-              </InfoItem>
-              <InfoItem>
-                <InfoTitle>Missed Pickup:</InfoTitle>
-                <InfoValue>{userData?.schedules[2].totalCount}</InfoValue>
-              </InfoItem>
-            </>
-          ) : null} */}
 
           <InfoItem>
             <InfoTitle>Organisation:</InfoTitle>
@@ -229,30 +214,31 @@ const ApprovedModal = ({
                   : userData.status === "accepted"
                   ? "rgba(50, 68, 168, 0.4)"
                   : userData.status === "active"
-                  ? "#005700"
+                  ? "#295011"
                   : "rgba(254, 1, 16, 0.1)"
               }
             >
-              {/* see james */}
               <Pointer
                 color={
                   userData.status === "APPROVED"
-                    ? "#005700"
+                    ? "#295011"
                     : userData.status === "DECLINED"
                     ? "#4032a8"
-                    : "#fff"
+                    : userData.status === "active"
+                    ? "white"
+                    : ""
                 }
               />
-
-              {/* look later */}
               <InfoValue
                 userAgencies
                 color={
                   userData.status === "APPROVED"
-                    ? "#005700"
+                    ? "#295011"
                     : userData.status === "DECLINED"
                     ? "#3a32a8"
-                    : "#fff"
+                    : userData.status === "active"
+                    ? "white"
+                    : "#FE0110"
                 }
               >
                 {userData.status}
@@ -318,11 +304,6 @@ const ApprovedModal = ({
               })}
             </InfoItem>
           )}
-
-          {/* <InfoItem>
-            <InfoTitle>Total Quantity:</InfoTitle>
-            <InfoValue>{userData.quantity}</InfoValue>
-          </InfoItem> */}
         </InfoUserWrapper>
       )}
     </Modal>

@@ -27,7 +27,7 @@ const PromptModal = ({
   return (
     <>
       <Modal
-        color={error ? "red" : "#005700"}
+        color={error ? "red" : "#295011"}
         type="postAction"
         show={showPostAction}
         close={() => {
@@ -47,7 +47,7 @@ const PromptModal = ({
           />
           <CustomButton
             text={buttonText}
-            color="#005700"
+            color="#295011"
             onClick={promptHandler}
           />
         </div>

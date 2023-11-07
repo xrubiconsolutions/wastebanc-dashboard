@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import * as IoIcon from "react-icons/io";
 import { NavLink, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import tw from "twin.macro";
-import * as IoIcon from "react-icons/io";
 
 const StyledNavLink = styled(NavLink)`
   padding: 18px 30px;
@@ -49,7 +49,7 @@ const StyledNavLink = styled(NavLink)`
     // bg-label
     border-l-4
     border-white
-  `}// background: rgba(255, 255, 255, 0.1);;;;;;;;
+  `}// background: rgba(255, 255, 255, 0.1);;;;;;;;;;;;
   }
 `;
 

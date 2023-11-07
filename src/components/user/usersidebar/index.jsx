@@ -1,25 +1,42 @@
 import React from "react";
-import styled from "styled-components";
-import Data from "./data";
 import { NavLink } from "react-router-dom";
+import styled from "styled-components";
 import tw from "twin.macro";
 import DropdownNavLink from "./SubMenu";
+import Data from "./data";
 
 const SidebarParent = styled.div`
-  position: absolute;
+  /* width: 0; */
+  display: none;
+  /* position: absolute;
   // top: 72px;
   bottom: 0;
   scroll-padding-bottom: 0;
-  // max-height: calc(100% - 70px);
-  // height: calc(100% - 70px);
+
   height: 100%;
   width: 253px;
   left: 0px;
   border-radius: 0px;
-  color: #ffff;
-  background: linear-gradient(178.54deg, #008300 -24.78%, #005700 98.76%);
+  background:#7AF033;
   box-shadow: 0px 30px 24px rgba(0, 0, 0, 0.06);
-  overflow-y: auto;
+  overflow-y: auto; */
+
+  @media (min-width: 920px) {
+    display: block;
+    position: absolute;
+    // top: 72px;
+    bottom: 0;
+    scroll-padding-bottom: 0;
+    // max-height: calc(100% - 70px);
+    // height: calc(100% - 70px);
+    height: 100%;
+    width: 253px;
+    left: 0px;
+    border-radius: 0px;
+    background: #7af033;
+    box-shadow: 0px 30px 24px rgba(0, 0, 0, 0.06);
+    overflow-y: auto;
+  }
 `;
 
 const SidebarLogo = styled.img`
@@ -40,25 +57,21 @@ const StyledNavLink = styled(NavLink)`
   transition: all 0.25s ease-in-out;
   background: transparent;
   margin: 4px 10px 4px 1px;
-  // border-radius: 4px;
+
   p {
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
     line-height: 18px;
     letter-spacing: 0.1px;
-    ${tw`
-      text-white
-    `}
+    color: #295011;
   }
   &:hover {
     ${tw`
-    // bg-label
     border-l-4
-    border-white
+    border-green-800
   `}
-    background: rgba(255, 255, 255, 0.1);
-
+    background: rgba(34, 34, 34, 0.1);
     cursor: pointer;
     tranistion: 0.2s ease-in-out;
   }
@@ -70,17 +83,27 @@ const StyledNavLink = styled(NavLink)`
   }
   &.selected {
     ${tw`
-    // bg-label
+
     border-l-4
     border-white
-  `}// background: rgba(255, 255, 255, 0.1);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  `}
+    background: rgba(34, 34, 34, 0.2);
   }
 `;
+
 function sidebar() {
   return (
     <>
       <SidebarParent>
-        <SidebarLogo src="/assets/images/wasteebanc.svg" alt="wastebac-logo" />
+        <SidebarLogo
+          src="/assets/images/wastebancLogo.svg"
+          alt="wastebanc-logo"
+        />
+        <img
+          src="/assets/images/pakamTech.svg"
+          alt="pakam-logo"
+          className="-mt-2 mb-10 mx-8 w-[200px]"
+        />
         {Data.map((item) => {
           if (item.subNav && item.subNav.length) {
             return <DropdownNavLink item={item} key={item.title} />;
@@ -99,9 +122,9 @@ function sidebar() {
             </div>
           );
         })}
-        <p className="text-white text-center font-bold text-sm bottom-0 absolute px-4">
-          Powered by Wastebanc
-        </p>
+        {/* <p className="text-white text-center font-bold text-sm bottom-0 absolute px-4">
+          Powered by Pakam Technology
+        </p> */}
       </SidebarParent>
     </>
   );

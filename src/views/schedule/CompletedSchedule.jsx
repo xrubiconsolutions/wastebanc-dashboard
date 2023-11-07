@@ -6,6 +6,7 @@ import InfoModal from "../../components/UI/InfoModal";
 import { infoData, truncate } from "../../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
+import { Popover } from "antd";
 import {
   currentMonthCompleted,
   filterCompleted,
@@ -101,8 +102,8 @@ const CompletedSchedule = () => {
   const columns = [
     {
       title: <span>Schedule Creator </span>,
-      dataIndex: "fullname",
-      key: "fullname",
+      dataIndex: "scheduleCreator",
+      key: "scheduleCreator",
     },
 
     {
@@ -111,22 +112,42 @@ const CompletedSchedule = () => {
       key: "address",
       render: (text) => <p>{truncate(text, 30)}</p>,
     },
+    // {
+    //   title: "Waste Category",
+    //   dataIndex: "categories",
+    //   key: "categories",
+    //   render: (wastes) => (
+    //     <span>
+    //       {(wastes?.slice(0, 3) || []).map((waste) => {
+    //         // let color = waste.length > 5 ? "geekblue" : "green";
+    //         // if (waste === "loser") {
+    //         //   color = "volcano";
+    //         // }
+    //         return <Tag key={waste}>{waste?.name || waste}</Tag>;
+    //       })}
+    //     </span>
+    //   ),
+    // },
+
     {
       title: "Waste Category",
       dataIndex: "categories",
       key: "categories",
-      render: (wastes) => (
+      render: (categories) => (
         <span>
-          {(wastes.slice(0, 3) || []).map((waste) => {
-            // let color = waste.length > 5 ? "geekblue" : "green";
-            // if (waste === "loser") {
-            //   color = "volcano";
-            // }
-            return <Tag key={waste}>{waste?.name || waste}</Tag>;
+          {(categories.slice(0, 3) || []).map((waste) => {
+            return (
+              <Tag key={waste}>
+                <Popover content={waste?.name || waste}>
+                  {truncate(waste?.name, 10)}
+                </Popover>
+              </Tag>
+            );
           })}
         </span>
       ),
     },
+
     {
       title: "Customer Phone",
       dataIndex: "phone",
@@ -148,7 +169,7 @@ const CompletedSchedule = () => {
             onClick={() => {
               setRowInfo(record);
               setShowPending(true);
-              // console.log(record.info);
+             
             }}
           >
             See More
@@ -159,7 +180,6 @@ const CompletedSchedule = () => {
             onClick={() => {
               setRowInfo(record);
               setShowModal(true);
-              // console.log(record.info);
             }}
           >
             See More
@@ -183,6 +203,7 @@ const CompletedSchedule = () => {
         setShowModal={setShowModal}
         userData={rowInfo}
         pending
+        completed
       />
 
       <div>

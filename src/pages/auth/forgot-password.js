@@ -28,6 +28,7 @@ const ForgotPassword = ({ history }) => {
         state: data,
       });
   };
+
   return (
     <AuthForm
       formEntries={entries}

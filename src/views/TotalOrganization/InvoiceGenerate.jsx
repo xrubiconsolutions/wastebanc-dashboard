@@ -61,7 +61,7 @@ const SummaryTable = styled.div`
   ${tw`mt-5`};
 
   > div:first-of-type {
-    ${tw`border-b text-lg font-bold mb-2`}
+    ${tw`border-b text-base font-bold mb-2`}
   }
   > div:nth-child(n + 2) {
     ${tw`mb-5`}
@@ -80,7 +80,10 @@ const TextBold = styled.p`
   ${tw`font-bold`}
 `;
 
-const Text = styled.p``;
+const Text = styled.p`
+  ${tw`text-sm `}
+`;
+
 const GeneratedInvoices = ({ match }, props) => {
   const [showPostModal, setPostModal] = useState(false);
   const dispatch = useDispatch();
@@ -92,6 +95,7 @@ const GeneratedInvoices = ({ match }, props) => {
   const date = new Date();
   var monthName = new Intl.DateTimeFormat("en-US", { month: "long" }).format;
   var longName = monthName(date);
+  console.log("generated invoice", generatedInvoice);
 
   // const set_invoice = localStorage.setItem(
   //   "generated_invoice",
@@ -99,19 +103,17 @@ const GeneratedInvoices = ({ match }, props) => {
   // );
 
   // const get_invoice = localStorage.getItem("generated_invoice");
-  // console.log("get_invoice", JSON.parse(get_invoice));
 
   // const handleSendInvoice = async (invoiceNum) => {
-  //   console.log(invoiceNum);
   //   // await dispatch(downloadInvoices(invoiceNum));
   // };
 
   const handleSendInvoice = async (invoiceNum) => {
-    console.log(invoiceNum);
     const res = await dispatch(downloadInvoices(invoiceNum));
     if (!res.error) console.log(res.error);
     setPostModal(true);
   };
+
   const pages = [
     {
       name: " Completed Schedule",
@@ -122,7 +124,7 @@ const GeneratedInvoices = ({ match }, props) => {
   return (
     <>
       <Modal
-        color={error ? "red" : "#005700"}
+        color={error ? "red" : "#295011"}
         type="postAction"
         show={showPostModal}
         close={() => setPostModal(false)}
@@ -135,14 +137,8 @@ const GeneratedInvoices = ({ match }, props) => {
             <BreadCrumb pages={pages} current="Invoice" />
           </FlexContainers>
 
-          <div
-            style={{
-              background: "lightgray",
-              backgroundColor: "#fff",
-              padding: "5rem",
-            }}
-          >
-            <h1 className="text-2xl font-extrabold text-gray-500 text-center ">
+          <div className="bg-white p-20 ">
+            <h1 className="text-xl font-extrabold text-gray-500 text-center ">
               No generated Invoice for this billing period.
             </h1>
           </div>
@@ -190,7 +186,7 @@ const GeneratedInvoices = ({ match }, props) => {
 
             <div>
               <Text className="font-medium text-base">
-                Final invoice for the {longName} {year} billing period
+                invoice for the {longName} {year} billing period
               </Text>
               <FlexBetween className="mt-5">
                 <div>
@@ -239,30 +235,39 @@ const GeneratedInvoices = ({ match }, props) => {
             <SummarySection>
               <Text>Summary</Text>
               <FlexBetween>
-                <Text>Total usage charges</Text>
+                <Text>Total service charges</Text>
                 <Text>
                   <span className="mt-1">&#8358;</span>
                   {generatedInvoice?.sumPercentage}
                 </Text>
               </FlexBetween>
               <FlexBetween>
-                <Text>Total due</Text>
+                <Text>Collection Amount</Text>
+                <Text>
+                  <span className="mt-1">&#8358;</span>
+
+                  {generatedInvoice?.amountWithoutServiceCharge}
+                </Text>
+              </FlexBetween>
+
+              <FlexBetween>
+                <Text className="font-bold">Total Bill</Text>
                 <Text>
                   <span className="mt-1">&#8358;</span>
                   {generatedInvoice?.totalValue}
                 </Text>
               </FlexBetween>
-              <Text className="text-base text-black font-light">
+              {/* <Text className="text-base text-black font-light">
                 If you have a credit card on file, it will be automatically
                 charged within 24 hours
-              </Text>
+              </Text> */}
               <SummaryTable>
                 <FlexContainer className="font-bold">
                   <Text>Ref No</Text>
-                  <Text>Description</Text>
-                  <Text>Waste category</Text>
-                  <Text>Kg</Text>
-                  <Text>Amount (&#8358;)</Text>
+                  <Text className="">Pickup address</Text>
+                  <Text>Customer's No</Text>
+                  <Text>Waste Qty (Kg)</Text>
+                  <Text className="">Amount (&#8358;)</Text>
                 </FlexContainer>
                 {generatedInvoice?.result?.map((entry) => {
                   const categories = entry.categories
@@ -271,10 +276,10 @@ const GeneratedInvoices = ({ match }, props) => {
                   return (
                     <FlexContainer className="font-bold">
                       <Text>{entry._id.slice(0, 7)}</Text>
-                      <Text>{entry.type}</Text>
-                      <Text>{categories}</Text>
-                      <Text>{entry.weight}</Text>
-                      <Text>{entry.coin}</Text>
+                      <Text className="">{entry.address}</Text>
+                      <Text>{entry.phone}</Text>
+                      <Text>{entry.weight.toFixed()}</Text>
+                      <Text>{entry.amountTobePaid}</Text>
                     </FlexContainer>
                   );
                 })}

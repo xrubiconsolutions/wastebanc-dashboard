@@ -1,7 +1,7 @@
-import { Tabs, Button } from "antd";
-import DataTable from "./Table";
-import tw from "twin.macro";
+import { Button, Tabs } from "antd";
 import styled from "styled-components";
+import tw from "twin.macro";
+import DataTable from "./Table";
 
 const { TabPane } = Tabs;
 

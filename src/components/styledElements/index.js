@@ -22,7 +22,7 @@ export const FlexBetween = styled.div`
 
 export const CountIndicator = styled.span`
   ${tw`rounded-full text-sm text-white font-light flex box-border justify-center items-center p-4`}
-  background-color: ${(props) => props.color || "#005700"};
+  background-color: ${(props) => props.color || "#295011"};
   height: ${(props) => props.size || "20px"};
   width: ${(props) => props.size || "20px"};
   > * {
@@ -46,7 +46,7 @@ export const ModalListItem = styled.p`
   ${tw`text-secondary text-sm py-2 cursor-pointer border-b
    border-gray-300 items-center`}
   background-color: ${(props) => props.bgColor || "initial"};
-  color: ${(props) => (props.bgColor ? "white" : "#005700")};
+  color: ${(props) => (props.bgColor ? "white" : "#295011")};
   &:last-child {
     color: red;
   }
@@ -86,7 +86,7 @@ export const FormContainer = styled.div`
 export const PageTab = styled.div`
   ${tw`py-4 cursor-pointer relative`}
   border-bottom-width: 2px;
-  border-color: ${(props) => (props.active ? "#005700" : "")};
+  border-color: ${(props) => (props.active ? "#295011" : "")};
 `;
 
 export const MidText = styled.p`

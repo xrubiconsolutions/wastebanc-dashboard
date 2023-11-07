@@ -6,6 +6,8 @@ import StyledButton from "../../components/UI/btn";
 import ResourcesCard from "../../components/UI/Resources/ResourcesCard";
 import { getResources } from "../../store/actions";
 import UploadResourceModal from "../../components/UI/Resources/UploadResourceModal";
+// import PaginationBars from "../../components/UI/Paginationbars";
+import { PaginationBars } from "../../components/UI/Resources/Pagination";
 
 const ResourceContainer = styled.div`
   display: grid;
@@ -26,14 +28,54 @@ const Resources = () => {
    ****************************/
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
-  const { allResources } = useSelector((state) => state?.resource);
+  const [paginationData, setPaginationData] = useState(0);
+  const [resource, setResources] = useState([]);
+
+  const d = new Date();
+  d.setDate(d.getDate());
+  const payload = {
+    start: "2010-01-01",
+    end: d,
+  };
+
+  const fetchAll = async (page = 1) => {
+    const res = await dispatch(
+      getResources({
+        currentMonth: payload,
+        page,
+      })
+    );
+
+    if (!res.error) {
+      const { resources, ...paginationData } = res.payload.data;
+      setResources(resources);
+      setPaginationData({ ...paginationData, date: payload });
+    }
+  };
 
   useEffect(() => {
-    if (!allResources) dispatch(getResources());
+    // if (!allResources) dispatch(getResources());
+    fetchAll();
   }, []);
+
+  const pullData = (page) => {
+    // console.log(paginationData, "paginationData");
+    if (
+      !paginationData.key &&
+      !(paginationData.date?.start || paginationData.date?.end)
+    ) {
+      fetchAll(page);
+      return;
+    }
+  };
+
   return (
     <>
-      <UploadResourceModal showModal={showModal} setShowModal={setShowModal} />
+      <UploadResourceModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        fetchAll={fetchAll}
+      />
       <ResourceContainer>
         <ResourceHeader>
           <StyledButton
@@ -59,14 +101,17 @@ const Resources = () => {
             Upload
           </StyledButton>
         </ResourceHeader>
+
+        <PaginationBars {...paginationData} pullData={pullData} />
         <ResourceList>
-          {allResources?.map(({ title, url, _id, message }, i) => {
+          {resource?.map(({ title, url, _id, message }, i) => {
             return (
               <ResourcesCard
                 title={title}
                 url={url}
                 id={_id}
                 message={message}
+                fetchAll={fetchAll}
               />
             );
           })}

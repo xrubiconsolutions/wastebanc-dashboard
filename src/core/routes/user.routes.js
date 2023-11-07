@@ -1,21 +1,30 @@
+import TotalAggregators from "../../companyViews//TotalAggregators/TotalAggregators";
+import Billing from "../../companyViews/Billing/Billing";
+import ChangePassword from "../../companyViews/ChangePassword/ChangePassword";
 import Dashboard from "../../companyViews/Dashboard";
+import DropOff from "../../companyViews/DropOff/DropOff";
+import ApprovalBreakdown from "../../companyViews/Evacuation/Breakdown/ApprovalBreakdown";
+import ApprovedBreakdown from "../../companyViews/Evacuation/Breakdown/ApproveBreakdown";
+import EvacuationBreakdown from "../../companyViews/Evacuation/Breakdown/IncomingBreakdown";
+import RejectedBreakdown from "../../companyViews/Evacuation/Breakdown/RejectedBreakdown";
+import EvacuationRequest from "../../companyViews/Evacuation/EvacuationRequest";
+import GeoFencing from "../../companyViews/GeoFencing/GeoFencing";
+import ManageDropOff from "../../companyViews/ManageDropOff/ManageDropOff";
+import OutstandingPayment from "../../companyViews/Payment/OutstandingPayment";
+import TotalPayment from "../../companyViews/Payment/TotalPayment";
+import ModifyOrganization from "../../companyViews/TotalOrganization/ModifyOrganization";
+import TotalWaste from "../../companyViews/TotalWaste/TotalWaste";
+import { CompletedPayoutPayment } from "../../companyViews/UserPayment/CompletedPayoutPayment";
+import { FailedPayoutPayment } from "../../companyViews/UserPayment/FailedPayoutPayment";
+import { PayoutRequest } from "../../companyViews/UserPayment/Payment";
+import { PendingPayoutPayment } from "../../companyViews/UserPayment/PendingPayoutPayment";
+import WastePicker from "../../companyViews/WastePicker/WastePicker";
+import WastePickerAssign from "../../companyViews/WastePicker/WastePickerAssign";
+import AcceptedSchedule from "../../companyViews/schedule/AcceptedSchedule";
 import CancelledSchedule from "../../companyViews/schedule/CancelledSchedule";
 import CompletedSchedule from "../../companyViews/schedule/CompletedSchedule";
 import MissedSchedule from "../../companyViews/schedule/MissedSchedule";
 import PendingSchedule from "../../companyViews/schedule/PendingSchedule";
-import AcceptedSchedule from "../../companyViews/schedule/AcceptedSchedule";
-import DropOff from "../../companyViews/DropOff/DropOff";
-import TotalAggregators from "../../companyViews//TotalAggregators/TotalAggregators";
-import ManageDropOff from "../../companyViews/ManageDropOff/ManageDropOff";
-import GeoFencing from "../../companyViews/GeoFencing/GeoFencing";
-import TotalWaste from "../../companyViews/TotalWaste/TotalWaste";
-import OutstandingPayment from "../../companyViews/Payment/OutstandingPayment";
-import TotalPayment from "../../companyViews/Payment/TotalPayment";
-import ModifyOrganization from "../../companyViews/TotalOrganization/ModifyOrganization";
-import ChangePassword from "../../companyViews/ChangePassword/ChangePassword";
-import WastePickerAssign from "../../companyViews/WastePicker/WastePickerAssign";
-import WastePicker from "../../companyViews/WastePicker/WastePicker";
-import Billing from "../../companyViews/Billing/Billing";
 
 const routes = [
   { name: "dashboard", path: "dashboard", component: Dashboard },
@@ -70,8 +79,8 @@ const routes = [
     component: DropOff,
   },
   {
-    name: "total_aggregators",
-    path: "total_aggregators",
+    name: "total_agents",
+    path: "total_agents",
     component: TotalAggregators,
   },
   {
@@ -108,6 +117,58 @@ const routes = [
     name: "billing",
     path: "billing",
     component: Billing,
+  },
+
+  {
+    name: "evacuation",
+    path: "evacuation",
+    component: EvacuationRequest,
+  },
+
+  {
+    name: "breakdown_request",
+    path: "breakdown_request/:id",
+    component: EvacuationBreakdown,
+  },
+  {
+    name: "approval_breakdown_request",
+    path: "approval_breakdown_request/:id",
+    component: ApprovalBreakdown,
+  },
+
+  {
+    name: "approved_breakdown_request",
+    path: "approved_breakdown_request/:id",
+    component: ApprovedBreakdown,
+  },
+
+  {
+    name: "rejected_breakdown_request",
+    path: "rejected_breakdown_request/:id",
+    component: RejectedBreakdown,
+  },
+
+  // {
+  //   name: "payout_requests",
+  //   path: "payout_requests",
+  //   component: PayoutRequest,
+  // },
+  // {
+  //   name: "completed_payout",
+  //   path: "completed_payout",
+  //   component: CompletedPayoutPayment,
+  // },
+
+  // {
+  //   name: "failed_payout",
+  //   path: "failed_payout",
+  //   component: FailedPayoutPayment,
+  // },
+
+  {
+    name: "pending_payout",
+    path: "pending_payout",
+    component: PendingPayoutPayment,
   },
 ];
 export default routes;

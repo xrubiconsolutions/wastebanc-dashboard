@@ -107,9 +107,9 @@ const DropOff = () => {
 
     {
       title: "Wastebanc location",
-      dataIndex: "dropofflocation",
-      key: "dropofflocation",
-      render: (dropofflocation) => <p>{dropofflocation?.location?.address}</p>,
+      dataIndex: "location",
+      key: "location",
+      render: (location) => <p>{location}</p>,
     },
 
     {
