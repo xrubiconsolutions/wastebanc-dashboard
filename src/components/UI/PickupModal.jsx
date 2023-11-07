@@ -1,11 +1,11 @@
+import { Tag } from "antd";
+import moment from "moment";
 import React from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
+import { FlexContainer, ModalTitle, TitleText } from "../styledElements";
 import StyledButton from "./btn";
 import Modal from "./modal";
-import { FlexContainer, ModalTitle, TitleText } from "../styledElements";
-import { Tag } from "antd";
-import moment from "moment";
 
 const InfoWrapper = styled.div`
   ${tw`flex flex-wrap gap-10 gap-x-12 w-11/12`}
@@ -195,6 +195,14 @@ const PickupModal = ({
               {moment(userData.pickUpDate).format("YYYY-MM-DD")}
             </InfoValue>
           </InfoItem>
+
+          {completed || cancelled || missed || pending || accepted ? (
+            <InfoItem>
+              <InfoTitle>Lcd:</InfoTitle>
+              <InfoValue>{userData?.schedule?.lcd ?? userData?.lcd}</InfoValue>
+            </InfoItem>
+          ) : null}
+
           {!dropOff && (
             <InfoItem>
               <InfoTitle>Status:</InfoTitle>

@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Radio, Space } from "antd";
-import styled from "styled-components";
-import RadioDate from "./RadioDate";
+import { Col, DatePicker, Radio, Row, Space } from "antd";
 import moment from "moment";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import tw from "twin.macro";
-import { useParams } from "react-router";
-import { useLocation } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 
 const SpaceStyle = styled.div`
   margin-left: 8px;
@@ -17,137 +13,139 @@ const SpaceStyle = styled.div`
   }
 `;
 
-const RadioButton = ({ onFilter }) => {
-  const date = new Date();
-  const [value, setValue] = useState("all");
-  const [isCustomDate, setIsCustomDate] = useState(false);
-  // const [generalValue, setGeneralValue] = useState();
-  const [after, setAfter] = useState();
-  const [before, setBefore] = useState();
-  const [requestDate, setRequestDate] = useState();
+const ToStyle = styled.div`
+  ${tw`ml-3`}
+  font-size: 10px;
+`;
+const FromStyle = styled.div`
+  font-size: 10px;
+`;
+const DateStyle = styled.div`
+  ${tw`ml-3`}
+`;
 
-  const onChange = (e) => {
-    setValue(e.target.value);
-    filterByDate(e.target.value);
+const dateFormat = "YYYY-MM-DD";
+
+const FilterOptions = {
+  all: {
+    label: "All",
+    date: { start: "2010-01-01", end: moment().format(dateFormat) },
+  },
+  yesterday: {
+    label: "Yesterday",
+    date: {
+      start: moment().subtract(1, "days").format(dateFormat),
+      end: moment().subtract(1, "days").format(dateFormat),
+    },
+  },
+  lastWeek: {
+    label: "Last Week",
+    date: {
+      start: moment().startOf("week").subtract(7, "days").format(dateFormat),
+      end: moment().endOf("week").subtract(7, "days").format(dateFormat),
+    },
+  },
+  lastMonth: {
+    label: "Last Month",
+    date: {
+      start: moment().subtract(1, "months").date(1).format(dateFormat),
+      end: moment().subtract(1, "months").endOf("month").format(dateFormat),
+    },
+  },
+  thirtyDays: {
+    label: "This Month",
+    date: {
+      start: moment().startOf("month").format(dateFormat),
+      end: moment().endOf("month").format(dateFormat),
+    },
+  },
+};
+
+const RadioButton = ({ onFilter }) => {
+  const [from, setFrom] = useState(null);
+  const [to, setTo] = useState(null);
+  const [value, setValue] = useState("all");
+
+  const handleRadioChange = (e) => {
+    const selectedValue = e.target.value;
+    const date = FilterOptions[selectedValue]?.date;
+
+    if (selectedValue === "dateRange") {
+      setValue(selectedValue);
+    } else {
+      setValue(selectedValue);
+      onFilter(date);
+    }
+  };
+
+  const handleDateRange = (type, dateString) => {
+    const formattedDate = moment(dateString).format(dateFormat);
+    if (type === "start") {
+      setFrom(formattedDate);
+    } else {
+      setTo(formattedDate);
+    }
+    if (!from || !to) return;
+    else {
+      onFilter({ start: from, end: to });
+    }
   };
 
   useEffect(() => {
-    // console.log({
-    //   value,
-    // });
-  }, [value]);
-
-  useEffect(() => {}, []);
-
-  function filterByDate(filterRequest) {
-    if (filterRequest === "all") {
-      let newdate = new Date();
-      const start = "2001-01-01";
-      // upperbound should be tomorrow
-      newdate.setDate(newdate.getDate());
-      const end = moment(newdate).format("YYYY-MM-DD");
-
-      setRequestDate({
-        start,
-        end,
-      });
-    }
-
-    if (filterRequest === "yesterday") {
-      // let newdate = new Date();
-      // newdate.setDate(newdate.getDate() - 1);
-
-      // requestDate.start = formatDate(newdate, 'yyyy-MM-dd', 'en-US');  // "2019-03-26",
-      const start = moment().subtract(1, "days"); // "2019-03-26",
-      const end = moment().subtract(1, "days"); // "2019-03-26",
-      // const end = formatDate(new Date(), 'yyyy-MM-dd', 'en-US'); // "2019-03-28",
-      setRequestDate({
-        start,
-        end,
-      });
-    }
-    if (filterRequest === "lastWeek") {
-      const start = moment().startOf("week").subtract(7, "days");
-      const end = moment().endOf("week").subtract(7, "days");
-      // let newdate = new Date();
-      // newdate.setDate(newdate.getDate() - 7);
-      // const start = moment(newdate).format("YYYY-MM-DD"); // "2019-03-26",
-      // const end = moment(new Date()).format("YYYY-MM-DD"); // "2019-03-28",
-      setRequestDate({
-        start,
-        end,
-      });
-    }
-    if (filterRequest === "thirtyDays") {
-      // let newdate = new Date();
-      // newdate.setDate(newdate.getDate() - 30);
-      // const start = moment(
-      //   new Date(date.getFullYear(), date.getMonth(), 1)
-      // ).format("YYYY-MM-DD"); // "2019-03-26",
-      // const end = moment(
-      //   new Date(date.getFullYear(), date.getMonth() + 1, 1)
-      // ).format("YYYY-MM-DD"); // "2019-03-28",
-      let thisMoment = moment();
-      // console.log("ThisMoment...", thisMoment);
-      // let newdate = new Date();
-      // newdate.setDate(newdate.getDate() - 30);
-      let start = moment(thisMoment).startOf("month");
-      let end = moment(thisMoment).endOf("month");
-
-      setRequestDate({
-        start,
-        end,
-      });
-    }
-    if (filterRequest === "lastMonth") {
-      // let newdate = new Date();
-      // newdate.setDate(newdate.getDate() - 30);
-      // const start = moment(newdate).format("YYYY-MM-DD"); // "2019-03-26",
-      // const end = moment(new Date()).format("YYYY-MM-DD"); // "2019-03-28",
-      let thisMoment = moment();
-      let start = new moment().subtract(1, "months").date(1);
-      let end = new moment().subtract(1, "months").date(1).endOf("month");
-      setRequestDate({
-        start,
-        end,
-      });
-    }
-    if (filterRequest === "dateRange") {
-      if (!before && !after) return;
-      const start = moment(before).format("YYYY-MM-DD"); // "2019-03-26",
-      const end = moment(after).format("YYYY-MM-DD"); // "2019-03-28",
-      setRequestDate({
-        start,
-        end,
-      });
-    }
-  }
-  useEffect(() => {
-    if (requestDate) onFilter(requestDate);
-  }, [requestDate]);
+    handleDateRange("start", `${from}`);
+  }, [from, to]);
 
   return (
     <div className="group">
-      <Radio.Group onChange={onChange} value={value}>
+      <Radio.Group onChange={handleRadioChange} value={value}>
         <SpaceStyle>
           <Space direction="vertical">
-            <Radio value="all">All</Radio>
-            <Radio value="thirtyDays">This Month</Radio>
-            <Radio value="yesterday">Yesterday</Radio>
-            <Radio value="lastWeek">Last Week</Radio>
-            <Radio value="lastMonth">Last Month</Radio>
+            {Object.keys(FilterOptions).map((key) => {
+              const { label } = FilterOptions[key];
+              return (
+                <Radio
+                  key={label}
+                  value={key}
+                  className="capitalize mb-2 text-sm font-medium"
+                >
+                  {label}
+                </Radio>
+              );
+            })}
+
             <Radio value="dateRange">
               Specific date range
-              {value === "dateRange" ? (
-                <RadioDate
-                  setRequestDate={setRequestDate}
-                  setAfter={setAfter}
-                  setBefore={setBefore}
-                  changeHandler={() => {
-                    filterByDate("dateRange");
-                  }}
-                />
-              ) : null}
+              {value === "dateRange" && (
+                <>
+                  <Row>
+                    <Col span={12}>
+                      <Space direction="vertical" size={6}>
+                        <FromStyle>From</FromStyle>
+
+                        <DatePicker
+                          format={dateFormat}
+                          onChange={(_, dateString) => {
+                            handleDateRange("start", dateString);
+                          }}
+                        />
+                      </Space>
+                    </Col>
+                    <Col span={12}>
+                      <Space direction="vertical" size={6}>
+                        <ToStyle>To</ToStyle>
+                        <DateStyle>
+                          <DatePicker
+                            format={dateFormat}
+                            onChange={(_, dateString) => {
+                              handleDateRange("end", dateString);
+                            }}
+                          />
+                        </DateStyle>
+                      </Space>
+                    </Col>
+                  </Row>
+                </>
+              )}
             </Radio>
           </Space>
         </SpaceStyle>
